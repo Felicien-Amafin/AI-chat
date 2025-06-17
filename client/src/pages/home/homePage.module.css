@@ -1,0 +1,53 @@
+.imgBox {
+    position: relative;
+    width: 80%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+}
+.imgBox .img {
+    height: 250px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 20px;
+    background-image: url('../../assets/aurore1.jpg');
+}
+
+.img .dialog {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+    position: absolute;
+    left: 40%;
+    top: 70%;
+    max-width: 340px;
+    min-height: 100px;
+    border-radius: 20px;
+    background: var(--gradient);
+    animation: dialog 1.5s;
+}
+@keyframes dialog {
+    0% {
+        translate: 100px 0;
+        opacity: 0.3;
+    }
+    100% {
+       translate: 0 0;
+       opacity: 1; 
+    }
+}
+
+.dialog .userImg {
+    background-image: url('../../assets/user.jpg');
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    border-radius: 50px;
+}
+.dialog p {
+    font-size: 0.875rem; /* 14px */
+    font-family: var(--confortaa);
+    color: whitesmoke;
+    line-height: 20px;
+    max-width: 70%;
+}

@@ -1,0 +1,22 @@
+.header {
+    justify-content: space-between;
+    padding: 20px 40px;
+    background-color: transparent;
+}
+
+.header .siteName {
+    font-size: 1rem; /* 16px */
+    font-weight: 700;
+    color: white;
+}
+
+.header .connexion {
+    padding: 12px 20px;
+    background-color: rgb(248, 247, 247);
+    color: var(--darkBlue);
+}
+.header .connexion:hover {
+    padding: 12px 20px;
+    background-color: rgba(255, 255, 255, 0.907);
+    color: var(--darkBlue);
+}
