@@ -13,7 +13,9 @@
   /* color */
   --gradient: linear-gradient(322deg,rgba(2, 20, 79, 1) 33%, rgba(252, 70, 107, 1) 100%);
   --gradientHover: linear-gradient(322deg,rgba(2, 20, 79, 0.764) 33%, rgba(252, 70, 106, 0.764) 100%);
-  --darkBlue: rgb(8, 8, 39);
+  --darkBlue: rgb(18, 18, 69);
+  --whiteSmoke: rgb(248, 247, 247);
+  --whiteSmokeHover: rgba(255, 255, 255, 0.907);
 
   /* z-index */
   --zIndexMin: 1000;
@@ -57,9 +59,10 @@ body {
 /* global style */
 
 .button {
+  padding: 12px 20px;
   border-radius: 10px;
   font-size: 0.875rem;
-  font-weight: 700;
+  cursor: pointer;
 }
 
 .bckGroundImg {

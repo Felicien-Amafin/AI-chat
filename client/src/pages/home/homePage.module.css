@@ -24,7 +24,7 @@
     min-height: 100px;
     border-radius: 20px;
     background: var(--gradient);
-    animation: dialog 1.5s;
+    animation: dialog 1s;
 }
 @keyframes dialog {
     0% {

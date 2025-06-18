@@ -8,7 +8,7 @@ const HomePage = () => {
         <figure className={`${style.img} bckGroundImg`}>
           <div className={style.dialog}>
             <figure className={`${style.userImg} bckGroundImg`}></figure>
-            <p>Bonjour Ai tchat. Qu'est-ce une aurore boréale? </p>
+            <p>Bonjour Ai tchat. Qu'est-ce qu'une aurore boréale? </p>
           </div>
         </figure>
       </div>
