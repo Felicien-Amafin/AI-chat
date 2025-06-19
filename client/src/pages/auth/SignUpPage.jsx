@@ -4,13 +4,13 @@ import LandingPage from "../landing/LandingPage"
 import style from "./auth.module.css";
 
 const form = {
-  title: 'Sign up',
+  title: 'Inscription',
   inputs: [ 
-    { label: 'Username', name: 'username', type: 'text', placeholder: 'Enter username', is_requied: true }, 
-    { label: 'Email', name: 'email', type: 'email', placeholder: 'Your email address', is_requied: true }, 
-    { label: 'Password', name: 'password', type: 'password', placeholder: 'Enter password', is_requied: true } 
+    { label: "Nom d'utilisateur", name: 'username', type: 'text', placeholder: "Votre nom d'utilisateur", is_requied: true }, 
+    { label: 'Email', name: 'email', type: 'email', placeholder: 'Votre addresse email', is_requied: true }, 
+    { label: 'Mot de passe', name: 'password', type: 'password', placeholder: 'Votre mot de passe', is_requied: true } 
   ],
-  btn_text: 'Subscribe'
+  btn_text: "S'inscrire"
 };
 
 const SignUpPage = () => {
@@ -25,7 +25,7 @@ const SignUpPage = () => {
           path='/auth/sign-in'
           className={style.link}
         >
-            Already have an account ? Sign in
+          Vous avez déjà un compte ? Se connecter
         </LinkTo>
       </Form>
     </LandingPage>

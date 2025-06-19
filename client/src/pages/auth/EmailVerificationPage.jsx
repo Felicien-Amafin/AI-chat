@@ -4,8 +4,8 @@ import LinkTo from "../../components/linkTo/LinkTo";
 import style from "./auth.module.css";
 
 const form = {
-  title: 'Email verification',
-  inputs: [{ label: 'Code', name: 'code', type: 'text', placeholder: 'Enter verification code', is_requied: true }],
+  title: "Vérification d'email",
+  inputs: [{ label: 'Code de vérification', name: 'code', type: 'text', placeholder: 'votre code de vérification', is_requied: true }],
   btn_text: 'Validate'
 };
 

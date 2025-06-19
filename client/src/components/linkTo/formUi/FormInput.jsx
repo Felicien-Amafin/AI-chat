@@ -26,7 +26,7 @@ const FormInput = ({style, input, value, required, onInputChange }) => {
             {isPwrdVisible ? <IoEye/> : <IoMdEyeOff/>}
           </span>}
       </div>
-      {/* <p className={style.error}>error</p> */}
+      {/* <p className={style.error}>Nom d'utilisateur invalide (5 caractères min, 10 max)</p> */}
     </div>
   )
 }

@@ -7,6 +7,8 @@ import cookieParser from "cookie-parser";
 import cors from 'cors';
 import connectToDb from "./db/mongodbConnection.js";
 
+import authRoutes from "./routes/auth.routes.js";
+
 dotenv.config();
 const app = express();
 const PORT= process.env.PORT || 5000;
@@ -27,9 +29,11 @@ app.use(
 }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(xss());
-app.use(sanitize());
+/* app.use(xss());
+app.use(sanitize()); */
 
+//Defining API endpoints
+app.use("/api/authentication", authRoutes);
 
 app.listen(PORT, ()=> {
     console.log(`server is running on port ${ PORT }`);

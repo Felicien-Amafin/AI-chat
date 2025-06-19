@@ -4,12 +4,12 @@ import LandingPage from "../landing/LandingPage"
 import style from "./auth.module.css";
 
 const form = {
-  title: 'Sign in',
+  title: 'Connexion',
   inputs: [ 
-    { label: 'Email', name: 'email', type: 'email', placeholder: 'Your email address', is_requied: true }, 
-    { label: 'Password', name: 'password', type: 'password', placeholder: 'Enter password', is_requied: true } 
+    { label: 'Email', name: 'email', type: 'email', placeholder: 'Votre addresse email', is_requied: true }, 
+    { label: 'Mot de passe', name: 'password', type: 'password', placeholder: 'Votre mot de passe', is_requied: true } 
   ],
-  btn_text: 'Sign in',
+  btn_text: 'Se connecter',
 };
 const link = {
   style: {
@@ -30,13 +30,13 @@ const SignInPage = () => {
             path='/auth/sign-up'
             className={style.link}
           >
-            Don't have an account ? Sign up
+            Vous n’avez pas encore de compte ? Inscription
           </LinkTo>
           <LinkTo 
             path='/auth/password-recovery'
             className={style.link}
           >
-            Password forgotten ?
+            Mot de passe oublié
           </LinkTo>
         </div>
       </Form>

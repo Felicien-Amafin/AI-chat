@@ -12,7 +12,7 @@ const LandingPage = ({children}) => {
           <h1>Ai tchat</h1>
           <h2>Trouvez l'inspiration et gagnez en productivité</h2>
           <p>Ai tchat est votre assistant personnel. Démarrez une discussion et apprenez de nouvelles choses.</p>
-          <LinkTo path='/' className={`${style.link} button`}>Commencer</LinkTo>
+          <LinkTo path='/auth/sign-in' className={`${style.link} button`}>Commencer</LinkTo>
         </section>
         <section className={style.part2}>
           {children}

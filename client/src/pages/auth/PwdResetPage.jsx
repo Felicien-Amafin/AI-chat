@@ -3,9 +3,9 @@ import LandingPage from "../landing/LandingPage"
 import style from "./auth.module.css";
 
 const form = {
-  title: 'Password reset',
-  inputs: [{ label: 'New password', name: 'new_password', type: 'password', placeholder: 'Enter new password', is_requied: true }],
-  btn_text: 'Validate'
+  title: 'Réinitialisation',
+  inputs: [{ label: 'Nouveau mot de passe', name: 'new_password', type: 'password', placeholder: 'Votre nouveau mot de passe', is_requied: true }],
+  btn_text: 'Valider'
 };
 
 const PwdResetPage = () => {

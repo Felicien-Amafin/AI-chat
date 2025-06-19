@@ -1,4 +1,3 @@
-/* import Loader from '../../others/Loader'; */
 
 const FormBtn = ({style, text, onClick}) => {
 

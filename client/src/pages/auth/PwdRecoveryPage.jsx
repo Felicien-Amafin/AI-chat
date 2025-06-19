@@ -3,9 +3,9 @@ import LandingPage from "../landing/LandingPage"
 import style from "./auth.module.css";
 
 const form = {
-  title: 'Password Recovery',
-  inputs: [{ label: 'Email', name: 'email', type: 'email', placeholder: 'Your email address', is_requied: true }],
-  btn_text: 'Send recovery mail'
+  title: 'Mot de passe oublié',
+  inputs: [{ label: 'Email', name: 'email', type: 'email', placeholder: 'Votre addresse email', is_requied: true }],
+  btn_text: 'Envoi du lien'
 };
 
 const PwdRecoveryPage = () => {
