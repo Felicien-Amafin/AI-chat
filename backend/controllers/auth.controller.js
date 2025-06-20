@@ -3,7 +3,7 @@ import otpGenerator from 'otp-generator';
 import crypto from "crypto";
 import User from "../models/user.model.js";
 import { getSignupErrors, encryptPassword } from "../utils/auth.js";
-import { sendVerificationEmail } from "../nodemailer/emails.js";
+import { sendVerificationEmail, sendPwdResetLink } from "../nodemailer/emails.js";
 
 export const signup = async (req, res) => {
     //Signing up user, using username, email, and password
@@ -113,4 +113,44 @@ export const verifyEmail = async (req, res) => {
             message: 'Erreur de serveur.', 
         });
     }
+}
+
+export const sendResetEmail = async (req, res) => {
+    //Sends password reset links via user's email address
+    const { email } = req.body;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isEmailValid = emailRegex.test(email);
+
+    if (!email || !isEmailValid) {
+        return res.status(400).json({ 
+            message: 'Email invalide.',
+            errors: { email: 'Email invalide.'}
+        });
+    }
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ 
+                message: 'Utilisateur introuvable',
+                errors: { email: `Pas d'utilisateur associé à cette adresse email.`}
+            });
+        }
+
+        const token = crypto.randomBytes(10).toString("hex");
+
+        user.resetEmailToken = token;
+        user.isPasswordReseted = false;
+        await user.save();
+       
+        await sendPwdResetLink(email, `${process.env.CLIENT_URL}/auth/password-reset/${token}`);
+        
+        return res.status(200).json({ message: 'Un lien de réinitialisation de mot de passe vous a été envoyé par mail.' });
+
+    } catch (error) {
+        return res.status(500).json({ 
+            message: 'Erreur de serveur.', 
+        });
+    } 
 }

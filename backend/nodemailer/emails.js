@@ -13,3 +13,16 @@ export const sendVerificationEmail = async(siteUrl, userEmail, verificationCode)
         console.log(error);
     }
 };
+
+export const sendPwdResetLink = async(userEmail, siteUrl)=> {
+    //Send reset link to the user for password reset
+    try {
+        const subject = 'Password Reset';
+        const text = `Please click on the following link to reset your password: ${siteUrl}`;
+        const mailOptions = getMailOptions(userEmail, subject, text);
+
+        const info =  await transporter.sendMail(mailOptions);
+    } catch (error) {
+        console.log(error);
+    }
+};

@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default:''
     },
-    resetToken: String,
+    resetEmailToken: String,
     emailVerifCode: String,
 });
 
