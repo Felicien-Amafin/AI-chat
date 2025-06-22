@@ -8,6 +8,7 @@ import cors from 'cors';
 import connectToDb from "./db/mongodbConnection.js";
 
 import authRoutes from "./routes/auth.routes.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 
 dotenv.config();
 const app = express();
@@ -34,6 +35,7 @@ app.use(sanitize()); */
 
 //Defining API endpoints
 app.use("/api/authentication", authRoutes);
+app.use(errorHandler);
 
 app.listen(PORT, ()=> {
     console.log(`server is running on port ${ PORT }`);

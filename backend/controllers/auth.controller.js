@@ -3,154 +3,153 @@ import otpGenerator from 'otp-generator';
 import crypto from "crypto";
 import User from "../models/user.model.js";
 import { getSignupErrors, encryptPassword } from "../utils/auth.js";
+import { CustomError } from "../utils/class.js";
 import { sendVerificationEmail, sendPwdResetLink } from "../nodemailer/emails.js";
+import { tryCatch } from "../utils/tryCatch.js";
 
-export const signup = async (req, res) => {
+export const signup = tryCatch(async (req, res) => {
     //Signing up user, using username, email, and password
-
-    try {
-        const { username, email, password } = req.body;
-        
-        const errors = getSignupErrors(username, email, password);
-
-        if (errors) {
-            return res.status(400).json({ message: "Certaines informations sont invalides", errors });
-        }
-
-        const user = await User.findOne({ email });
-
-        if (user) {
-            return res.status(409).json({ 
-                message: "Cette addresse email est déjà associée à un compte d'utilisateur", 
-                errors: { email: "Adresse email déjà utilisée." }
-            });
-        }
-        
-        const hashedPsswd = await encryptPassword(password);
-       
-        const emailVerifCode = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+    const { username, email, password } = req.body;
     
-        const newUser = new User({
-            username,
-            email,
-            password: hashedPsswd,
-            emailVerifCode
-        });
-        await newUser.save();
+    const errors = getSignupErrors(username, email, password);
 
-        sendVerificationEmail(
-            `${process.env.CLIENT_URL}/auth/email-verification/${newUser._id}`, 
-            newUser.email, 
-            emailVerifCode
-        );
-        
-        return res.status(201).json({
-            message: "Complètez votre inscription en suivant les instructions envoyées à votre adresse email.",
-            user: {
-                username: newUser.username,
-                email: newUser.email
-            }
-        });
-
-    } catch(error) {
-        return res.status(500).json({ 
-            message: 'Erreur de serveur.', 
-        });
+    if (errors) {
+        throw new CustomError('Certaines informations sont invalides', 400, errors);
     }
-}
 
-export const verifyEmail = async (req, res) => {
+    const user = await User.findOne({ email });
+
+    if (user) {
+        const errorMess = `Cette addresse email est déjà associée à un compte d'utilisateur`;
+        throw new CustomError(errorMess, 400, { email: errorMess});
+    }
+    
+    const hashedPsswd = await encryptPassword(password);
+    
+    const emailVerifCode = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+
+    const newUser = new User({
+        username,
+        email,
+        password: hashedPsswd,
+        emailVerifCode
+    });
+    await newUser.save();
+
+    sendVerificationEmail(
+        `${process.env.CLIENT_URL}/auth/email-verification/${newUser._id}`, 
+        newUser.email, 
+        emailVerifCode
+    );
+    
+    return res.status(201).json({
+        message: "Complètez votre inscription en suivant les instructions envoyées à votre adresse email.",
+        user: {
+            username: newUser.username,
+            email: newUser.email
+        }
+    });
+});
+
+export const verifyEmail = tryCatch(async (req, res) => {
     //Verifies user's email via a unique code 
     const userId = req.params.userId;
     const { code } = req.body;
     const USER_ID_LENGTH = 24;
 
-    try {
-        if (userId.length != USER_ID_LENGTH) {
-            return res.status(400).json({ 
-                message: 'Identifiant utilisateur invalide',
-            });
-        }
+    if (userId.length != USER_ID_LENGTH) {
+        throw new CustomError('Identifiant utilisateur invalide', 400, {});
+    }
+
+    const user = await User.findOne({ _id: userId });
     
-        const user = await User.findOne({ _id: userId });
-       
-        if (!user) {
-             return res.status(404).json({ 
-                message: 'Identifiant utilisateur invalide',
-            });
-        }
-    
-        if (user.isEmailVerified && (code === user.emailVerifCode)) {
-            return res.status(200).json({
-                message: 'Votre adresse email a déjà été confirmée. vous pouvez maintenant vous connecter',
-                user: {
-                    _id: user._id,
-                    user: user.username
-                }
-            })
-        } 
-    
-        if (!code || (code !== user.emailVerifCode)) {
-            return res.status(400).json({ 
-                message: 'Code de vérification invalide. Utilisez le code envoyé à votre adresse email.',
-                errors: { code: 'Code de vérification invalide.'}
-            });
-        }
-    
-        user.isEmailVerified = true;
-        user.save();
-    
+    if (!user) {
+        throw new CustomError('Utilisateur introuvable', 404, {});
+    }
+
+    if (user.isEmailVerified && (code === user.emailVerifCode)) {
         return res.status(200).json({
-            message: 'Votre adresse email a été confirmée avec succès! Vous pouvez maintenant vous connecter.',
+            message: 'Votre adresse email a déjà été confirmée. vous pouvez maintenant vous connecter',
             user: {
                 _id: user._id,
                 user: user.username
             }
-        });
+        })
+    } 
 
-    } catch (error) {
-        return res.status(500).json({ 
-            message: 'Erreur de serveur.', 
-        });
+    if (!code || (code !== user.emailVerifCode)) {
+        throw new CustomError('Code de vérification invalide. Utilisez le code envoyé à votre adresse email.', 400, { code: 'Code de vérification invalide.'});
     }
-}
 
-export const sendResetEmail = async (req, res) => {
+    user.isEmailVerified = true;
+    user.save();
+
+    return res.status(200).json({
+        message: 'Votre adresse email a été confirmée avec succès! Vous pouvez maintenant vous connecter.',
+        user: {
+            _id: user._id,
+            user: user.username
+        }
+    });
+});
+
+export const sendResetEmail = tryCatch(async (req, res) => {
     //Sends password reset links via user's email address
     const { email } = req.body;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isEmailValid = emailRegex.test(email);
 
     if (!email || !isEmailValid) {
-        return res.status(400).json({ 
-            message: 'Email invalide.',
-            errors: { email: 'Email invalide.'}
-        });
+        const errorMess = 'Email invalide.'
+        throw new CustomError(errorMess, 400, { email: errorMess });
     }
 
-    try {
-        const user = await User.findOne({ email });
+    const user = await User.findOne({ email });
 
-        if (!user) {
-            return res.status(404).json({ 
-                message: 'Utilisateur introuvable',
-                errors: { email: `Pas d'utilisateur associé à cette adresse email.`}
-            });
-        }
+    if (!user) {
+        const errorMess = `Pas d'utilisateur associé à cette adresse email.`
+        throw new CustomError(errorMess, 404, { email: errorMess });
+    }
 
-        const token = crypto.randomBytes(10).toString("hex");
+    const token = crypto.randomBytes(10).toString("hex");
 
-        user.resetEmailToken = token;
-        user.isPasswordReseted = false;
-        await user.save();
-       
-        await sendPwdResetLink(email, `${process.env.CLIENT_URL}/auth/password-reset/${token}`);
-        
-        return res.status(200).json({ message: 'Un lien de réinitialisation de mot de passe vous a été envoyé par mail.' });
+    user.resetEmailToken = token;
+    user.isPasswordReseted = false;
+    await user.save();
+    
+    await sendPwdResetLink(email, `${process.env.CLIENT_URL}/auth/password-reset/${token}`);
+    
+    return res.status(200).json({ message: 'Un lien de réinitialisation de mot de passe vous a été envoyé par mail.' });
+});
 
-    } catch (error) {
-        return res.status(500).json({ 
-            message: 'Erreur de serveur.', 
-        });
-    } 
-}
+export const resetPwd = tryCatch(async (req, res) => {
+    //Resets user's password using a reset token
+    const token = req.params.token;
+    const { new_password } = req.body;
+    const PSSWD_MIN_LENGTH = 6;
+ 
+    if (!new_password || new_password.length < PSSWD_MIN_LENGTH) {
+        const errorMess = `Mot de passe invalide (${PSSWD_MIN_LENGTH} caractères min)`
+        throw new CustomError(errorMess, 400, { password: errorMess});
+    }
+
+    const user = await User.findOne({ resetEmailToken: token });
+
+    if (!user) {
+        const errorMess = `Le token de réinitialisation présent dans l'url est invalide. Utilisez le lien envoyé à votre adresse email.`;
+        throw new CustomError(errorMess, 401, { isTokenInvalid: true });
+    }
+
+    if(user && user.isPasswordReseted) {
+        const errorMess = `Vous devez obtenir un nouveau lien pour réinitialiser votre mot de passe.`;
+        throw new CustomError(errorMess, 401, { isTokenInvalid: true });
+    }
+
+    const hashedPsswd = await encryptPassword(new_password);
+    user.password = hashedPsswd;
+    user.isPasswordReseted = true;
+
+    await user.save();
+
+    return res.status(200).json({ message: 'Votre mot de passe a bien été modifié. Vous pouvez maintenant vous connecter' });
+});
