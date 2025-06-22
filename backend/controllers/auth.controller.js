@@ -1,8 +1,8 @@
-import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 import otpGenerator from 'otp-generator';
 import crypto from "crypto";
 import User from "../models/user.model.js";
-import { getSignupErrors, encryptPassword } from "../utils/auth.js";
+import { getSignupErrors, getSigninErrors, encryptPassword, generateAccessToken, generateRefreshToken } from "../utils/auth.js";
 import { CustomError } from "../utils/class.js";
 import { sendVerificationEmail, sendPwdResetLink } from "../nodemailer/emails.js";
 import { tryCatch } from "../utils/tryCatch.js";
@@ -49,6 +49,45 @@ export const signup = tryCatch(async (req, res) => {
             email: newUser.email
         }
     });
+});
+
+export const signin = tryCatch(async (req, res) => {
+    //Logining user by using email, and password
+    const { email, password } = req.body;
+
+    const errors = getSigninErrors(email, password);
+
+    if(errors) {
+        throw new CustomError('Certaines informations sont invalides', 400, errors);
+    }
+
+    const user = await User.findOne({ email });
+
+    const isPwdValid = await bcrypt.compare(password, user?.password || '');
+
+    if(!isPwdValid) {
+        throw new CustomError('Mot de passe et/ou email invalide(s)', 400, {});
+    }
+
+    if(!user.isEmailVerified) {
+        throw new CustomError(`Vous devez valider votre adresse email avant de vous connecter. Suivez les instructions envoyées par mail.`, 401, {});
+    }
+
+    const accessToken = generateAccessToken(user);
+    const refreshToken = generateRefreshToken(user);
+
+    //set refreshToken in cookie
+    res.cookie('jwt', refreshToken, {
+        maxAge: 10 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        sameSite: 'None',
+        secure: false,
+    });
+
+    return res.status(200).json({
+        message: 'Successfully authenticated.', 
+        accessToken
+    })
 });
 
 export const verifyEmail = tryCatch(async (req, res) => {
