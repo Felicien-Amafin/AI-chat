@@ -1,6 +1,8 @@
-import Form from "../../components/linkTo/formUi/Form";
-import LinkTo from "../../components/linkTo/LinkTo";
-import LandingPage from "../landing/LandingPage"
+import Form from "../../components/formUi/Form";
+import LinkTo from "../../components/orthers/linkTo/LinkTo";
+import LandingPage from "../landing/LandingPage";
+import { useSignUpUser } from "../../services/mutations";
+import { trimAndLowerCase } from "../../utils";
 import style from "./auth.module.css";
 
 const form = {
@@ -14,12 +16,24 @@ const form = {
 };
 
 const SignUpPage = () => {
+  const { mutate, isPending, isError, error, data } = useSignUpUser();
 
+  const reqResult = { isPending, isError, error, data };
+
+  const handleSubmission = (e, formData)=> {
+    e.preventDefault();
+    const newFormData = trimAndLowerCase(formData, ['username', 'email']);
+  
+    mutate(newFormData);
+  }
+  
   return (
     <LandingPage>
       <Form 
+        onSubmit={handleSubmission}
         form={form}
         style={style}
+        reqResult={reqResult}
       >
         <LinkTo 
           path='/auth/sign-in'

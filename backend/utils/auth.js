@@ -37,7 +37,7 @@ export const getSignupErrors = (username, email, password)=> {
     if(!isEmailValid) errors.email = `Format d'email invalide`;
 
     if(!password || password.length < PSSWD_MIN_LENGTH) {
-        errors.password = `Mot de passe invalide (min ${PSSWD_MIN_LENGTH} caractères)`;
+        errors.password = `Mot de passe invalide (${PSSWD_MIN_LENGTH} caractères min)`;
     }
     
     const isErrors = Object.values(errors).length > 0;

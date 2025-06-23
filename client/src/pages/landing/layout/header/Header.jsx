@@ -1,4 +1,4 @@
-import LinkTo from "../../../../components/linkTo/LinkTo";
+import LinkTo from "../../../../components/orthers/linkTo/LinkTo";
 import style from "./header.module.css";
 
 const Header = () => {

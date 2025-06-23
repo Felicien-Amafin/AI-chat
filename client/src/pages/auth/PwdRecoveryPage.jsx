@@ -1,4 +1,4 @@
-import Form from "../../components/linkTo/formUi/Form";
+import Form from "../../components/formUi/Form";
 import LandingPage from "../landing/LandingPage"
 import style from "./auth.module.css";
 

@@ -1,4 +1,4 @@
-import LinkTo from '../../components/linkTo/LinkTo';
+import LinkTo from '../../components/orthers/linkTo/LinkTo';
 import Header from './layout/header/Header';
 import Footer from './layout/footer/Footer';
 import style from './landingPage.module.css';

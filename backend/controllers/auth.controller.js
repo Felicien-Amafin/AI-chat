@@ -16,11 +16,11 @@ export const signup = tryCatch(async (req, res) => {
     if (errors) {
         throw new CustomError('Certaines informations sont invalides', 400, errors);
     }
-
+  
     const user = await User.findOne({ email });
 
     if (user) {
-        const errorMess = `Cette addresse email est déjà associée à un compte d'utilisateur`;
+        const errorMess = `Adresse email déjà utilisée`;
         throw new CustomError(errorMess, 400, { email: errorMess});
     }
     
@@ -86,7 +86,8 @@ export const signin = tryCatch(async (req, res) => {
 
     return res.status(200).json({
         message: 'Successfully authenticated.', 
-        accessToken
+        user: { id: user._id, username: user.username },
+        accessToken,
     })
 });
 

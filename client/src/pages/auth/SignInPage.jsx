@@ -1,5 +1,5 @@
-import Form from "../../components/linkTo/formUi/Form";
-import LinkTo from "../../components/linkTo/LinkTo";
+import Form from "../../components/formUi/Form";
+import LinkTo from "../../components/orthers/linkTo/LinkTo";
 import LandingPage from "../landing/LandingPage"
 import style from "./auth.module.css";
 

@@ -1,0 +1,23 @@
+export const trimAndLowerCase = (obj, array)=> {
+    // Trim and lowercase only specific keys' value
+    if(array && array.length > 0) {
+       const newObj = { ...obj };
+
+       array.map((key)=> {
+        newObj[key] = obj[key].trim().toLowerCase();
+       });
+
+       return newObj;
+    }
+
+    // Trim and lowercase all keys' value
+    if(!array) {
+        const newObj = {};
+
+        for (const [key, value] of Object.entries(obj)) {
+            newObj[key] = value.trim().toLowerCase();
+        }
+        
+        return newObj;
+    }
+}

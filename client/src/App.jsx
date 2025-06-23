@@ -11,7 +11,6 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={!user ? <HomePage/> : <Navigate to={'user'}/>}/>
-
         <Route path='auth' element={!user ? <Auth/> : <Navigate to={'/user'}/>}>
           {authRoutes.map((route)=> <Route 
             key={route.path} 

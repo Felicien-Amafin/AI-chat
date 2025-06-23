@@ -1,6 +1,6 @@
-import Form from "../../components/linkTo/formUi/Form";
+import Form from "../../components/formUi/Form";
 import LandingPage from "../landing/LandingPage";
-import LinkTo from "../../components/linkTo/LinkTo";
+import LinkTo from "../../components/orthers/linkTo/LinkTo";
 import style from "./auth.module.css";
 
 const form = {
