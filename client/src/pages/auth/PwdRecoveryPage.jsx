@@ -1,5 +1,7 @@
 import Form from "../../components/formUi/Form";
-import LandingPage from "../landing/LandingPage"
+import LandingPage from "../landing/LandingPage";
+import { useSendResetEmail } from "../../services/mutations";
+import { trimAndLowerCase } from "../../utils";
 import style from "./auth.module.css";
 
 const form = {
@@ -9,11 +11,23 @@ const form = {
 };
 
 const PwdRecoveryPage = () => {
+  const { mutate, isPending, isError, error, data } = useSendResetEmail();
+  const reqResult = { isPending, isError, error, data };
+
+  const handleSubmission = (e, formData)=> {
+      e.preventDefault();
+  
+      const newFormData = trimAndLowerCase(formData);
+      mutate(newFormData);
+  }
+
   return (
      <LandingPage>
       <Form 
+        onSubmit={handleSubmission}
         form={form}
         style={style}
+        reqResult={reqResult}
       />
     </LandingPage>
   )

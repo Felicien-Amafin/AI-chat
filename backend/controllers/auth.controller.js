@@ -20,8 +20,8 @@ export const signup = tryCatch(async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user) {
-        const errorMess = `Adresse email déjà utilisée`;
-        throw new CustomError(errorMess, 400, { email: errorMess});
+        const errorMess = `Veuillez choisir une autre adresse email.`;
+        throw new CustomError(errorMess, 400, { email: 'Adresse email déjà utilisée'});
     }
     
     const hashedPsswd = await encryptPassword(password);
@@ -144,15 +144,15 @@ export const sendResetEmail = tryCatch(async (req, res) => {
     const isEmailValid = emailRegex.test(email);
 
     if (!email || !isEmailValid) {
-        const errorMess = 'Email invalide.'
-        throw new CustomError(errorMess, 400, { email: errorMess });
+        const errorMess = `Le format d'email est invalide.`
+        throw new CustomError(errorMess, 400, { email: 'Email invalide' });
     }
 
     const user = await User.findOne({ email });
 
     if (!user) {
         const errorMess = `Pas d'utilisateur associé à cette adresse email.`
-        throw new CustomError(errorMess, 404, { email: errorMess });
+        throw new CustomError(errorMess, 404, { email: 'Adresse email inconnue' });
     }
 
     const token = crypto.randomBytes(10).toString("hex");
