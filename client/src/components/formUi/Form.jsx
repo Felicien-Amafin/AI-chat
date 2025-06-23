@@ -4,10 +4,10 @@ import useForm from "../../hooks/useForm";
 
 const Form = ({children, onSubmit, form, style, reqResult}) => {
   const { handleChange, formData } = useForm();
-
   const inputErrors = reqResult?.error?.response.data.errors;
+  const errorMess = reqResult?.error?.response.data.message;
   const confirmation = reqResult?.data?.data.message;
-  console.log(confirmation)
+  console.log(reqResult)
   return (
     <form 
       className={`${style.form} flex-column`}
@@ -30,7 +30,12 @@ const Form = ({children, onSubmit, form, style, reqResult}) => {
         text={form.btn_text}
         isPending={reqResult?.isPending}
       />
-      <p className={`${style.confirmation} ${style.messAnim}`}>{confirmation}</p>
+      {confirmation && <p className={`${style.confirmation} ${style.messAnim}`}>
+        {confirmation}
+      </p>}
+      {errorMess && <p className={`${style.errorMess} ${style.error} ${style.messAnim}`}>
+        {errorMess}
+      </p>}
       {children}
     </form>
   )

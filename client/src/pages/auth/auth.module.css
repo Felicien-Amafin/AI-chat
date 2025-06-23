@@ -10,7 +10,7 @@
     color: white;
     box-shadow: rgba(234, 234, 234, 0.35) 0px 5px 15px;
     backdrop-filter: blur(36px);
-    animation: form 0.8s;
+    animation: form 0.7s;
 }
 @keyframes form {
     0% {
@@ -92,22 +92,22 @@
     color: rgb(212, 209, 209);
     animation: confirmation 0.5s;
 }
+.form .errorMess {
+    text-align: center;
+}
 .form .link {
     font-size: 0.75rem;
     text-align: center;
     color: var(--whiteSmoke);
 }
-
 .form .link:hover {
     color: rgba(245, 245, 245, 0.811);
 }
-
 .form .error {
     font-size: 0.75rem;
     color: rgb(255, 170, 170);
     padding-left: 3px;
 }
-
 .form .messAnim {
     animation: message 0.5s;
 }

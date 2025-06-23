@@ -98,13 +98,13 @@ export const verifyEmail = tryCatch(async (req, res) => {
     const USER_ID_LENGTH = 24;
 
     if (userId.length != USER_ID_LENGTH) {
-        throw new CustomError('Identifiant utilisateur invalide', 400, {});
+        throw new CustomError('Identifiant utilisateur invalide.', 400, {});
     }
 
     const user = await User.findOne({ _id: userId });
     
     if (!user) {
-        throw new CustomError('Utilisateur introuvable', 404, {});
+        throw new CustomError('Utilisateur introuvable.', 404, {});
     }
 
     if (user.isEmailVerified && (code === user.emailVerifCode)) {
@@ -118,7 +118,11 @@ export const verifyEmail = tryCatch(async (req, res) => {
     } 
 
     if (!code || (code !== user.emailVerifCode)) {
-        throw new CustomError('Code de vérification invalide. Utilisez le code envoyé à votre adresse email.', 400, { code: 'Code de vérification invalide.'});
+        throw new CustomError(
+            'Utilisez le code envoyé à votre adresse email.', 
+            400, 
+            { code: 'Code invalide'}
+        );
     }
 
     user.isEmailVerified = true;

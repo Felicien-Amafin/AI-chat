@@ -7,3 +7,7 @@ const axiosIntance = axios.create({baseURL:BASE_URL, withCredentials: true});
 export const signUpUser = async(data)=> {
   return await axiosIntance.post('api/authentication/signup', data);
 }
+
+export const verifyEmail = async({userId, data})=> {
+  return await axiosIntance.post(`api/authentication/verify-email/${userId}`, data);
+}

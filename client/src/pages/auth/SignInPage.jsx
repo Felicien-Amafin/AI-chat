@@ -36,7 +36,7 @@ const SignInPage = () => {
             path='/auth/password-recovery'
             className={style.link}
           >
-            Mot de passe oublié
+            Mot de passe oublié ?
           </LinkTo>
         </div>
       </Form>
