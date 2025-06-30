@@ -1,0 +1,12 @@
+.header {
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px 40px;
+}
+
+.header .siteName {
+    font-size: 1rem; /* 16px */
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+}

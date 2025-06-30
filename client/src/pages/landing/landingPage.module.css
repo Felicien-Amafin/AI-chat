@@ -5,7 +5,16 @@
     grid-template-rows: 1fr 6fr 1fr;
     background-image: url('../../assets/background.jpg');
 }
-
+.landingPage .connexion {
+    font-weight: 700;
+    background-color: var(--whiteSmoke);
+    color: var(--darkBlue);
+    text-decoration: none;
+}
+.landingPage .connexion:hover {
+    padding: 12px 20px;
+    background-color: var(--whiteSmokeHover);
+}
 .landingPage .pageContainer {
     width: 100%;
     max-width: 1700px;
@@ -37,15 +46,7 @@
     line-height: 25px;
 }
 .part1 .link {
-    max-width: 200px;
-    padding: 14px 20px;
-    background: var(--gradient);
-    text-align: center;
-    color: whitesmoke;
-}
-.part1 .link:hover {
-    background: var(--gradientHover);
-    color: rgba(245, 245, 245, 0.761);
+    text-decoration: none;
 }
 
 .pageContainer .part2 {

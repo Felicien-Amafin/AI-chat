@@ -1,0 +1,24 @@
+.search {
+    gap: 10px;
+    height: 45px;
+    width: 85%;
+    padding: 10px 0 10px 30px;
+    color: white;
+}
+
+.search .icon {
+    color: white;
+}
+
+.search input {
+    height: 100%;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: rgba(191, 191, 191, 0.896);
+}
+
+.search input::placeholder {
+    font-size: 0.8125rem; /* 13px */
+    color: rgba(191, 191, 191, 0.896);
+}

@@ -172,16 +172,16 @@ export const resetPwd = tryCatch(async (req, res) => {
     const { new_password } = req.body;
     const PSSWD_MIN_LENGTH = 6;
  
-    if (!new_password || new_password.length < PSSWD_MIN_LENGTH) {
-        const errorMess = `Mot de passe invalide (${PSSWD_MIN_LENGTH} caractères min)`
-        throw new CustomError(errorMess, 400, { password: errorMess});
-    }
-
     const user = await User.findOne({ resetEmailToken: token });
 
     if (!user) {
-        const errorMess = `Le token de réinitialisation présent dans l'url est invalide. Utilisez le lien envoyé à votre adresse email.`;
+        const errorMess = `L'url comporte un token invalide. Utilisez le lien envoyé à votre adresse email, ou obtenez un nouveau lien ci-dessous.`;
         throw new CustomError(errorMess, 401, { isTokenInvalid: true });
+    }
+
+    if (!new_password || new_password.length < PSSWD_MIN_LENGTH) {
+        const errorMess = `Mot de passe invalide (${PSSWD_MIN_LENGTH} caractères min)`
+        throw new CustomError(errorMess, 400, { password: errorMess});
     }
 
     if(user && user.isPasswordReseted) {

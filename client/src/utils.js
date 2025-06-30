@@ -4,9 +4,9 @@ export const trimAndLowerCase = (obj, array)=> {
        const newObj = { ...obj };
 
        array.map((key)=> {
-        newObj[key] = obj[key].trim().toLowerCase();
+        newObj[key] = obj[key]?.trim().toLowerCase();
        });
-
+       
        return newObj;
     }
 

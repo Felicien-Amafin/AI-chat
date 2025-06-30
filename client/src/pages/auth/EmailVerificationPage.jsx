@@ -1,10 +1,9 @@
-import Form from "../../components/formUi/Form";
+import Form from "../../components/formUi/form/Form";
+import FormLink from "../../components/formUi/formLink/FormLink";
 import LandingPage from "../landing/LandingPage";
-import LinkTo from "../../components/orthers/linkTo/LinkTo";
 import { useEmailVerification } from "../../services/mutations";
 import { useParams } from "react-router-dom";
 import { trimAndLowerCase } from "../../utils";
-import style from "./auth.module.css";
 
 const form = {
   title: "Vérification d'email",
@@ -30,15 +29,13 @@ const EmailVerificationPage = () => {
       <Form 
         onSubmit={handleSubmission}
         form={form}
-        style={style}
         reqResult={reqResult}
       >
-        {data && <LinkTo 
-          path='/auth/sign-in'
-          className={style.link}
-        >
+        {data && 
+          <FormLink path='/auth/sign-in'>
             Sign in
-        </LinkTo>}
+          </FormLink>
+        }
       </Form>
     </LandingPage>
   )

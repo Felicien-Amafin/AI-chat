@@ -1,13 +1,14 @@
-import FormInput from "./FormInput";
-import FormBtn from "./FormBtn";
-import useForm from "../../hooks/useForm";
+import FormInput from "../formInput/FormInput";
+import FormBtn from "../FormBtn";
+import useForm from "../../../hooks/useForm";
+import style from './form.module.css';
 
-const Form = ({children, onSubmit, form, style, reqResult}) => {
+const Form = ({children, onSubmit, form, reqResult}) => {
   const { handleChange, formData } = useForm();
   const inputErrors = reqResult?.error?.response.data.errors;
   const errorMess = reqResult?.error?.response.data.message;
   const confirmation = reqResult?.data?.data.message;
-  console.log(reqResult)
+ 
   return (
     <form 
       className={`${style.form} flex-column`}
@@ -16,7 +17,6 @@ const Form = ({children, onSubmit, form, style, reqResult}) => {
       <h2 className={style.title}>{form.title}</h2>
       <div className={`${style.inputs} flex-column`}>
         {form.inputs.map((input)=> <FormInput
-          style={style} 
           key={input.name} 
           input={input}
           errors={inputErrors}
@@ -26,14 +26,13 @@ const Form = ({children, onSubmit, form, style, reqResult}) => {
         />)}
       </div>
       <FormBtn 
-        style={style}
         text={form.btn_text}
         isPending={reqResult?.isPending}
       />
-      {confirmation && <p className={`${style.confirmation} ${style.messAnim}`}>
+      {confirmation && <p className={`${style.confirmation} messAnim`}>
         {confirmation}
       </p>}
-      {errorMess && <p className={`${style.errorMess} ${style.error} ${style.messAnim}`}>
+      {errorMess && <p className={`${style.error} error messAnim`}>
         {errorMess}
       </p>}
       {children}

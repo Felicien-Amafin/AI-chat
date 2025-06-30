@@ -1,11 +1,16 @@
-import Loader from "../orthers/Loader";
+import Loader from "../others/Loader";
 
-const FormBtn = ({style, text, onClick, isPending}) => {
+const FormBtn = ({text, onClick, isPending}) => {
+
+  const handleClick = (e)=> {
+    e.preventDefault();
+    onClick();
+  }
 
   return (
     <button 
-      onClick={onClick ? ()=> onClick() : null}
-      className={`${style.btn} button`}
+      onClick={onClick ? handleClick : null}
+      className='whiteBtn button'
       disabled={isPending ? true : false}
     >
       {isPending && <Loader size={25}/>}

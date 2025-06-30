@@ -1,0 +1,16 @@
+.pageContainer {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    position: fixed;
+    inset: 0 0 0 0;
+    background-image: url('../../../../assets/background.jpg');
+    animation: pageContainer 0.8s
+}
+@keyframes pageContainer {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

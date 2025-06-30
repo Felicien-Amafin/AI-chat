@@ -1,11 +1,14 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Auth from './pages/auth/Auth';
+import User from './pages/user/User';
 import HomePage from './pages/home/HomePage';
-import { authRoutes } from './routing/routes';
+import ErrorPage from './pages/error/Error';
+import { authRoutes, userRoutes } from './routing/routes';
+import ProtectedRoute from './routing/ProtectedRoute';
 
 function App() {
-
-  const user = false;
+  const { user } = useSelector((state)=> state.auth);
 
   return (
     <>
@@ -18,6 +21,12 @@ function App() {
             element={route.element}
           />)}
         </Route>
+        <Route path='user' element={<ProtectedRoute user={user}><User/></ProtectedRoute>}>
+          {userRoutes.map((route)=> {
+            return <Route key={route.path} path={route.path} element={route.element}/>
+          })}
+        </Route>
+        <Route path='*' element={<ErrorPage/>}/>
       </Routes>
     </>
   )

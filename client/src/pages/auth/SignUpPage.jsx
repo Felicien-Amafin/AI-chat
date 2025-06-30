@@ -1,9 +1,8 @@
-import Form from "../../components/formUi/Form";
-import LinkTo from "../../components/orthers/linkTo/LinkTo";
+import Form from "../../components/formUi/form/Form";
+import FormLink from "../../components/formUi/formLink/FormLink";
 import LandingPage from "../landing/LandingPage";
 import { useSignUpUser } from "../../services/mutations";
 import { trimAndLowerCase } from "../../utils";
-import style from "./auth.module.css";
 
 const form = {
   title: 'Inscription',
@@ -17,7 +16,6 @@ const form = {
 
 const SignUpPage = () => {
   const { mutate, isPending, isError, error, data } = useSignUpUser();
-
   const reqResult = { isPending, isError, error, data };
 
   const handleSubmission = (e, formData)=> {
@@ -32,15 +30,11 @@ const SignUpPage = () => {
       <Form 
         onSubmit={handleSubmission}
         form={form}
-        style={style}
         reqResult={reqResult}
       >
-        <LinkTo 
-          path='/auth/sign-in'
-          className={style.link}
-        >
+        <FormLink path='/auth/sign-in'>
           Vous avez déjà un compte ? Se connecter
-        </LinkTo>
+        </FormLink>
       </Form>
     </LandingPage>
   )

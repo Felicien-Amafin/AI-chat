@@ -1,0 +1,19 @@
+.mainPart {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 7fr;
+}
+.mainPart .deconnexion {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: whitesmoke;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.mainPart .deconnexion:hover {
+    color: rgba(245, 245, 245, 0.758);
+}
+.mainPart .main {
+    padding: 10px 30px;
+}

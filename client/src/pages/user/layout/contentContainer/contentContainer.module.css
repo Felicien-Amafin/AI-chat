@@ -1,0 +1,19 @@
+.contentContainer {
+    max-width: 95%;
+    height: 500px;
+    margin: auto;
+    padding: 50px 70px;
+    border-radius: 20px;
+    background-color: rgba(63, 93, 154, 0.097);
+    animation: contentContainer 0.8s
+}
+@keyframes contentContainer {
+  0% {
+    transform: translateY(30px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}

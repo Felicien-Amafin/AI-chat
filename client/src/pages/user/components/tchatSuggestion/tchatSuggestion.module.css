@@ -1,0 +1,26 @@
+.titlePlusIcon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.titlePlusIcon h3 {
+    font-size: 0.875rem;
+    color: white;
+}
+.titlePlusIcon i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    font-size: 0.875rem; 
+    color: white;
+    background-color: grey;
+}
+
+.query {
+    font-size: 0.75rem; 
+    line-height: 20px;
+    color: lightgray;
+} 

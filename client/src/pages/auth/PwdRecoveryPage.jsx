@@ -1,8 +1,7 @@
-import Form from "../../components/formUi/Form";
+import Form from "../../components/formUi/form/Form";
 import LandingPage from "../landing/LandingPage";
 import { useSendResetEmail } from "../../services/mutations";
 import { trimAndLowerCase } from "../../utils";
-import style from "./auth.module.css";
 
 const form = {
   title: 'Mot de passe oublié',
@@ -26,7 +25,6 @@ const PwdRecoveryPage = () => {
       <Form 
         onSubmit={handleSubmission}
         form={form}
-        style={style}
         reqResult={reqResult}
       />
     </LandingPage>

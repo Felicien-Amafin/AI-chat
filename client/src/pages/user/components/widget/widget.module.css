@@ -1,0 +1,28 @@
+.widget {
+    gap: 15px;
+    padding: 15px;
+    min-height: 140px;
+    width: 175px;
+    border-radius: 15px;
+    border: 1px solid rgba(211, 211, 211, 0.686);
+    color: white;
+    backdrop-filter: blur(7px);
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.widget:hover {
+    box-shadow: rgba(234, 234, 234, 0.35) 0px 5px 15px;
+}
+.widget:nth-child(1) i {
+    background-color: rgb(22, 52, 104);
+}
+.widget:nth-child(2) i {
+   background-color: rgb(84, 22, 104);
+}
+.widget:nth-child(3) i {
+   background-color: rgb(147, 36, 86);
+}
+.widget:nth-child(4) i {
+   background-color: rgb(239, 110, 110);
+}

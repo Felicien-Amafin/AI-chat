@@ -57,12 +57,26 @@ body {
 }
 
 /* global style */
-
 .button {
   padding: 12px 20px;
   border-radius: 10px;
   font-size: 0.875rem;
   cursor: pointer;
+  font-weight: 500;
+  border: none;
+}
+
+.gradient {
+  max-width: 200px;
+  padding: 14px 20px;
+  background: var(--gradient);
+  text-align: center;
+  color: white;
+  text-decoration: none;
+}
+.gradient:hover {
+  background: var(--gradientHover);
+  color: rgba(245, 245, 245, 0.761);
 }
 
 .bckGroundImg {
@@ -70,3 +84,34 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.whiteBtn {
+  background-color: var(--whiteSmoke);
+  color: var(--darkBlue);
+}
+.whiteBtn:hover {
+  background-color: var(--whiteSmokeHover);
+}
+
+/* Form style */
+.error {
+  font-size: 0.75rem;
+  color: rgb(255, 170, 170);
+}
+
+.messAnim {
+  animation: message 0.5s;
+}
+@keyframes message {
+  0% {
+    transform: translateY(-15px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+
+
