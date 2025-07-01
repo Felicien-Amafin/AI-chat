@@ -1,36 +1,35 @@
 import style from './list.module.css';
 
 const categories = [
-    'Histoire', 
-    'Finance', 
-    'Economie', 
-    'Cuisine', 
+    'Histoire',
+    'Littérature',
+    'Actualité',
+    'Cinéma', 
 ];
 
-const List = () => {
-
+const List = ({onSelect, btnStyle}) => {
     const isSearchResult = true;
 
     return (
-    <ul className={`${style.list} flex-column`}>
-        {isSearchResult && categories.map((categorie)=> <li 
-            key={categorie}
-            className={`${style.categorie} flex-column`}
-        >
-            <button 
-               /*  onClick={()=> onSelect(categorie)} */
-                className={style.button}
+        <ul className={`${style.list} flex-column`}>
+            {isSearchResult && categories.map((categorie)=> <li 
+                key={categorie}
+                className={`${style.categorie} flex-column`}
             >
-                {categorie}
-            </button>
-        </li>)}
-        {!isSearchResult && <li 
-            className={style.searchNoResult}
-        >
-            No results for this search...
-        </li>}
-    </ul>
+                <button 
+                    onClick={()=> onSelect(categorie)}
+                    className={style.button}
+                >
+                    {categorie}
+                </button>
+            </li>)}
+            {!isSearchResult && <li 
+                className={style.searchNoResult}
+            >
+                No results for this search...
+            </li>}
+        </ul>
     )
 }
 
-export default List
+export default List;

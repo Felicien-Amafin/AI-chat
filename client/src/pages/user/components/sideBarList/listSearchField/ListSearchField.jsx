@@ -1,9 +1,9 @@
 import { IoSearch } from "react-icons/io5";
-import style from './search.module.css';
+import style from './listSearchField.module.css';
 
-const Search = ({type, value, placeholder, onInputChange}) => {
+const ListSearchField = ({type, value, placeholder, onInputChange}) => {
   return (
-   <div className={`${style.search} flexRow-allCentered `}>
+   <div className={`${style.search} flexRow-allCentered`}>
       <i className={style.icon}>
         <IoSearch/>
       </i>
@@ -17,4 +17,4 @@ const Search = ({type, value, placeholder, onInputChange}) => {
   )
 }
 
-export default Search;
+export default ListSearchField;

@@ -1,8 +1,8 @@
 .search {
+    width: 100%;
     gap: 10px;
     height: 45px;
-    width: 85%;
-    padding: 10px 0 10px 30px;
+    margin-left: 15px;
     color: white;
 }
 

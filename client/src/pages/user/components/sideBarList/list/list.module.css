@@ -1,10 +1,10 @@
 .list {
-    align-items: center;
-    width: 80%;
-    max-height: 60%;
-    padding: 20px 10px 10px 10px;
-    overflow-y: auto;
-    animation: 0.8s
+  align-items: center;
+  width: 80%;
+  max-height: 60%;
+  padding: 10px 10px 10px 10px;
+  overflow-y: auto;
+  animation: 0.8s
 }
 @keyframes list {
   0% {
@@ -42,7 +42,8 @@
     width: 100%;
     padding: 12px;
     font-size: 0.8125rem;
-    color: rgb(211, 210, 210);
+    line-height: 18px;
+    color: rgb(198, 197, 197);
     background-color: transparent;
     border: none;
     border-radius: 7px;

@@ -1,0 +1,10 @@
+.listError {
+    padding: 0 10px 10px 10px ;
+}
+
+.message {
+    font-size: 0.8125rem; 
+    line-height: 22px;
+    text-align: center;
+    color: rgba(191, 191, 191, 0.896);
+} 

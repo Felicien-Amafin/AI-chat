@@ -10,7 +10,7 @@ import style from "./userHomePage.module.css";
 
 const UserHomePage = () => {
   const username = 'Félicien';
-
+  
   return (
     <PageContainer>
       <SideBar/>

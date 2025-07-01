@@ -1,0 +1,18 @@
+.defaultMess {
+    padding: 0 10px 10px 10px ;
+    gap: 20px
+}
+
+.defaultMess .message {
+    font-size: 0.8125rem; /* 13px */
+    line-height: 22px;
+    text-align: center;
+    color: rgba(191, 191, 191, 0.896);
+}
+
+.defaultMess i {
+    text-align: center;
+    font-size: 1rem; /* 16px */
+    color: rgb(202, 200, 200);
+}
+
