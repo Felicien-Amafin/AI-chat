@@ -1,4 +1,7 @@
-.search {
+.searchField {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     gap: 10px;
     height: 45px;
@@ -6,11 +9,12 @@
     color: white;
 }
 
-.search .icon {
+.searchField .icon {
+    font-size: 0.875rem;
     color: white;
 }
 
-.search input {
+.searchField input {
     height: 100%;
     outline: none;
     border: none;
@@ -18,7 +22,7 @@
     color: rgba(191, 191, 191, 0.896);
 }
 
-.search input::placeholder {
-    font-size: 0.8125rem; /* 13px */
+.searchField input::placeholder {
+    font-size: 0.8125rem; 
     color: rgba(191, 191, 191, 0.896);
 }

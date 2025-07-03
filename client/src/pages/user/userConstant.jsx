@@ -7,22 +7,34 @@ export const tchatSuggestions = [
     {
         title: 'Carrière',
         query: 'Donne-moi des conseiles sur la mannière de trouver un mentor.',
-        icon: <LuBriefcaseBusiness />
+        icon: {
+            color: 'blue',
+            element: <LuBriefcaseBusiness/>
+        }
     },
     {
         title: 'Brainstorming',
         query: `Comment décorer un bureau pour qu'il ait l'air plus confortable tout en restant professionnel ?`,
-        icon: <FaLightbulb/>
+        icon: {
+            color: 'purple',
+            element: <FaLightbulb/>
+        }
     },
     {
         title: 'Code',
         query: `Comment parcourir une liste d'éléments en boucle en Python ?`,
-        icon: <FaCode />
+        icon: {
+            color: 'red',
+            element: <FaCode/>
+        }
     },
     {
         title: 'Apprentissage',
         query: `Décris les facteurs qui ont provoqué la chute de l'Empire romain.`,
-        icon: <BiSolidBookReader />
+        icon: {
+            color: 'pink',
+            element: <BiSolidBookReader/>
+        }
     },
 
 ]

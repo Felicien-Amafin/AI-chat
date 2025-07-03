@@ -30,17 +30,17 @@
     font-size: 1rem; /* 16px */
     color: white;
 }
-
-.user i {
-    font-size: 0.875rem;
-}
-
 .sideBarContent .newTchat {
     display: flex;
     align-items: center;
     gap: 10px;
     color: whitesmoke;
 }
+
+.user i {
+    font-size: 0.875rem;
+}
+
 .newTchat .link {
     font-size: 0.8125rem; /* 13px */
     font-weight: 400;

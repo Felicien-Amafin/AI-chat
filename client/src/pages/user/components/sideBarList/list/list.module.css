@@ -22,34 +22,34 @@
   border-radius: 10px;               
 }
 .list::-webkit-scrollbar-track {
-    border-radius: 20px; 
-    margin-top: 10px;
-    border: 1px solid rgba(128, 128, 128, 0.783);
+  border-radius: 20px; 
+  margin-top: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.783);
 }
 
 .list::-webkit-scrollbar-thumb {
-    border-radius: 20px;
-    background: lightgray;
+  border-radius: 20px;
+  background: lightgray;
 }
 
 .list .categorie {
-    width: 100%;
-    list-style: none;
+  width: 100%;
+  list-style: none;
 }
 
 .categorie button {
-    height: 100%;
-    width: 100%;
-    padding: 12px;
-    font-size: 0.8125rem;
-    line-height: 18px;
-    color: rgb(198, 197, 197);
-    background-color: transparent;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
+  height: 100%;
+  width: 100%;
+  padding: 12px;
+  font-size: 0.8125rem;
+  line-height: 18px;
+  color: rgb(198, 197, 197);
+  background-color: transparent;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
 }
 
 .categorie button:hover {
-    background-color: rgba(245, 245, 245, 0.09);
+  background-color: rgba(245, 245, 245, 0.09);
 }

@@ -7,7 +7,7 @@ const categories = [
     'Cinéma', 
 ];
 
-const List = ({onSelect, btnStyle}) => {
+const List = ({onSelect}) => {
     const isSearchResult = true;
 
     return (

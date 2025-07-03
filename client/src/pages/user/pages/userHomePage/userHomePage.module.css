@@ -1,58 +1,62 @@
-.intro {
-    gap: 50px;
-    height: 100%;
-    width: 100%;
-    overflow-y: auto;
+.container {
+  max-width: 950px;
+  height: 500px;
+  margin: auto;
+  padding: 50px 70px;
+  border-radius: 20px;
+  background-color: var(--container);
+  animation: container 0.8s
 }
-.intro::-webkit-scrollbar {
-  width: 3px;               
-}
-.intro::-webkit-scrollbar-corner  {
-  border-radius: 10px;               
+@keyframes container {
+  0% {
+    transform: translateY(30px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }
 
-.intro::-webkit-scrollbar-track {
-    border-radius: 20px; 
-    border: 1px solid rgba(128, 128, 128, 0.783);
-}
-
-.intro::-webkit-scrollbar-thumb {
-    border-radius: 20px;
-    background: var(--gradient);     
+.container .intro {
+  height: 100%;
+  width: 100%;
+  gap: 50px;
+  padding-right: 20px;
 }
 
 .intro h1 {
-    max-width: 550px;
-    font-size: 1.375rem; /* 22px */
-    line-height: 36px;
-    color: white;
+  max-width: 550px;
+  font-size: 1.375rem; /* 22px */
+  line-height: 36px;
+  color: white;
 }
 
 .intro h2 {
-    margin-bottom: 30px;
-    font-size: 1rem; 
-    color: white;
+  margin-bottom: 30px;
+  font-size: 1rem; 
+  color: white;
 }
 
 .suggestions .widgetRow {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .newTchat .btnPlusP {
-    display: flex;
-    gap: 50px;
+  display: flex;
+  gap: 50px;
 }
 
 .newTchat p {
-    max-width: 350px;
-    color: white;
-    font-size: 0.875rem;
-    line-height: 22px;
+  max-width: 350px;
+  color: white;
+  font-size: 0.875rem;
+  line-height: 22px;
 }
 
 .newTchat .link {
-    text-decoration: none;
+  text-decoration: none;
 }
 

@@ -1,5 +1,4 @@
 import PageContainer from "../../layout/pageContainer/PageContainer";
-import ContentContainer from "../../layout/contentContainer/ContentContainer";
 import TchatSuggestion from "../../components/tchatSuggestion/TchatSuggestion";
 import SideBar from "../../layout/sidebar/SideBar";
 import MainPart from "../../layout/mainPart/MainPart";
@@ -7,16 +6,17 @@ import Widget from "../../components/widget/Widget";
 import { Link } from "react-router-dom";
 import { tchatSuggestions } from "../../userConstant";
 import style from "./userHomePage.module.css";
+import CategoriesList from "../../components/sideBarList/categorieList/CategoriesList";
 
 const UserHomePage = () => {
   const username = 'Félicien';
   
   return (
     <PageContainer>
-      <SideBar/>
+      <SideBar><CategoriesList/></SideBar>
       <MainPart>
-        <ContentContainer>
-          <div className={`${style.intro} flex-column`}>
+        <div className={style.container}>
+          <div className={`${style.intro} content flex-column`}>
             <h1>Bonjour {username}, commençons une nouvelle discussion ensemble !</h1>
             <div className={style.suggestions}>
               <h2>Voici quelques suggestions:</h2>
@@ -34,7 +34,7 @@ const UserHomePage = () => {
               </div>
             </div>
           </div>
-        </ContentContainer>
+        </div>
       </MainPart>
     </PageContainer>
   )

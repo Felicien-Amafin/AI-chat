@@ -16,7 +16,7 @@
   --darkBlue: rgb(18, 18, 69);
   --whiteSmoke: rgb(248, 247, 247);
   --whiteSmokeHover: rgba(255, 255, 255, 0.907);
-
+  --container: rgba(63, 93, 154, 0.097);
   /* z-index */
   --zIndexMin: 1000;
   --zIndexMax: 5000;
@@ -93,7 +93,24 @@ body {
   background-color: var(--whiteSmokeHover);
 }
 
-/* Form style */
+.content {
+  overflow-y: auto;
+}
+.content::-webkit-scrollbar {
+  width: 3px;               
+}
+.content::-webkit-scrollbar-corner  {
+  border-radius: 10px;               
+}
+.content::-webkit-scrollbar-track {
+  border-radius: 20px; 
+  border: 1px solid rgba(128, 128, 128, 0.783);
+}
+.content::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: var(--gradient);     
+}
+
 .error {
   font-size: 0.75rem;
   color: rgb(255, 170, 170);
@@ -112,6 +129,4 @@ body {
     opacity: 1;
   }
 }
-
-
 
