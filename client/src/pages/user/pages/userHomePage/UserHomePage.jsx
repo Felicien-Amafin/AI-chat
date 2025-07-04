@@ -1,19 +1,25 @@
 import PageContainer from "../../layout/pageContainer/PageContainer";
-import TchatSuggestion from "../../components/tchatSuggestion/TchatSuggestion";
+import WidgetTchatSuggestion from "../../components/widgetUi/WidgetTchatSuggestion/WidgetTchatSuggestion";
 import SideBar from "../../layout/sidebar/SideBar";
 import MainPart from "../../layout/mainPart/MainPart";
-import Widget from "../../components/widget/Widget";
+import Widget from "../../components/widgetUi/widget/Widget";
+import CategoriesList from "../../components/sideBar/listUi/categorieList/CategoriesList";
+import OptionList from "../../components/sideBar/optionUi/optionList/OptionList";
 import { Link } from "react-router-dom";
-import { tchatSuggestions } from "../../userConstant";
+import { homeSideBarOptions, tchatSuggestions } from "../../userConstant";
 import style from "./userHomePage.module.css";
-import CategoriesList from "../../components/sideBarList/categorieList/CategoriesList";
 
 const UserHomePage = () => {
   const username = 'Félicien';
   
   return (
     <PageContainer>
-      <SideBar><CategoriesList/></SideBar>
+      <SideBar>
+        <>
+          <OptionList options={homeSideBarOptions}/>
+          <CategoriesList/>
+        </>
+      </SideBar>
       <MainPart>
         <div className={style.container}>
           <div className={`${style.intro} content flex-column`}>
@@ -22,7 +28,7 @@ const UserHomePage = () => {
               <h2>Voici quelques suggestions:</h2>
               <div className={style.widgetRow}>
                 {tchatSuggestions.map((suggestion)=> <Widget key={suggestion.title}>
-                  <TchatSuggestion suggestion={suggestion}/>
+                  <WidgetTchatSuggestion suggestion={suggestion}/>
                 </Widget>)}
               </div>
             </div>

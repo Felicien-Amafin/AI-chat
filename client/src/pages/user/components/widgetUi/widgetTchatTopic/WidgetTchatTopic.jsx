@@ -1,9 +1,9 @@
 import { IoMdChatboxes } from "react-icons/io";
 import { FaRegTrashCan } from "react-icons/fa6";
-import Icon from "../icon/Icon";
-import style from './tchatTopic.module.css';
+import WidgetIcon from "../widgetIcon/WidgetIcon";
+import style from './widgetTchatTopic.module.css';
 
-const TchatTopic = () => {
+const WidgetTchatTopic = () => {
   return (
     <div className={style.tchatTopic}>
       <div className={style.text}>
@@ -11,11 +11,11 @@ const TchatTopic = () => {
         <p>Le conflit Israélo-palestinien depuis 1946</p>
       </div>
       <div className={`${style.icons} flex-column`}>
-        <Icon color='transRed'><IoMdChatboxes/></Icon>
-        <Icon color='delete'><FaRegTrashCan/></Icon>
+        <WidgetIcon color='transRed'><IoMdChatboxes/></WidgetIcon>
+        <WidgetIcon color='delete'><FaRegTrashCan/></WidgetIcon>
       </div>
     </div>
   )
 }
 
-export default TchatTopic;
+export default WidgetTchatTopic;

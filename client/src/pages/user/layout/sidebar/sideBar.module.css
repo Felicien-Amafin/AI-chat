@@ -22,6 +22,7 @@
     height: 70%;
     
 }
+
 .sideBarContent .user {
     display: flex;
     align-items: center;
@@ -30,26 +31,11 @@
     font-size: 1rem; /* 16px */
     color: white;
 }
-.sideBarContent .newTchat {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: whitesmoke;
-}
 
 .user i {
     font-size: 0.875rem;
 }
 
-.newTchat .link {
-    font-size: 0.8125rem; /* 13px */
-    font-weight: 400;
-    text-decoration: none;
-    color: whitesmoke;
-}
-.newTchat .link:hover {
-    color: rgba(245, 245, 245, 0.815);
-}
-.newTchat i {
-    font-size: 0.75rem;
-}
+
+
+

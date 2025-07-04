@@ -1,24 +1,31 @@
 import PageContainer from '../../layout/pageContainer/PageContainer';
 import SideBar from '../../layout/sidebar/SideBar';
 import MainPart from '../../layout/mainPart/MainPart';
-import Widget from '../../components/widget/Widget';
+import Widget from '../../components/widgetUi/widget/Widget';
 import { FaRegTrashAlt } from "react-icons/fa";
-import TchatTopic from '../../components/tchatTopic/TchatTopic';
 import SearchField from '../../components/SearchField';
+import CategoriesList from '../../components/sideBar/listUi/categorieList/CategoriesList';
+import WidgetTchatTopic from '../../components/widgetUi/widgetTchatTopic/WidgetTchatTopic';
+import OptionList from '../../components/sideBar/optionUi/optionList/OptionList';
+import { genericSideBarOptions } from '../../userConstant';
 import style from './categoriePage.module.css';
-import CategoriesList from '../../components/sideBarList/categorieList/CategoriesList';
 
 const CategoriePage = () => {
   
   return (
     <PageContainer>
-      <SideBar><CategoriesList/></SideBar>
+      <SideBar>
+        <>
+          <OptionList options={genericSideBarOptions}/>
+          <CategoriesList/>
+        </>
+      </SideBar>
       <MainPart>
         <div className={style.container}>
           <div className={`${style.elements} flex-column`}>
             <div className={style.header}>
               <div className={style.categorie}>
-                <p>Catgégorie/ Histoire de l'art</p>
+                <p>Catgégorie/ Histoire</p>
               </div>
               <SearchField 
                 style={style}
@@ -34,14 +41,7 @@ const CategoriePage = () => {
             </div>
             <div className={`${style.tchatsContainer} content`}>
               <div className={style.tchats}>
-                <Widget>
-                  <TchatTopic/>
-                </Widget>
-                
-                
-              
-                
-              
+                <Widget><WidgetTchatTopic/></Widget>
               </div>
             </div>
           </div>

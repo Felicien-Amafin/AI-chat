@@ -1,0 +1,20 @@
+.option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: whitesmoke;
+}
+
+.option i {
+    font-size: 0.75rem;
+}
+.option .link {
+    font-size: 0.8125rem; /* 13px */
+    font-weight: 400;
+    text-decoration: none;
+    color: whitesmoke;
+}
+.option .link:hover {
+    color: rgba(245, 245, 245, 0.815);
+}
+

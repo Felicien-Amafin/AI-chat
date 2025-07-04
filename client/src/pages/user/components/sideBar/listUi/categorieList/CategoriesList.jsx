@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { TbCategory } from "react-icons/tb";
 import List from '../list/List';
 import ListContainer from '../ListContainer/ListContainer';
-import SearchField from '../../SearchField';
+import SearchField from '../../../SearchField';
 import ListTitle from "../listTitle/ListTitle";
 import ListDefaultMess from '../listDefaultMess/ListDefaultMess';
 import ListLoader from '../listLoader/ListLoader';

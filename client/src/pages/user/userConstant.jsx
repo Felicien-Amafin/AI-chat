@@ -2,6 +2,8 @@ import { LuBriefcaseBusiness } from "react-icons/lu";
 import { FaLightbulb } from "react-icons/fa6";
 import { FaCode } from "react-icons/fa";
 import { BiSolidBookReader } from "react-icons/bi";
+import { BsChatRightText } from "react-icons/bs";
+import { GrHome } from "react-icons/gr";
 
 export const tchatSuggestions = [
     {
@@ -39,3 +41,24 @@ export const tchatSuggestions = [
 
 ]
 
+/* Side bar options */
+export const homeSideBarOptions = [
+    {
+        path: '/user/new-tchat',
+        text: 'Nouveau tchat',
+        icon: <BsChatRightText/>
+    }
+]
+
+export const genericSideBarOptions = [
+    {
+        path: '/user',
+        text: 'Accueil',
+        icon: <GrHome/>
+    },
+    {
+        path: '/user/new-tchat',
+        text: 'Nouveau tchat',
+        icon: <BsChatRightText/>
+    }
+]
