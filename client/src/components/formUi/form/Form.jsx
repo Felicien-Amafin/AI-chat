@@ -19,13 +19,14 @@ const Form = ({children, onSubmit, form, reqResult}) => {
         {form.inputs.map((input)=> <FormInput
           key={input.name} 
           input={input}
-          errors={inputErrors}
+          error={inputErrors}
           value={formData[input.name] || ''}
           required={input.is_requied}
           onInputChange={handleChange}
         />)}
       </div>
       <FormBtn 
+        style='button wideBtn whiteBtn'
         text={form.btn_text}
         isPending={reqResult?.isPending}
       />

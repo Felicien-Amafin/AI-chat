@@ -16,7 +16,7 @@
   min-height: 45px;
   padding: 0 10px;
   border-radius: 10px;
-  border: 1px solid rgba(245, 245, 245, 0.543);
+  border: 1px solid var(--border);
 }
 
 .inputField input {
@@ -36,7 +36,7 @@
 }
 .inputField input::placeholder {
   font-size: 0.75rem;
-  color: rgba(245, 245, 245, 0.405);
+  color: rgba(245, 245, 245, 0.511);
 }
 .inputField .icon {
   color: whitesmoke;

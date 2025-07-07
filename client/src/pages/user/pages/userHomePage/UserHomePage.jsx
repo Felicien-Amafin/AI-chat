@@ -1,12 +1,12 @@
 import PageContainer from "../../layout/pageContainer/PageContainer";
 import WidgetTchatSuggestion from "../../components/widgetUi/WidgetTchatSuggestion/WidgetTchatSuggestion";
-import SideBar from "../../layout/sidebar/SideBar";
+import NavBar from "../../layout/navBar/NavBar";
 import MainPart from "../../layout/mainPart/MainPart";
 import Widget from "../../components/widgetUi/widget/Widget";
-import CategoriesList from "../../components/sideBar/listUi/categorieList/CategoriesList";
-import OptionList from "../../components/sideBar/optionUi/optionList/OptionList";
+import NavBarLinkList from "../../components/navBarUi/navBarLinkList/NavBarLinkList";
+import CategorieLiveSearch from "../../components/navBarUi/navBarLiveSearch/CategorieLiveSearch";
 import { Link } from "react-router-dom";
-import { homeSideBarOptions, tchatSuggestions } from "../../userConstant";
+import { homeLinks, tchatSuggestions } from "../../userConstant";
 import style from "./userHomePage.module.css";
 
 const UserHomePage = () => {
@@ -14,12 +14,12 @@ const UserHomePage = () => {
   
   return (
     <PageContainer>
-      <SideBar>
+      <NavBar>
         <>
-          <OptionList options={homeSideBarOptions}/>
-          <CategoriesList/>
+          <NavBarLinkList links={homeLinks}/>
+          <CategorieLiveSearch/>
         </>
-      </SideBar>
+      </NavBar>
       <MainPart>
         <div className={style.container}>
           <div className={`${style.intro} content flex-column`}>

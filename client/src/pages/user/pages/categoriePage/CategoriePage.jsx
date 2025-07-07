@@ -1,25 +1,25 @@
 import PageContainer from '../../layout/pageContainer/PageContainer';
-import SideBar from '../../layout/sidebar/SideBar';
+import NavBar from '../../layout/navBar/NavBar';
 import MainPart from '../../layout/mainPart/MainPart';
 import Widget from '../../components/widgetUi/widget/Widget';
 import { FaRegTrashAlt } from "react-icons/fa";
 import SearchField from '../../components/SearchField';
-import CategoriesList from '../../components/sideBar/listUi/categorieList/CategoriesList';
+import NavBarLinkList from '../../components/navBarUi/navBarLinkList/NavBarLinkList';
+import CategorieLiveSearch from '../../components/navBarUi/navBarLiveSearch/CategorieLiveSearch';
 import WidgetTchatTopic from '../../components/widgetUi/widgetTchatTopic/WidgetTchatTopic';
-import OptionList from '../../components/sideBar/optionUi/optionList/OptionList';
-import { genericSideBarOptions } from '../../userConstant';
+import { genericLinks } from '../../userConstant';
 import style from './categoriePage.module.css';
 
 const CategoriePage = () => {
   
   return (
     <PageContainer>
-      <SideBar>
+      <NavBar>
         <>
-          <OptionList options={genericSideBarOptions}/>
-          <CategoriesList/>
+          <NavBarLinkList links={genericLinks}/>
+          <CategorieLiveSearch/>
         </>
-      </SideBar>
+      </NavBar>
       <MainPart>
         <div className={style.container}>
           <div className={`${style.elements} flex-column`}>
@@ -41,6 +41,17 @@ const CategoriePage = () => {
             </div>
             <div className={`${style.tchatsContainer} content`}>
               <div className={style.tchats}>
+                <Widget><WidgetTchatTopic/></Widget>
+                <Widget><WidgetTchatTopic/></Widget>
+                <Widget><WidgetTchatTopic/></Widget>
+                <Widget><WidgetTchatTopic/></Widget>
+                <Widget><WidgetTchatTopic/></Widget>
+                <Widget><WidgetTchatTopic/></Widget>
+                <Widget><WidgetTchatTopic/></Widget>
+                <Widget><WidgetTchatTopic/></Widget>
+                <Widget><WidgetTchatTopic/></Widget>
+                <Widget><WidgetTchatTopic/></Widget>
+                <Widget><WidgetTchatTopic/></Widget>
                 <Widget><WidgetTchatTopic/></Widget>
               </div>
             </div>

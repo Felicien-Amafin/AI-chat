@@ -12,6 +12,6 @@
 }
 
 .widget:hover {
-    box-shadow: rgba(234, 234, 234, 0.35) 0px 5px 15px;
+    box-shadow: var(--boxShadow);
 }
 

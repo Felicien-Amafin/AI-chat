@@ -3,12 +3,12 @@ import { IoEye } from "react-icons/io5";
 import { IoMdEyeOff } from "react-icons/io";
 import style from './formInput.module.css';
 
-const FormInput = ({ input, errors, value, required, onInputChange }) => {
+const FormInput = ({ input, error, value, required, onInputChange }) => {
   const [isPwrdVisible, setIsPwrdVisible] = useState(false);
   
   const isPassword = input.type === 'password';
   const passwdInputType = isPwrdVisible ? 'text' : 'password';
-  const isError = errors && errors[input?.name] ? true : null;
+  const isError = error && error[input?.name] ? true : null;
 
   const handleInputChange = (e)=> {
     onInputChange ? onInputChange(e) : null;
@@ -34,7 +34,7 @@ const FormInput = ({ input, errors, value, required, onInputChange }) => {
           </span>}
       </div>
       {isError && <p className={`${style.error} error messAnim`}>
-        {errors[input?.name]}
+        {error[input?.name]}
       </p>}
     </div>
   )

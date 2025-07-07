@@ -12,7 +12,6 @@
     text-decoration: none;
 }
 .landingPage .connexion:hover {
-    padding: 12px 20px;
     background-color: var(--whiteSmokeHover);
 }
 .landingPage .pageContainer {

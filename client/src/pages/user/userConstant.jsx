@@ -42,7 +42,7 @@ export const tchatSuggestions = [
 ]
 
 /* Side bar options */
-export const homeSideBarOptions = [
+export const homeLinks = [
     {
         path: '/user/new-tchat',
         text: 'Nouveau tchat',
@@ -50,7 +50,7 @@ export const homeSideBarOptions = [
     }
 ]
 
-export const genericSideBarOptions = [
+export const genericLinks = [
     {
         path: '/user',
         text: 'Accueil',
@@ -61,4 +61,22 @@ export const genericSideBarOptions = [
         text: 'Nouveau tchat',
         icon: <BsChatRightText/>
     }
-]
+];
+
+export const formNewTchat = {
+    title: {
+        label: 'Titre du tchat', 
+        name: 'tchat-title', 
+        type: 'text', 
+        placeholder: 'Ex: les aurores boréales', 
+        is_requied: true 
+    },
+    categorie: {
+        label: 'Nom de la catégorie', 
+        name: 'tchat-categorie', 
+        type: 'text', 
+        placeholder: 'Ex: Nature', 
+        is_requied: true 
+    }
+};
+

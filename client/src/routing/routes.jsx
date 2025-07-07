@@ -4,7 +4,7 @@ import EmailVerificationPage from "../pages/auth/EmailVerificationPage";
 import PwdRecoveryPage from "../pages/auth/PwdRecoveryPage";
 import PwdResetPage from "../pages/auth/PwdResetPage";
 import UserHomePage from "../pages/user/pages/userHomePage/UserHomePage";
-import NewTchatPage from "../pages/user/pages/newTchatPage/NewTchatPage";
+import NewTchatPage from "../pages/user/pages/NewTchatPage";
 import CategoriePage from "../pages/user/pages/categoriePage/CategoriePage";
 
 export const authRoutes = [

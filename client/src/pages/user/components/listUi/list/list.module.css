@@ -1,0 +1,42 @@
+.list {
+  overflow-y: auto;
+}
+
+.list::-webkit-scrollbar {
+  width: 2px;               
+}
+.list::-webkit-scrollbar-corner  {
+  border-radius: 10px;               
+}
+.list::-webkit-scrollbar-track {
+  border-radius: 20px; 
+  margin-top: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.783);
+}
+
+.list::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: lightgray;
+}
+
+.list .option {
+  width: 100%;
+  list-style: none;
+}
+
+.option .button {
+  height: 100%;
+  width: 100%;
+  padding: 12px;
+  font-size: 0.875rem;
+  line-height: 20px;
+  color: whitesmoke;
+  background-color: transparent;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.option .button:hover {
+  background-color: rgba(245, 245, 245, 0.149);
+}

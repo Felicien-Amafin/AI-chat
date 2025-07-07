@@ -1,0 +1,17 @@
+.checkBox {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  padding: 5px;
+}
+
+.checkBox [type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: rgb(110, 47, 173);
+}
+ 
+.checkBox label {
+  font-size: 0.75rem;
+}

@@ -1,0 +1,30 @@
+.btns {
+    display: flex;
+    gap: 10px;
+}
+
+.btns button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    box-shadow: none;
+}
+
+.btns .unSelected {
+    border: 1px solid var(--border);
+    background-color: transparent;
+    color: white;
+}
+
+.btns .unSelected:hover {
+    background-color: white;
+    color: var(--darkBlue);
+}
+
+.btns .selected {
+    background-color: white;
+    color: var(--darkBlue);
+}

@@ -1,0 +1,20 @@
+.linkBox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: whitesmoke;
+}
+
+.linkBox i {
+    font-size: 0.75rem;
+}
+.linkBox .link {
+    font-size: 0.875rem; 
+    font-weight: 400;
+    text-decoration: none;
+    color: whitesmoke;
+}
+.linkBox .link:hover {
+    color: rgba(245, 245, 245, 0.815);
+}
+

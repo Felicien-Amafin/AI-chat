@@ -1,6 +1,6 @@
 .pageContainer {
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 4fr;
   position: fixed;
   inset: 0 0 0 0;
   background-image: url('../../../../assets/background.jpg');

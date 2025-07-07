@@ -16,7 +16,9 @@
   --darkBlue: rgb(18, 18, 69);
   --whiteSmoke: rgb(248, 247, 247);
   --whiteSmokeHover: rgba(255, 255, 255, 0.907);
-  --container: rgba(63, 93, 154, 0.097);
+  --container: rgba(27, 54, 108, 0.181);
+  --border: rgba(211, 211, 211, 0.42);
+  --boxShadow: rgba(234, 234, 234, 0.35) 0px 5px 15px;
   /* z-index */
   --zIndexMin: 1000;
   --zIndexMax: 5000;
@@ -64,6 +66,10 @@ body {
   cursor: pointer;
   font-weight: 500;
   border: none;
+}
+
+.btnWide { 
+  width: 100%;
 }
 
 .gradient {
