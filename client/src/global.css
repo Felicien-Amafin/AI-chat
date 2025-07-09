@@ -16,7 +16,7 @@
   --darkBlue: rgb(18, 18, 69);
   --whiteSmoke: rgb(248, 247, 247);
   --whiteSmokeHover: rgba(255, 255, 255, 0.907);
-  --container: rgba(27, 54, 108, 0.181);
+  --container: rgba(31, 55, 108, 0.166);
   --border: rgba(211, 211, 211, 0.42);
   --boxShadow: rgba(234, 234, 234, 0.35) 0px 5px 15px;
   /* z-index */
@@ -99,22 +99,40 @@ body {
   background-color: var(--whiteSmokeHover);
 }
 
-.content {
+.gradientScroll {
   overflow-y: auto;
 }
-.content::-webkit-scrollbar {
+.gradientScroll::-webkit-scrollbar {
   width: 3px;               
 }
-.content::-webkit-scrollbar-corner  {
+.gradientScroll::-webkit-scrollbar-corner  {
   border-radius: 10px;               
 }
-.content::-webkit-scrollbar-track {
+.gradientScroll::-webkit-scrollbar-track {
   border-radius: 20px; 
   border: 1px solid rgba(128, 128, 128, 0.783);
 }
-.content::-webkit-scrollbar-thumb {
+.gradientScroll::-webkit-scrollbar-thumb {
   border-radius: 20px;
   background: var(--gradient);     
+}
+
+.greyScroll {
+  overflow-Y: auto;
+}
+.greyScroll::-webkit-scrollbar {
+  width: 5px;               
+}
+.greyScroll::-webkit-scrollbar-corner  {
+  border-radius: 15px;               
+}
+.greyScroll::-webkit-scrollbar-track {
+  border-radius: 20px; 
+  border: 1px solid rgba(128, 128, 128, 0.783);
+}
+.greyScroll::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: grey;     
 }
 
 .error {
@@ -122,6 +140,7 @@ body {
   color: rgb(255, 170, 170);
 }
 
+/* Animations */
 .messAnim {
   animation: message 0.5s;
 }
@@ -135,4 +154,20 @@ body {
     opacity: 1;
   }
 }
+
+.containerAnim {
+  animation: container 0.6s;
+}
+@keyframes container {
+  0% {
+    transform: translateY(15px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+
 

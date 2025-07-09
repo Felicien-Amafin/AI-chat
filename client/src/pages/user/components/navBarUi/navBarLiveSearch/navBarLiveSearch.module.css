@@ -12,8 +12,6 @@
     width: 100%;
     gap: 10px;
     height: 45px;
-    margin-left: 15px;
-    padding: 5px;
     color: white;
 }
 
@@ -26,12 +24,12 @@
     height: 100%;
     outline: none;
     border: none;
+    font-size: 0.875rem;
     background-color: transparent;
-    color: rgba(191, 191, 191, 0.896);
+    color: white;
 }
 
 .searchField input::placeholder {
-    font-size: 0.875rem; 
     color: rgba(191, 191, 191, 0.896);
 }
 

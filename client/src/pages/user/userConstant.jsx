@@ -5,6 +5,7 @@ import { BiSolidBookReader } from "react-icons/bi";
 import { BsChatRightText } from "react-icons/bs";
 import { GrHome } from "react-icons/gr";
 
+/* User home page */
 export const tchatSuggestions = [
     {
         title: 'Carrière',
@@ -63,6 +64,15 @@ export const genericLinks = [
     }
 ];
 
+export const newTchatLinks = [
+    {
+        path: '/user',
+        text: 'Accueil',
+        icon: <GrHome/>
+    },
+]
+
+/* New tchat page */
 export const formNewTchat = {
     title: {
         label: 'Titre du tchat', 

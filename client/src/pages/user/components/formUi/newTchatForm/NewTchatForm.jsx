@@ -17,8 +17,8 @@ const categories = [
 
 const NewTchatForm = () => {
   return (
-    <div className={`${style.formContainer} flex-column`}>
-        <form className={`${style.form} content flex-column`}>
+    <div className={`${style.formContainer} containerAnim flex-column`}>
+        <form className={`${style.form} gradientScroll flex-column`}>
             <h2>Bienvenue dans le gestionnaire de tchat.</h2>
             <div className={`${style.tchatTitle} flex-column`}>
                 <p>Choisissez un titre pour ce tchat:</p>

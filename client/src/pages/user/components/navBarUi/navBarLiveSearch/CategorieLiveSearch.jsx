@@ -23,7 +23,7 @@ const CategorieLiveSearch= () => {
     const isLoading = false;
     const isError = false;
     const defaultMess = `Vous n'avez pas encore de catégories. Commencez à tchater afin de créer des catégories.`
-    const errorMess = `La liste des catégories est indisponible pour le momment. Réessayez plus tard.`
+    const errorMess = `La liste de vos catégories est indisponible pour le momment. Réessayez plus tard.`
     
     const navigate = useNavigate();
 
@@ -33,13 +33,13 @@ const CategorieLiveSearch= () => {
 
     return (
         <ListContainer style={style.listContainer}>
-            <SearchField 
+            {list && <SearchField 
                 style={style}
                 type='text'
                 value=''
                 placeholder='Rechercher une catégorie'
                 onInputChange={null}
-            />
+            />}
             {list && <ListTitle title='Mes catégories'/>}
             {list && <List onSelect={handleNavigation} list={categories} styling={style.navBarlist}/>}
             {(!list && !isLoading && !isError) && 

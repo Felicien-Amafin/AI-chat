@@ -21,7 +21,7 @@ const CategoriePage = () => {
         </>
       </NavBar>
       <MainPart>
-        <div className={style.container}>
+        <div className={`${style.container} containerAnim`}>
           <div className={`${style.elements} flex-column`}>
             <div className={style.header}>
               <div className={style.categorie}>
@@ -42,6 +42,7 @@ const CategoriePage = () => {
             <div className={`${style.tchatsContainer} content`}>
               <div className={style.tchats}>
                 <Widget><WidgetTchatTopic/></Widget>
+               {/*  <Widget><WidgetTchatTopic/></Widget>
                 <Widget><WidgetTchatTopic/></Widget>
                 <Widget><WidgetTchatTopic/></Widget>
                 <Widget><WidgetTchatTopic/></Widget>
@@ -51,8 +52,7 @@ const CategoriePage = () => {
                 <Widget><WidgetTchatTopic/></Widget>
                 <Widget><WidgetTchatTopic/></Widget>
                 <Widget><WidgetTchatTopic/></Widget>
-                <Widget><WidgetTchatTopic/></Widget>
-                <Widget><WidgetTchatTopic/></Widget>
+                <Widget><WidgetTchatTopic/></Widget> */}
               </div>
             </div>
           </div>

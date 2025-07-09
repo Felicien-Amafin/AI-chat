@@ -3,7 +3,7 @@ import style from './navBar.module.css';
 
 const NavBar = ({children}) => {
   return (
-    <nav className={`${style.navBar} flex-column`}>
+    <nav className={`${style.navBar} greyScroll flex-column`}>
       <div className={`${style.navBarContent} flex-column`}>
         <div className={style.user}>
           <i><FaUser/></i>

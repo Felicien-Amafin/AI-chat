@@ -2,11 +2,11 @@
   justify-content: center;
   height: 100vh;
   background: linear-gradient(322deg,rgba(2, 20, 79, 0.206) 33%, rgba(252, 70, 106, 0.429) 100%);
-  animation: navBar 0.8s;
+  animation: navBar 0.6s;
 }
 @keyframes navBar {
   0% {
-    transform: translateX(-70px);
+    transform: translateX(-15px);
     opacity: 0.5;
   }
   100% {
@@ -19,7 +19,7 @@
   align-items: center;
   gap: 40px;
   width: 100%;
-  height: 70%;
+  height: 80%;
 }
 
 .navBarContent .user {

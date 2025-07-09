@@ -28,7 +28,8 @@
   height: 100%;
   width: 100%;
   padding: 12px;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
+  font-family: var(--confortaa);
   line-height: 20px;
   color: whitesmoke;
   background-color: transparent;
