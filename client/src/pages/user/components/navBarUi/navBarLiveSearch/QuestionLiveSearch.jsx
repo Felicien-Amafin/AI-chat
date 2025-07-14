@@ -30,7 +30,7 @@ const QuestionLiveSearch = () => {
                 placeholder='Rechercher une questions'
                 onInputChange={null}
             />}
-            {list && <ListTitle title='Mes questions'/>}
+            {list && <ListTitle title='Ici le titre du sujet...'/>}
             {list && <List onSelect={null} list={questions} styling={style.navBarlist}/>}
             {(!list && !isLoading && !isError) && 
                 <ListDefaultMess defaultMess={defaultMess}> 

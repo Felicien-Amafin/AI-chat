@@ -66,6 +66,7 @@ body {
   cursor: pointer;
   font-weight: 500;
   border: none;
+  text-align: center;
 }
 
 .btnWide { 

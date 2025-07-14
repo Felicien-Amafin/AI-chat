@@ -7,16 +7,15 @@ import SearchField from '../../components/SearchField';
 import NavBarLinkList from '../../components/navBarUi/navBarLinkList/NavBarLinkList';
 import CategorieLiveSearch from '../../components/navBarUi/navBarLiveSearch/CategorieLiveSearch';
 import WidgetTchatTopic from '../../components/widgetUi/widgetTchatTopic/WidgetTchatTopic';
-import { genericLinks } from '../../userConstant';
+import { allSideBarLinks } from '../../constant/SideBarLinks';
 import style from './categoriePage.module.css';
 
 const CategoriePage = () => {
-  
   return (
     <PageContainer>
       <NavBar>
         <>
-          <NavBarLinkList links={genericLinks}/>
+          <NavBarLinkList links={allSideBarLinks}/>
           <CategorieLiveSearch/>
         </>
       </NavBar>

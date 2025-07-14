@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import otpGenerator from 'otp-generator';
 import crypto from "crypto";
 import User from "../models/user.model.js";
-import { getSignupErrors, getSigninErrors, encryptPassword, generateAccessToken, generateRefreshToken } from "../utils/auth.js";
+import { getSignupErrors, getSigninErrors, generateToken, encryptCred } from "../utils/auth.js";
 import { CustomError } from "../utils/class.js";
 import { sendVerificationEmail, sendPwdResetLink } from "../nodemailer/emails.js";
 import { tryCatch } from "../utils/tryCatch.js";
@@ -24,7 +24,7 @@ export const signup = tryCatch(async (req, res) => {
         throw new CustomError(errorMess, 400, { email: 'Adresse email déjà utilisée'});
     }
     
-    const hashedPsswd = await encryptPassword(password);
+    const hashedPsswd = await encryptCred(password);
     
     const emailVerifCode = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
 
@@ -73,8 +73,13 @@ export const signin = tryCatch(async (req, res) => {
         throw new CustomError(`Vous devez valider votre adresse email avant de vous connecter. Suivez les instructions envoyées par mail.`, 401, {});
     }
 
-    const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user);
+    const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '60s');
+    const refreshToken = generateToken(user._id, process.env.REFRESH_TOKEN_SECRET, '1d');
+
+    //Encrypting refresh token before saving in db
+    const hashedToken = await encryptCred(refreshToken);
+    user.refreshToken = hashedToken;
+    user.save();
 
     //set refreshToken in cookie
     res.cookie('jwt', refreshToken, {

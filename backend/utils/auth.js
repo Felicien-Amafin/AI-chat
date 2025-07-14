@@ -45,26 +45,18 @@ export const getSignupErrors = (username, email, password)=> {
     return isErrors ? errors : null;
 }
 
-export const encryptPassword = async (password)=> {
+export const encryptCred = async (cred)=> {
     //Encrypt password
     const salt = await bcrypt.genSalt(10);
-    const hashedPsswd = await bcrypt.hash(password, salt);
+    const hashedCred = await bcrypt.hash(cred, salt);
    
-    return hashedPsswd;
+    return hashedCred;
 }
 
-export const generateAccessToken = (user)=> {
+export const generateToken = (userId, tokenKey, expiresIn)=> {
     return jwt.sign(
-        { 'userId': user._id},
-        process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '60s' }
+        { 'userId': userId},
+        tokenKey,
+        { expiresIn: expiresIn }
     )
-}
-
-export const generateRefreshToken = (user)=> {
-    return jwt.sign(
-        { 'userId': user._id},
-        process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: '10d' }
-    );
-}
+};

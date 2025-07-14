@@ -17,6 +17,7 @@
     border: 1px solid var(--border);
     background-color: transparent;
     color: white;
+    transition: 0.2s;
 }
 
 .btns .unSelected:hover {

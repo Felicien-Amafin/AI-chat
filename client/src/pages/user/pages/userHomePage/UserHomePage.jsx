@@ -6,7 +6,8 @@ import Widget from "../../components/widgetUi/widget/Widget";
 import NavBarLinkList from "../../components/navBarUi/navBarLinkList/NavBarLinkList";
 import CategorieLiveSearch from "../../components/navBarUi/navBarLiveSearch/CategorieLiveSearch";
 import { Link } from "react-router-dom";
-import { homeLinks, tchatSuggestions } from "../../userConstant";
+import { tchatSuggestions } from "../../constant/homeWidgets";
+import { homeSideBarLinks } from "../../constant/SideBarLinks";
 import style from "./userHomePage.module.css";
 
 const UserHomePage = () => {
@@ -16,7 +17,7 @@ const UserHomePage = () => {
     <PageContainer>
       <NavBar>
         <>
-          <NavBarLinkList links={homeLinks}/>
+          <NavBarLinkList links={homeSideBarLinks}/>
           <CategorieLiveSearch/>
         </>
       </NavBar>
@@ -36,7 +37,7 @@ const UserHomePage = () => {
               <h2>Vous avez déjà une idée ?</h2>
               <div className={style.btnPlusP}>
                 <p>Commencez à tchater en lançant une nouvelle discussion.</p>
-                <Link to='/user/new-tchat' className={`${style.link} gradient button`}>Nouvelle discussion</Link>
+                <Link to='/user/tchat-form' className={`${style.link} gradient button`}>Nouvelle discussion</Link>
               </div>
             </div>
           </div>

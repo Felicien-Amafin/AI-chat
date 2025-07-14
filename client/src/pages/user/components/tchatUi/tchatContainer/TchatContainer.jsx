@@ -5,8 +5,8 @@ import style from './tchatContainer.module.css';
 const TchatContainer = () => {
   return (
     <div className={`${style.tchatContainer} containerAnim flex-column`}>
-        <Tchat/>
-        <TchatPrompt/>
+      <Tchat/>
+      <TchatPrompt/>
     </div>
   )
 }

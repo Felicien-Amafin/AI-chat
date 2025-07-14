@@ -6,7 +6,14 @@
     background-color: var(--container);
 }
 
-.tchat {
+.box h2 {
+    padding-bottom: 15px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: white;
+}
+
+.box .tchat {
     width: 100%;
     height: 100%;
     padding-right: 20px;
