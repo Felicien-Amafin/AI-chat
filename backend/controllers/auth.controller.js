@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import otpGenerator from 'otp-generator';
 import crypto from "crypto";
 import User from "../models/user.model.js";
@@ -78,7 +79,7 @@ export const signin = tryCatch(async (req, res) => {
 
     //set refreshToken in cookie
     res.cookie('jwt', refreshToken, {
-        maxAge: 10 * 24 * 60 * 60 * 1000,
+        maxAge: 1 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         sameSite: 'None',
         secure: false,
@@ -196,4 +197,35 @@ export const resetPwd = tryCatch(async (req, res) => {
     await user.save();
 
     return res.status(200).json({ message: 'Votre mot de passe a bien été modifié. Vous pouvez maintenant vous connecter' });
+});
+
+export const sendsNewAccessTk = tryCatch(async( req, res, next) => {
+    const refreshToken = req.cookies?.jwt;
+
+    if(!refreshToken) {
+        const error = new CustomError('Unauthorized', 401, {});
+        return next(error);
+    }
+
+    jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET,
+        async (err, decoded) => {
+            if(err) { 
+                const error = new CustomError('Forbidden', 403, {}); 
+                return next(error);
+            }
+            
+            //Adding additional checking (if user exists in db)
+            const user = await User.findById(decoded.userId);
+            if(!user) { 
+                const error = new CustomError('Unauthorized', 401, {});
+                return next(error);
+            };
+
+            const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '60s');
+
+            return res.status(200).json({ accessToken });
+        }
+    )
 });

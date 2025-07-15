@@ -2,12 +2,14 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 import { CustomError } from "../utils/class.js";
 import { tryCatch } from "../utils/tryCatch.js";
+import { networkInterfaces } from "os";
 
 export const verifyAccessTk = tryCatch(async (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if(!authHeader?.startsWith('Bearer ')) {
-        throw new CustomError('Unauthorized', 401, {});
+        const error = new CustomError('Unauthorized', 401, {});
+        return next(error);
     }
     //Get token from headers
     const token = authHeader.split(' ')[1];
@@ -34,3 +36,4 @@ export const verifyAccessTk = tryCatch(async (req, res, next) => {
         }
     )
 });
+
