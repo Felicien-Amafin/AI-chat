@@ -8,7 +8,9 @@ import cors from 'cors';
 import connectToDb from "./db/mongodbConnection.js";
 
 import authRoutes from "./routes/auth.routes.js";
+import categorieRoutes from "./routes/categorie.routes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { verifyAccessTk } from "./middleware/auth.js";
 
 dotenv.config();
 const app = express();
@@ -35,6 +37,7 @@ app.use(sanitize()); */
 
 //Defining API endpoints
 app.use("/api/authentication", authRoutes);
+app.use("/api/categories", verifyAccessTk, categorieRoutes);
 app.use(errorHandler);
 
 app.listen(PORT, ()=> {

@@ -22,10 +22,6 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    refreshToken: {
-        type: String,
-        default:''
-    },
     resetEmailToken: String,
     emailVerifCode: String,
 });

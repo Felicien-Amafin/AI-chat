@@ -45,12 +45,12 @@ export const getSignupErrors = (username, email, password)=> {
     return isErrors ? errors : null;
 }
 
-export const encryptCred = async (cred)=> {
+export const hashPassword = async (password)=> {
     //Encrypt password
     const salt = await bcrypt.genSalt(10);
-    const hashedCred = await bcrypt.hash(cred, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
    
-    return hashedCred;
+    return hashedPassword;
 }
 
 export const generateToken = (userId, tokenKey, expiresIn)=> {
