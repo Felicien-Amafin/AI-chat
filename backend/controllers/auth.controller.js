@@ -222,10 +222,24 @@ export const sendsNewAccessTk = tryCatch(async( req, res, next) => {
                 const error = new CustomError('Unauthorized', 401, {});
                 return next(error);
             };
-
+            //Generate accesToken and send it to client
             const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '60s');
-
             return res.status(200).json({ accessToken });
         }
     )
 });
+
+export const logout = (req, res) => {
+    const jwt = req.cookies?.jwt;
+    
+    if(!jwt) return res.sendStatus(204);
+    
+    res.clearCookie('jwt', { 
+        maxAge: '', 
+        httpOnly: true, 
+        sameSite: 'None', 
+        secure: false 
+    });
+
+    return res.status(200).json({ message: 'Cookie cleared' });
+}
