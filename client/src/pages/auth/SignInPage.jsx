@@ -5,7 +5,7 @@ import { useSignInUser } from "../../services/mutations";
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react'
 import { trimAndLowerCase } from "../../utils";
-import { signInUser } from "../../store/authSlice";
+import { setUserCred } from "../../store/authSlice";
 
 const form = {
   title: 'Connexion',
@@ -38,8 +38,9 @@ const SignInPage = () => {
 
   useEffect(()=> {
     if (data) {
+      //Store user in local storage to avoid app restart when user refreshes page
       localStorage.setItem('user', JSON.stringify(data.data.user));
-      dispatch(signInUser(data.data.user));
+      dispatch(setUserCred(data.data));
     }
   });
 
