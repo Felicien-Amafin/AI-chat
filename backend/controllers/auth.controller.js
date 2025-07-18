@@ -82,7 +82,7 @@ export const signin = tryCatch(async (req, res) => {
         maxAge: 1 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         sameSite: 'None',
-        secure: false,
+        secure: true,
     });
 
     return res.status(200).json({
@@ -201,7 +201,7 @@ export const resetPwd = tryCatch(async (req, res) => {
 
 export const sendsNewAccessTk = tryCatch(async( req, res, next) => {
     const refreshToken = req.cookies?.jwt;
-
+    
     if(!refreshToken) {
         const error = new CustomError('Unauthorized', 401, {});
         return next(error);
@@ -235,10 +235,10 @@ export const logout = (req, res) => {
     if(!jwt) return res.sendStatus(204);
     
     res.clearCookie('jwt', { 
-        maxAge: '', 
-        httpOnly: true, 
-        sameSite: 'None', 
-        secure: false 
+        maxAge: 1 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        sameSite: 'None',
+        secure: true,
     });
 
     return res.status(200).json({ message: 'Cookie cleared' });

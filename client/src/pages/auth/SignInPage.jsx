@@ -4,7 +4,6 @@ import LandingPage from "../landing/LandingPage";
 import { useSignInUser } from "../../services/mutations";
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
 import { trimAndLowerCase } from "../../utils";
 import { setUserCred } from "../../store/authSlice";
 
@@ -28,7 +27,6 @@ const link = {
 const SignInPage = () => {
   const { mutate, isPending, isError, error, data } = useSignInUser();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const reqResult = { isPending, isError, error, data };
 
   const handleSubmission = (e, formData)=> {
@@ -41,7 +39,6 @@ const SignInPage = () => {
   useEffect(()=> {
     if (data) {
       dispatch(setUserCred(data.data));
-      navigate('/user');
     }
   });
 

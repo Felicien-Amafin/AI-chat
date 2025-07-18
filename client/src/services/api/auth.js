@@ -23,3 +23,11 @@ export const sendResetEmail = async(data)=> {
 export const resetPassword = async({token, data})=> {
   return await axiosIntance.post(`api/authentication/password-reset/${token}`, data);
 }
+
+export const getNewAccessToken = async({signal})=> {
+  return await axiosIntance.get(`api/authentication/refresh-token`, signal);
+}
+
+export const logout = async()=> {
+  return await axiosIntance.post(`api/authentication/logout`);
+}
