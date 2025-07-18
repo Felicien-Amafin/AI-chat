@@ -74,7 +74,7 @@ export const signin = tryCatch(async (req, res) => {
         throw new CustomError(`Vous devez valider votre adresse email avant de vous connecter. Suivez les instructions envoyées par mail.`, 401, {});
     }
 
-    const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '60s');
+    const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '15min');
     const refreshToken = generateToken(user._id, process.env.REFRESH_TOKEN_SECRET, '1d');
 
     //set refreshToken in cookie

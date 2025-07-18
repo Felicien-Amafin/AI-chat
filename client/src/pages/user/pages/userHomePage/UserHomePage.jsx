@@ -5,14 +5,17 @@ import MainPart from "../../layout/mainPart/MainPart";
 import Widget from "../../components/widgetUi/widget/Widget";
 import NavBarLinkList from "../../components/navBarUi/navBarLinkList/NavBarLinkList";
 import CategorieLiveSearch from "../../components/navBarUi/navBarLiveSearch/CategorieLiveSearch";
+import { useSelector } from "react-redux";
+import { capitalizedFirstChar } from "../../../../utils";
 import { Link } from "react-router-dom";
 import { tchatSuggestions } from "../../constant/homeWidgets";
 import { homeSideBarLinks } from "../../constant/SideBarLinks";
 import style from "./userHomePage.module.css";
 
 const UserHomePage = () => {
-  const username = 'Félicien';
-  
+  const { user } = useSelector((state) => state.auth);
+  const userName = capitalizedFirstChar(user.username);
+
   return (
     <PageContainer>
       <NavBar>
@@ -24,7 +27,7 @@ const UserHomePage = () => {
       <MainPart>
         <div className={`${style.container} containerAnim`}>
           <div className={`${style.intro} gradientScroll flex-column`}>
-            <h1>Bonjour {username}, commençons une nouvelle discussion ensemble !</h1>
+            <h1>Bonjour {userName}, commençons une nouvelle discussion ensemble !</h1>
             <div className={style.suggestions}>
               <h2>Voici quelques suggestions:</h2>
               <div className={style.widgetRow}>

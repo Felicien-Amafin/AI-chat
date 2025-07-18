@@ -19,6 +19,7 @@ const categories = [
 ];
 
 const CategorieLiveSearch= () => {
+    /* useGetCategorieList */
     const list = true;
     const isLoading = false;
     const isError = false;

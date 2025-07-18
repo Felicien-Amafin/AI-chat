@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 import { CustomError } from "../utils/class.js";
 import { tryCatch } from "../utils/tryCatch.js";
-import { networkInterfaces } from "os";
 
 export const verifyAccessTk = tryCatch(async (req, res, next) => {
     const authHeader = req.headers.authorization;
@@ -25,13 +24,13 @@ export const verifyAccessTk = tryCatch(async (req, res, next) => {
             
             //Adding additional checking (if user exists in db)
             const user = await User.findById(decoded.userId);
-
+      
             if(!user) { 
                 const error = new CustomError('Unauthorized', 401, {});
                 return next(error);
             };
 
-            req.user = user._id;
+            req.user = { id: user._id};
             next();
         }
     )
