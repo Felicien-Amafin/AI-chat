@@ -1,12 +1,12 @@
 import { tryCatch } from "../utils/tryCatch.js";
 import Categorie from "../models/categorie.model.js";
 
-export const createCategorie = tryCatch(async (req, res) => {
+/* export const createCategorie = tryCatch(async (req, res) => {
     return res.status(201).json({
         message: 'Categorie created',
         user: req.user,
     });
-});
+}); */
 
 export const getCategories = tryCatch(async (req, res) => {
     const userId = req.user.id;

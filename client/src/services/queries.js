@@ -9,3 +9,11 @@ export const useGetNewAccessToken = (isActive, key)=> {
       retry: false
    });
 }
+
+export const useGetCategories = (key)=> {
+   return useQuery({
+      queryKey: [key],
+      queryFn: ({signal})=> getCategories({signal}), 
+      retry: 1
+   });
+}

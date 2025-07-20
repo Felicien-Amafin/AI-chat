@@ -224,7 +224,10 @@ export const sendsNewAccessTk = tryCatch(async( req, res, next) => {
             };
             //Generate accesToken and send it to client
             const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '60s');
-            return res.status(200).json({ accessToken });
+            return res.status(200).json({
+                user: { id: user._id, username: user.username },
+                accessToken 
+            });
         }
     )
 });

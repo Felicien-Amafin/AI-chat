@@ -1,8 +1,4 @@
-import axios from "axios";
-
-const BASE_URL =' http://localhost:3001/';
-
-const axiosIntance = axios.create({baseURL:BASE_URL, withCredentials: true});
+import { axiosIntance } from "./axios.config";
 
 export const signUpUser = async(data)=> {
   return await axiosIntance.post('api/authentication/signup', data);

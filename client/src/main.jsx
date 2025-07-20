@@ -5,8 +5,10 @@ import { Provider } from 'react-redux';
 import { store } from './store/store.js';
 import App from './App.jsx';
 import './global.css';
+import { setupAxiosInterceptors } from './services/api/axios.config.js';
 
 const queryClient = new QueryClient();
+setupAxiosInterceptors(store);
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
