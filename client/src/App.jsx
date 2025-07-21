@@ -10,7 +10,8 @@ import ProtectedRoute from './routing/protectedRoute';
 
 function App() {
   const { accessToken } = useSelector((state) => state.auth);
-  //Sends request to refresh token edpoint to get accesToken
+
+  //Sends request to refresh token route to get new access token
   const { isUnAuthorised } = usePersistLogin(accessToken === null);
 
   if(!accessToken && !isUnAuthorised) return null;

@@ -29,7 +29,7 @@ export const verifyAccessTk = tryCatch(async (req, res, next) => {
                 const error = new CustomError('Unauthorized', 401, {});
                 return next(error);
             };
-
+            
             req.user = { id: user._id};
             next();
         }
