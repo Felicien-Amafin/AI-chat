@@ -12,9 +12,9 @@ function App() {
   const { accessToken } = useSelector((state) => state.auth);
 
   //Sends request to refresh token route to get new access token
-  const { isUnAuthorised } = usePersistLogin(accessToken === null);
+  const { isUnAuthorized } = usePersistLogin(accessToken === null);
 
-  if(!accessToken && !isUnAuthorised) return null;
+  if(!accessToken && !isUnAuthorized) return null;
 
   return (
     <Routes>

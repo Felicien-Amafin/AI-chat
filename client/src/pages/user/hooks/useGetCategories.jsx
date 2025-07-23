@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useErrorHandler from './useErrorHandler';
+import useErrorHandler from '../../../hooks/useErrorHandler';
 import { useFetchCategories, useGetNewAccessToken } from '../../../services/queries';
 import { logoutUser, setAccessToken } from '../../../store/authSlice';
 
