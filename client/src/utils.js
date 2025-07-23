@@ -32,14 +32,16 @@ export const searchFilter = (list, searchTerm)=> {
     
     return list.filter((listTerm)=> {
         const listTermToLCase = listTerm.toLowerCase();
-        const searchTermToLCase = searchTerm.toLowerCase();
-
-        if(searchTerm === '') {
-            return list;
-        }
+        const searchTermToLCase = searchTerm?.toLowerCase();
 
         if(listTermToLCase.includes(searchTermToLCase)) {
             return listTerm;
         }
+
+        if((searchTerm === '' )||( searchTerm === undefined)) {
+            return list;
+        } 
     })
 }
+
+

@@ -30,12 +30,15 @@ const useGetCategories = (isActive) => {
     const dispatch = useDispatch();
    
     const categoriesRef = useRef(null);
+    
+    //Reset categoriesRef to null for a new query
+    if(isActive && categoriesRef.current) categoriesRef.current = null; 
 
     if(categoriesData?.data.categories_names.length > 0) {
         //Stores categories in a persisting 
         categoriesRef.current = categoriesData?.data.categories_names;
     }
-    
+   
     useEffect(() => {
         //Delete data from cache in order to always get fresh data
         if(categoriesData) queryClient.removeQueries(categoriesKey);

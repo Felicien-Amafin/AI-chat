@@ -41,3 +41,10 @@
 .option .button:hover {
   background-color: rgba(245, 245, 245, 0.149);
 }
+
+.list .searchNoResult {
+  text-align: center;
+  font-size: 0.75rem;
+  list-style: none;
+  color: rgb(219, 219, 219);
+}
