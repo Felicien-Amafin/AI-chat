@@ -6,9 +6,9 @@ const SearchField = ({style, type, value, placeholder, onInputChange}) => {
       <i className={style.icon}><IoSearch/></i>
       <input 
         type={type}
-        value={value}
+        value={value || ''}
         placeholder={placeholder}
-        onChange={(e)=> onInputChange(e)}
+        onChange={onInputChange}
       />
     </div>
   )

@@ -26,3 +26,20 @@ export const capitalizedFirstChar = (string)=> {
     const newString = string.charAt(0).toUpperCase() + string.slice(1);
     return newString;
 }
+
+export const searchFilter = (list, searchTerm)=> {
+    if(!list) return;
+    
+    return list.filter((listTerm)=> {
+        const listTermToLCase = listTerm.toLowerCase();
+        const searchTermToLCase = searchTerm.toLowerCase();
+
+        if(searchTerm === '') {
+            return list;
+        }
+
+        if(listTermToLCase.includes(searchTermToLCase)) {
+            return listTerm;
+        }
+    })
+}

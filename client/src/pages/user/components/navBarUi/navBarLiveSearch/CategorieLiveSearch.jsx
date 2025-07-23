@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import useGetCategories from '../../../hooks/useGetCategories';
 import { TbCategory } from "react-icons/tb";
 import List from '../../listUi/list/List';
@@ -11,35 +12,46 @@ import ListError from '../../listUi/listError/ListError';
 import style from './navBarLiveSearch.module.css';
 
 const CategorieLiveSearch= () => {
-    const { isFetchingAccessTk, isCategoriesPending, isServerError, categories} = useGetCategories();
-
+    const [searchValue, setSearchValue] = useState(undefined);
+    const isActive = searchValue === undefined;
+    const { 
+        isFetchingAccessTk, 
+        isCategoriesPending, 
+        isServerError, 
+        categoriesRef
+    } = useGetCategories(isActive);
+    
     const navigate = useNavigate();
-    const handleNavigation = (categorie)=> {
+    const handleNavigation = (categorie) => {
         navigate(`/user/categories/${categorie}`);
     };
 
+    const handleChange = (e) => {
+        setSearchValue(e.target.value);
+    }
+    
     const defaultMess = `Vous n'avez pas encore de catégories. Commencez à tchater afin de créer des catégories.`
     const errorMess = `La liste de vos catégories est indisponible pour le momment. Réessayez plus tard.`
-
+    
     return (
         <ListContainer style={style.listContainer}>
-            {categories && 
+            {categoriesRef.current && 
                 <SearchField 
                     style={style}
                     type='text'
-                    value=''
+                    value={searchValue}
                     placeholder='Rechercher une catégorie'
-                    onInputChange={null}
+                    onInputChange={handleChange}
                 />
             }
-            {categories && <ListTitle title='Mes catégories'/>}
-            {categories && <List onSelect={handleNavigation} list={categories} styling={style.navBarlist}/>}
-            {(!categories && !isCategoriesPending && !isFetchingAccessTk && !isServerError) && 
+            {categoriesRef.current && <ListTitle title='Mes catégories'/>}
+            {categoriesRef.current && <List onSelect={handleNavigation} list={categoriesRef.current} styling={style.navBarlist}/>}
+            {(!categoriesRef.current && !isCategoriesPending && !isFetchingAccessTk && !isServerError) && 
                 <ListDefaultMess defaultMess={defaultMess}> 
                     <TbCategory/>
                 </ListDefaultMess>
             }
-            {(isCategoriesPending || isFetchingAccessTk) && <ListLoader/>}
+            {isActive && (isCategoriesPending || isFetchingAccessTk) && <ListLoader/>}
             {isServerError && <ListError errorMess={errorMess}/>}
         </ListContainer>
     )

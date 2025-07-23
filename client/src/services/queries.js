@@ -11,10 +11,11 @@ export const useGetNewAccessToken = (isActive, key)=> {
    });
 }
 
-export const useFetchCategories = (key)=> {
+export const useFetchCategories = (isActive, key)=> {
    return useQuery({
       queryKey: [key],
-      queryFn: ({signal})=> getCategories({signal}), 
+      queryFn: ({signal})=> getCategories({signal}),
+      enabled: isActive,
       retry: 1
    });
 }

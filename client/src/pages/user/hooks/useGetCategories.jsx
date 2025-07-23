@@ -1,11 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useErrorHandler from './useErrorHandler';
 import { useFetchCategories, useGetNewAccessToken } from '../../../services/queries';
 import { logoutUser, setAccessToken } from '../../../store/authSlice';
 
-const useGetCategories = () => {
+const useGetCategories = (isActive) => {
     const categoriesKey = 'categories';
     const { accessTkKey } = useSelector((state) => state.auth);
 
@@ -13,7 +13,7 @@ const useGetCategories = () => {
         isPending:isCategoriesPending, 
         data:categoriesData, 
         error:categoriesError
-    } = useFetchCategories(categoriesKey); 
+    } = useFetchCategories(isActive, categoriesKey); 
 
     const { 
         isServerError, 
@@ -28,9 +28,13 @@ const useGetCategories = () => {
     
     const queryClient = useQueryClient();
     const dispatch = useDispatch();
+   
+    const categoriesRef = useRef(null);
 
-    const categories = categoriesData?.data.categories_names.length > 0 ? 
-    categoriesData?.data.categories_names : null;
+    if(categoriesData?.data.categories_names.length > 0) {
+        //Stores categories in a persisting 
+        categoriesRef.current = categoriesData?.data.categories_names;
+    }
     
     useEffect(() => {
         //Delete data from cache in order to always get fresh data
@@ -58,7 +62,7 @@ const useGetCategories = () => {
         dispatch
     ]);
     
-    return { isCategoriesPending, isFetchingAccessTk, categories, isServerError };
+    return { isCategoriesPending, isFetchingAccessTk, categoriesRef, isServerError };
 }
 
 export default useGetCategories;
