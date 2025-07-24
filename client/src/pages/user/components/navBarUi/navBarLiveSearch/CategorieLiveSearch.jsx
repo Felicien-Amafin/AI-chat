@@ -13,10 +13,11 @@ import style from './navBarLiveSearch.module.css';
 import useSearchFilter from '../../../hooks/useSearchFilter';
 
 const CategorieLiveSearch= () => {
-    const [searchValue, setSearchValue] = useState(undefined);
-    const isActive = searchValue === undefined;
-    const { isFetchingAccessTk, isCategoriesPending, isServerError, categoriesRef} = useGetCategories(isActive);
-    const { listResult, isSearchResult } = useSearchFilter(categoriesRef.current, searchValue);
+    const [searchValue, setSearchValue] = useState('');
+    const [isActive, setIsActive] = useState(true);
+   
+    const { isFetchingAccessTk, isCategoriesPending, isServerError, categories } = useGetCategories(isActive, setIsActive);
+    const { listResult, isSearchResult } = useSearchFilter(categories, searchValue);
 
     const navigate = useNavigate();
     const handleNavigation = (categorie) => {
@@ -29,10 +30,10 @@ const CategorieLiveSearch= () => {
     
     const defaultMess = `Vous n'avez pas encore de catégories. Commencez à tchater afin de créer des catégories.`
     const errorMess = `La liste de vos catégories est indisponible pour le momment. Réessayez plus tard.`
-
+ 
     return (
         <ListContainer style={style.listContainer}>
-            {categoriesRef.current && 
+            {categories && 
                 <SearchField 
                     style={style}
                     type='text'
@@ -41,8 +42,8 @@ const CategorieLiveSearch= () => {
                     onInputChange={handleChange}
                 />
             }
-            {categoriesRef.current && <ListTitle title='Mes catégories'/>}
-            {categoriesRef.current && 
+            {categories && <ListTitle title='Mes catégories'/>}
+            {categories && 
                 <List 
                     onSelect={handleNavigation} 
                     list={listResult} 
@@ -50,7 +51,7 @@ const CategorieLiveSearch= () => {
                     styling={style.navBarlist}
                 />
             }
-            {(!categoriesRef.current && !isCategoriesPending && !isFetchingAccessTk && !isServerError) && 
+            {(!categories && !isCategoriesPending && !isFetchingAccessTk && !isServerError) && 
                 <ListDefaultMess defaultMess={defaultMess}> <TbCategory/></ListDefaultMess>
             }
             {isActive && (isCategoriesPending || isFetchingAccessTk) && <ListLoader/>}

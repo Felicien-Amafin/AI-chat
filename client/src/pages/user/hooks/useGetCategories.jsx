@@ -1,11 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useErrorHandler from '../../../hooks/useErrorHandler';
 import { useFetchCategories, useFetchNewAccessToken } from '../../../services/queries';
 import { logoutUser, setAccessToken } from '../../../store/authSlice';
 
-const useGetCategories = (isActive) => {
+const useGetCategories = (isActive, setIsActive) => {
     const categoriesKey = 'categories';
     const { accessTkKey } = useSelector((state) => state.auth);
 
@@ -28,25 +28,22 @@ const useGetCategories = (isActive) => {
     
     const queryClient = useQueryClient();
     const dispatch = useDispatch();
-   
-    const categoriesRef = useRef(null);
-    
-    //Reset categoriesRef to null for a new query
-    if(isActive && categoriesRef.current) categoriesRef.current = null; 
 
-    if(categoriesData?.data.categories_names.length > 0) {
-        //Stores categories in a persisting 
-        categoriesRef.current = categoriesData?.data.categories_names;
-    }
+    let categories = categoriesData?.data.categories_names.length > 0 ? 
+    categoriesData?.data.categories_names : null;
    
     useEffect(() => {
-        //Delete data from cache in order to always get fresh data
-        if(categoriesData) queryClient.removeQueries(categoriesKey);
+        //Invalidate data to force a refetch every time component mounts
+        if(categoriesData) {
+            queryClient.invalidateQueries({ queryKey:[categoriesKey] });
+            setIsActive(false);
+        }
             
         if(accessTkData) {
             dispatch(setAccessToken(accessTkData.data.accessToken));
             //Clears the cache for useFetchCategories() + useGetNewAccessToken
-            queryClient.removeQueries({ queryKey: [accessTkKey, categoriesKey] });
+            queryClient.removeQueries({ queryKey: [accessTkKey] });
+            queryClient.removeQueries({ queryKey: [categoriesKey] });
         }
 
         if(accessTkError) {
@@ -62,10 +59,11 @@ const useGetCategories = (isActive) => {
         categoriesData, 
         accessTkData, 
         accessTkError,
-        dispatch
+        dispatch,
+        setIsActive
     ]);
     
-    return { isCategoriesPending, isFetchingAccessTk, categoriesRef, isServerError };
+    return { isCategoriesPending, isFetchingAccessTk, categories, isServerError };
 }
 
 export default useGetCategories;
