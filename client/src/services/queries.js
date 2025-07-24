@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { getNewAccessToken } from "./api/auth";
+import { getAuthorization, getNewAccessToken } from "./api/auth";
 import { getCategories } from "./api/categories";
 
-export const useGetNewAccessToken = (isActive, key)=> {
+export const useFetchNewAccessToken = (isActive, key)=> {
    return useQuery({
       queryKey: [key],
       queryFn: ({signal})=> getNewAccessToken({signal}), 
@@ -15,6 +15,15 @@ export const useFetchCategories = (isActive, key)=> {
    return useQuery({
       queryKey: [key],
       queryFn: ({signal})=> getCategories({signal}),
+      enabled: isActive,
+      retry: 1
+   });
+}
+
+export const useFetchAuthorization = (isActive, key)=> {
+   return useQuery({
+      queryKey: [key],
+      queryFn: ({signal})=> getAuthorization({signal}),
       enabled: isActive,
       retry: 1
    });

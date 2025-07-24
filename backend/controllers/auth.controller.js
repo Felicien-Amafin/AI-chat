@@ -246,3 +246,7 @@ export const logout = (req, res) => {
 
     return res.status(200).json({ message: 'Cookie cleared' });
 }
+
+export const givesAuth = (req, res) => {
+    return res.status(200).json({ message: 'Auhtorized' });
+};

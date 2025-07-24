@@ -18,7 +18,7 @@ const List = ({onSelect, list, isSearchResult, styling}) => {
             {!isSearchResult && <li 
                 className={style.searchNoResult}
             >
-                No results for this search...
+                Aucun résultat...
             </li>}
         </ul>
     )

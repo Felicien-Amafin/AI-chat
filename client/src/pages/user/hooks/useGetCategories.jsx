@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useErrorHandler from '../../../hooks/useErrorHandler';
-import { useFetchCategories, useGetNewAccessToken } from '../../../services/queries';
+import { useFetchCategories, useFetchNewAccessToken } from '../../../services/queries';
 import { logoutUser, setAccessToken } from '../../../store/authSlice';
 
 const useGetCategories = (isActive) => {
@@ -24,7 +24,7 @@ const useGetCategories = (isActive) => {
         isFetching:isFetchingAccessTk,
         data:accessTkData,
         error:accessTkError 
-    } = useGetNewAccessToken(isUnAuthorized, accessTkKey);
+    } = useFetchNewAccessToken(isUnAuthorized, accessTkKey);
     
     const queryClient = useQueryClient();
     const dispatch = useDispatch();

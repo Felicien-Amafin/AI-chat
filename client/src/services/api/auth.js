@@ -27,3 +27,7 @@ export const getNewAccessToken = async({signal})=> {
 export const logout = async()=> {
   return await axiosIntance.post(`api/authentication/logout`);
 }
+
+export const getAuthorization = async({signal})=> {
+  return await axiosIntance.get(`api/authentication/verify-accessTk`, signal);
+}
