@@ -5,7 +5,7 @@ import useErrorHandler from '../../../hooks/useErrorHandler';
 import { useFetchCategories, useFetchNewAccessToken } from '../../../services/queries';
 import { logoutUser, setAccessToken } from '../../../store/authSlice';
 
-const useGetCategories = (isActive, setIsActive) => {
+const useGetCategories = () => {
     const categoriesKey = 'categories';
     const { accessTkKey } = useSelector((state) => state.auth);
 
@@ -13,7 +13,7 @@ const useGetCategories = (isActive, setIsActive) => {
         isPending:isCategoriesPending, 
         data:categoriesData, 
         error:categoriesError
-    } = useFetchCategories(isActive, categoriesKey); 
+    } = useFetchCategories(categoriesKey); 
 
     const { 
         isServerError, 
@@ -33,17 +33,11 @@ const useGetCategories = (isActive, setIsActive) => {
     categoriesData?.data.categories_names : null;
    
     useEffect(() => {
-        //Invalidate data to force a refetch every time component mounts
-        if(categoriesData) {
-            queryClient.invalidateQueries({ queryKey:[categoriesKey] });
-            setIsActive(false);
-        }
-            
         if(accessTkData) {
             dispatch(setAccessToken(accessTkData.data.accessToken));
-            //Clears the cache for useFetchCategories() + useGetNewAccessToken
-            queryClient.removeQueries({ queryKey: [accessTkKey] });
+            //Clears error in useFetchCategories + clear accessTk data in useFetchNewAccessToken
             queryClient.removeQueries({ queryKey: [categoriesKey] });
+            queryClient.removeQueries({ queryKey: [accessTkKey] });
         }
 
         if(accessTkError) {
@@ -60,7 +54,6 @@ const useGetCategories = (isActive, setIsActive) => {
         accessTkData, 
         accessTkError,
         dispatch,
-        setIsActive
     ]);
     
     return { isCategoriesPending, isFetchingAccessTk, categories, isServerError };

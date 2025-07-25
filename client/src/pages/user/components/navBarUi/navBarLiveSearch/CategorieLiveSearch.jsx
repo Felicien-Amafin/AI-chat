@@ -14,9 +14,7 @@ import useSearchFilter from '../../../hooks/useSearchFilter';
 
 const CategorieLiveSearch= () => {
     const [searchValue, setSearchValue] = useState('');
-    const [isActive, setIsActive] = useState(true);
-   
-    const { isFetchingAccessTk, isCategoriesPending, isServerError, categories } = useGetCategories(isActive, setIsActive);
+    const { isCategoriesPending, isFetchingAccessTk, isServerError, categories } = useGetCategories();
     const { listResult, isSearchResult } = useSearchFilter(categories, searchValue);
 
     const navigate = useNavigate();
@@ -30,7 +28,7 @@ const CategorieLiveSearch= () => {
     
     const defaultMess = `Vous n'avez pas encore de catégories. Commencez à tchater afin de créer des catégories.`
     const errorMess = `La liste de vos catégories est indisponible pour le momment. Réessayez plus tard.`
- 
+  
     return (
         <ListContainer style={style.listContainer}>
             {categories && 
@@ -54,7 +52,7 @@ const CategorieLiveSearch= () => {
             {(!categories && !isCategoriesPending && !isFetchingAccessTk && !isServerError) && 
                 <ListDefaultMess defaultMess={defaultMess}> <TbCategory/></ListDefaultMess>
             }
-            {isActive && (isCategoriesPending || isFetchingAccessTk) && <ListLoader/>}
+            {(isCategoriesPending || isFetchingAccessTk) && <ListLoader/>}
             {isServerError && <ListError errorMess={errorMess}/>}
         </ListContainer>
     )

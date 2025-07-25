@@ -29,5 +29,6 @@ export const logout = async()=> {
 }
 
 export const getAuthorization = async({signal})=> {
+
   return await axiosIntance.get(`api/authentication/verify-accessTk`, signal);
 }

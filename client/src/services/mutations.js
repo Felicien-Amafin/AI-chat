@@ -31,7 +31,7 @@ export const useResetPassword = ()=> {
     });
 }
 
-export const useLogout= ()=> {
+export const useFetchLogout = ()=> {
     return useMutation({
         mutationFn: logout
     });

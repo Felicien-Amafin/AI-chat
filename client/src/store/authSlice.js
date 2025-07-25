@@ -16,10 +16,10 @@ const auth = createSlice({
         setAccessToken: (state, action) => {
             state.accessToken = action.payload;
         },
-        logoutUser: (state)=> {
+        logoutUser: (state) => {
             state.user = null;
             state.accessToken = null;
-        }
+        },
     }
 })
 

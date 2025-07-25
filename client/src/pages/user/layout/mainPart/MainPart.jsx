@@ -1,24 +1,11 @@
-import { useDispatch } from 'react-redux';
 import Header from '../../../../layout/header/Header';
+import useLogout from '../../hooks/useLogout';
 import style from './mainPart.module.css';
-import { useLogout } from '../../../../services/mutations';
-import { useEffect } from 'react';
-import { logoutUser } from '../../../../store/authSlice';
-import { useQueryClient } from '@tanstack/react-query';
+
 
 const MainPart = ({children}) => {
-  const dispatch = useDispatch();
-  const queryClient = useQueryClient();
-  const { data, mutate } = useLogout();
-
-  useEffect(() => {
-    if(data) {
-      dispatch(logoutUser());
-      queryClient.removeQueries();
-    }
-
-  },[dispatch, data, queryClient]);
-
+  const { mutate } = useLogout();
+  
   return (
     <div className={style.mainPart}>
       <Header>

@@ -7,7 +7,7 @@ import { setUserCred } from "../store/authSlice";
 
 const usePersistLogin = (isActive) => {
     const { accessTkKey } = useSelector((state) => state.auth);
-    const { data, error } = useFetchNewAccessToken(isActive, accessTkKey);
+    const { isPending:isAuthPending, data, error } = useFetchNewAccessToken(isActive, accessTkKey);
     const { isUnAuthorized } = useErrorHandler(error);
     const queryClient = useQueryClient();
     const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const usePersistLogin = (isActive) => {
         
     },[data, error, accessTkKey, dispatch, queryClient]);
 
-    return { isUnAuthorized };
+    return { isAuthPending, isUnAuthorized };
 }       
 
 export default usePersistLogin;
