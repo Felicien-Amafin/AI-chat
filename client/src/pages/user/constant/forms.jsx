@@ -2,14 +2,14 @@
 export const formNewCategorie = [
     {
         label: 'Nom de la catégorie', 
-        name: 'tchat-categorie', 
+        name: 'categorie', 
         type: 'text', 
         placeholder: 'Ex: Nature', 
         is_requied: true 
     },
     {
         label: 'Titre du tchat', 
-        name: 'tchat-title', 
+        name: 'title', 
         type: 'text', 
         placeholder: 'Ex: les aurores boréales', 
         is_requied: true 
@@ -19,7 +19,7 @@ export const formNewCategorie = [
 export const formExistingCategories = {
     input: {
         label: 'Titre du tchat', 
-        name: 'tchat-title', 
+        name: 'title', 
         type: 'text', 
         placeholder: 'Ex: les aurores boréales', 
         is_requied: true 

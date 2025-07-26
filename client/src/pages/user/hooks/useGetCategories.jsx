@@ -36,8 +36,8 @@ const useGetCategories = () => {
         if(accessTkData) {
             dispatch(setAccessToken(accessTkData.data.accessToken));
             //Clears error in useFetchCategories + clear accessTk data in useFetchNewAccessToken
-            queryClient.removeQueries({ queryKey: [categoriesKey] });
-            queryClient.removeQueries({ queryKey: [accessTkKey] });
+            queryClient.removeQueries({ categoriesKey, exact: true});
+            queryClient.removeQueries({ accessTkKey, exact: true});
         }
 
         if(accessTkError) {

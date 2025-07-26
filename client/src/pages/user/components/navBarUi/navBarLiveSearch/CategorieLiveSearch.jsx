@@ -28,7 +28,7 @@ const CategorieLiveSearch= () => {
     
     const defaultMess = `Vous n'avez pas encore de catégories. Commencez à tchater afin de créer des catégories.`
     const errorMess = `La liste de vos catégories est indisponible pour le momment. Réessayez plus tard.`
-  
+    
     return (
         <ListContainer style={style.listContainer}>
             {categories && 
@@ -52,7 +52,7 @@ const CategorieLiveSearch= () => {
             {(!categories && !isCategoriesPending && !isFetchingAccessTk && !isServerError) && 
                 <ListDefaultMess defaultMess={defaultMess}> <TbCategory/></ListDefaultMess>
             }
-            {(isCategoriesPending || isFetchingAccessTk) && <ListLoader/>}
+            {!categories && (isCategoriesPending || isFetchingAccessTk) && <ListLoader/>}
             {isServerError && <ListError errorMess={errorMess}/>}
         </ListContainer>
     )

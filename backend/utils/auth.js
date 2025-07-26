@@ -27,7 +27,8 @@ export const getSignupErrors = (username, email, password)=> {
     const PSSWD_MIN_LENGTH = 6;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if(!username || 
+    if(
+        !username || 
         username.length < USERNAME_MIN_LENGTH || 
         username.length > USERNAME_MAX_LENGTH) {
         errors.username = `Nom d'utilisateur invalide (${USERNAME_MIN_LENGTH} caractères min, ${USERNAME_MAX_LENGTH} max)`;

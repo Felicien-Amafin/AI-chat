@@ -1,13 +1,22 @@
 import { tryCatch } from "../utils/tryCatch.js";
 import Categorie from "../models/categorie.model.js";
 import { capitalizedFirstChar } from "../utils/genericFunc.js";
+import { CustomError } from "../utils/class.js";
+import { getChatFormErrors } from "../utils/categories.js";
 
-/* export const createCategorie = tryCatch(async (req, res) => {
-    return res.status(201).json({
-        message: 'Categorie created',
-        user: req.user,
-    });
-}); */
+
+export const validateForm = tryCatch(async (req, res) => {
+    const { categorie, title} = req.body;
+
+    const errors = getChatFormErrors(categorie, title);
+    
+    if (errors) {
+        throw new CustomError('Certaines informations sont invalides', 400, errors);
+    }
+
+    return res.status(200).json({ message: 'Formulaire conforme.'});
+});
+
 
 export const getCategories = tryCatch(async (req, res) => {
     const userId = req.user.id;

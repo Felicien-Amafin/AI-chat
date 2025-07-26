@@ -15,11 +15,11 @@ const usePersistLogin = (isActive) => {
     useEffect(() => {
         if(data) { 
             dispatch(setUserCred(data.data)); 
-            queryClient.removeQueries(accessTkKey); //Delete data from cache
+            queryClient.removeQueries({ accessTkKey, exact: true}); //Delete data from cache
         }
 
         if(error) {  
-            queryClient.removeQueries(accessTkKey); //Delete error from cache
+            queryClient.removeQueries({ accessTkKey, exact: true}); //Delete error from cache
         }
         
     },[data, error, accessTkKey, dispatch, queryClient]);
