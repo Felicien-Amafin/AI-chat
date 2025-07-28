@@ -1,4 +1,4 @@
-export const getChatFormErrors = (categorie, title) => {
+export const getTchatFormErrors = (categorie, title) => {
     //Get chat form's input errors
     const errors = {};
     const CATEGORIE_MAX_LENGTH = 20;
@@ -6,8 +6,6 @@ export const getChatFormErrors = (categorie, title) => {
     const TITLE_MAX_LENGTH  = 65;
     const TITLE_MIN_LENGTH  = 5;
     
-    console.log('categorie.length', categorie.length)
-    console.log('title.length', title.length)
     if(
         !categorie ||
         categorie.length > CATEGORIE_MAX_LENGTH || 

@@ -59,7 +59,7 @@ export const signin = tryCatch(async (req, res) => {
     const errors = getSigninErrors(email, password);
 
     if(errors) {
-        throw new CustomError('Certaines informations sont invalides', 400, errors);
+        throw new CustomError('Les informations fournies sont icorrectes', 401, errors);
     }
 
     const user = await User.findOne({ email });
@@ -67,14 +67,14 @@ export const signin = tryCatch(async (req, res) => {
     const isPwdValid = await bcrypt.compare(password, user?.password || '');
 
     if(!isPwdValid) {
-        throw new CustomError('Mot de passe et/ou email invalide(s)', 400, {});
+        throw new CustomError('Les informations fournies sont icorrectes', 401, {});
     }
 
     if(!user.isEmailVerified) {
-        throw new CustomError(`Vous devez valider votre adresse email avant de vous connecter. Suivez les instructions envoyées par mail.`, 401, {});
+        throw new CustomError(`Vous devez valider votre adresse email avant de vous connecter. Suivez les instructions envoyées par mail.`, 403, {});
     }
 
-    const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '5m');
+    const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '30s');
     const refreshToken = generateToken(user._id, process.env.REFRESH_TOKEN_SECRET, '1d');
 
     //set refreshToken in cookie
@@ -121,8 +121,8 @@ export const verifyEmail = tryCatch(async (req, res) => {
     if (!code || (code !== user.emailVerifCode)) {
         throw new CustomError(
             'Utilisez le code envoyé à votre adresse email.', 
-            400, 
-            { code: 'Code invalide'}
+            401, 
+            { code: 'Code incorrect'}
         );
     }
 
@@ -176,7 +176,7 @@ export const resetPwd = tryCatch(async (req, res) => {
     const user = await User.findOne({ resetEmailToken: token });
 
     if (!user) {
-        const errorMess = `L'url comporte un token invalide. Utilisez le lien envoyé à votre adresse email, ou obtenez un nouveau lien ci-dessous.`;
+        const errorMess = `L'url comporte un token incorrect. Utilisez le lien envoyé à votre adresse email, ou obtenez un nouveau lien ci-dessous.`;
         throw new CustomError(errorMess, 401, { isTokenInvalid: true });
     }
 
@@ -212,7 +212,7 @@ export const sendsNewAccessTk = tryCatch(async( req, res, next) => {
         process.env.REFRESH_TOKEN_SECRET,
         async (err, decoded) => {
             if(err) { 
-                const error = new CustomError('Forbidden', 403, {}); 
+                const error = new CustomError('Unauthorized', 401, {}); 
                 return next(error);
             }
             
@@ -223,7 +223,7 @@ export const sendsNewAccessTk = tryCatch(async( req, res, next) => {
                 return next(error);
             };
             //Generate accesToken and send it to client
-            const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '5m');
+            const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '30s');
             return res.status(200).json({
                 user: { id: user._id, username: user.username },
                 accessToken 
@@ -246,7 +246,3 @@ export const logout = (req, res) => {
 
     return res.status(200).json({ message: 'Cookie cleared' });
 }
-
-export const givesAuth = (req, res) => {
-    return res.status(200).json({ message: 'Auhtorized' });
-};

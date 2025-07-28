@@ -4,6 +4,6 @@ import { getCategories, validateForm } from "../controllers/categorie.controller
 const router = express.Router();
 
 router.get('/', getCategories);
-router.post('/validate-chat-form', validateForm);
+router.post('/validate-tchat-form', validateForm);
 
 export default router;

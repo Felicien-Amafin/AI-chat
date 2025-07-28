@@ -9,10 +9,7 @@ import ErrorPage from './pages/error/Error';
 import ProtectedRoute from './routing/protectedRoute';
 
 function App() {
-  const { accessToken } = useSelector((state) => state.auth);
-
-  //Sends request to refresh token route to get new access token
-  const { isUnAuthorized } = usePersistLogin(accessToken === null);
+  const { isUnAuthorized } = usePersistLogin();
 
   if(!accessToken && !isUnAuthorized) return null;
 

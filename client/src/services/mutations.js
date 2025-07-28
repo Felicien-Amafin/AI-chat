@@ -7,6 +7,7 @@ import {
     signUpUser, 
     verifyEmail,
 } from "./api/auth";
+import { validateTchatForm } from "./api/categories";
 
 export const useSignUpUser = ()=> {
     return useMutation({
@@ -41,6 +42,12 @@ export const useResetPassword = ()=> {
 export const useFetchLogout = ()=> {
     return useMutation({
         mutationFn: logout
+    });
+}
+
+export const useValidateTchatForm = ()=> {
+    return useMutation({
+        mutationFn: validateTchatForm
     });
 }
 

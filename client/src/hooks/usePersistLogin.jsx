@@ -5,13 +5,12 @@ import { useFetchNewAccessToken } from "../services/queries";
 import useErrorHandler from "./useErrorHandler";
 import { setUserCred } from "../store/authSlice";
 
-const usePersistLogin = (isActive) => {
-    const { accessTkKey } = useSelector((state) => state.auth);
+const usePersistLogin = () => {
     const { isPending:isAuthPending, data, error } = useFetchNewAccessToken(isActive, accessTkKey);
     const { isUnAuthorized } = useErrorHandler(error);
     const queryClient = useQueryClient();
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
         if(data) { 
             dispatch(setUserCred(data.data)); 

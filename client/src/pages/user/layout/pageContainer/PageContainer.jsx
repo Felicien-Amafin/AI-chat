@@ -8,7 +8,7 @@ const PageContainer = ({children}) => {
   const { isExpired } = useVerifyAccesTk();
   const { isAuthPending, isUnAuthorized } = usePersistLogin(isExpired);
   useLogout(isUnAuthorized);
-  
+  console.log('page container executing...')
   return (
     <div className={`${style.pageContainer} bckGroundImg`}>
       {(isExpired && isAuthPending) && 

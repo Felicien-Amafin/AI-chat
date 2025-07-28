@@ -31,7 +31,7 @@ const useGetCategories = () => {
 
     let categories = categoriesData?.data.categories_names.length > 0 ? 
     categoriesData?.data.categories_names : null;
-   
+    
     useEffect(() => {
         if(accessTkData) {
             dispatch(setAccessToken(accessTkData.data.accessToken));

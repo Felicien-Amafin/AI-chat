@@ -18,7 +18,7 @@ export const verifyAccessTk = tryCatch(async (req, res, next) => {
         process.env.ACCESS_TOKEN_SECRET,
         async (err, decoded) => {
             if(err) { 
-                const error = new CustomError('Forbidden', 403, {}); 
+                const error = new CustomError('Unauthorized', 401, {}); 
                 return next(error);
             }
             

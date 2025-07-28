@@ -8,7 +8,8 @@ const FormInput = ({ input, error, value, required, onInputChange }) => {
   
   const isPassword = input.type === 'password';
   const passwdInputType = isPwrdVisible ? 'text' : 'password';
-  const isError = error && error[input?.name] ? true : null;
+  //Checks if there is an error for each in put
+  const isError = error && error[input?.name] ? true : false;
 
   const handleInputChange = (e)=> {
     onInputChange ? onInputChange(e) : null;
