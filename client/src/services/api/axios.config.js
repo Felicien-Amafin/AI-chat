@@ -10,58 +10,48 @@ export const axiosInstance = axios.create({
     },
 });
 
-
-
 let reduxStore;
 
-export const setupAxiosInterceptors = (store) => {
+export const setTokenInAllRequests = (store) => {
     reduxStore = store; 
     //Create insterceptor to auto include accessToken in every requests
     axiosInstance.interceptors.request.use(
         (config) => {
             const accessToken = reduxStore.getState().auth.accessToken;
 
-            if (accessToken) {
-                config.headers.authorization = `Bearer ${accessToken}`;
-            }
+            if (accessToken) config.headers.authorization = `Bearer ${accessToken}`;
+            
             return config;
         },
-        (error) => {
-            return Promise.reject(error);
-        }
-    );
-
-    axiosInstance.interceptors.response.use(
-        response => response, // Directly return successful responses.
-        async error => {
-            const originalRequest = error.config;
-
-            if (error.response.status === 401 && !originalRequest._retry) {
-                originalRequest._retry = true; // Mark the request as retried to avoid infinite loops.
-                
-                try {
-                    const refreshToken = localStorage.getItem('refreshToken'); // Retrieve the stored refresh token.
-                    // Make a request to your auth server to refresh the token.
-                    const response = await axios.post('https://your.auth.server/refresh', {
-                    refreshToken,
-                    });
-                    const { accessToken, refreshToken: newRefreshToken } = response.data;
-                    // Store the new access and refresh tokens.
-                    localStorage.setItem('accessToken', accessToken);
-                    localStorage.setItem('refreshToken', newRefreshToken);
-                    // Update the authorization header with the new access token.
-                    axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                    return axiosInstance(originalRequest); // Retry the original request with the new access token.
-                } catch (refreshError) {
-                    // Handle refresh token errors by clearing stored tokens and redirecting to the login page.
-                    console.error('Token refresh failed:', refreshError);
-                    localStorage.removeItem('accessToken');
-                    localStorage.removeItem('refreshToken');
-                    window.location.href = '/login';
-                    return Promise.reject(refreshError);
-                }
-            }
-            return Promise.reject(error); // For all other errors, return the error as is.
-        }
+        (error) =>  Promise.reject(error)
     );
 }
+
+axiosInstance.interceptors.response.use(
+    (response) => response, // Directly return successful responses.
+
+    async error => {
+        const originalRequest = error.config;
+
+        if (error.response.status === 401 && !originalRequest._retry) {
+            
+            originalRequest._retry = true; // Mark the request as retried to avoid infinite loops.
+            
+            try {
+                const response = await axios.get('api/authentication/refresh-token');
+
+                const accessToken = response.data.accessToken;
+                
+                axiosInstance.defaults.headers.authorization = `Bearer ${accessToken}`;
+
+                return axiosInstance(originalRequest); // Retry the original request with the new access token.
+
+            } catch (refreshError) {
+     
+                return Promise.reject(refreshError);
+            }
+        }
+        // Return all other errors after originalRequest has been made
+        return Promise.reject(error); 
+    }
+);
