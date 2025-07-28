@@ -5,7 +5,6 @@ const auth = createSlice({
     initialState: {
         user: null,
         accessToken: null,
-        accessTkKey: 'accessToken'
     },
     reducers: {
         setUserCred: (state, action) => {

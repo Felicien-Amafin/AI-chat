@@ -212,7 +212,7 @@ export const sendsNewAccessTk = tryCatch(async( req, res, next) => {
         process.env.REFRESH_TOKEN_SECRET,
         async (err, decoded) => {
             if(err) { 
-                const error = new CustomError('Forbidden', 401, {}); 
+                const error = new CustomError('Forbidden', 403, {}); 
                 return next(error);
             }
             
