@@ -1,10 +1,9 @@
 import Header from '../../../../layout/header/Header';
-import useLogout from '../../hooks/useLogout';
+import useLogoutUser from '../../hooks/useLogoutUser';
 import style from './mainPart.module.css';
 
-
 const MainPart = ({children}) => {
-  const { mutate } = useLogout();
+  const { mutate } = useLogoutUser();
   
   return (
     <div className={style.mainPart}>

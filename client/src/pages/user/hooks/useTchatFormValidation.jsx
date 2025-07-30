@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import useErrorHandler from "./useErrorHandler";
 import useFormErrorHandler from "../../../hooks/useFormErrorHandler";
 import { useValidateTchatForm } from "../../../services/mutations";
-import useLogout from "./useLogout";
+import useLogout from "./useLogoutUser";
 import { setAccessToken } from "../../../store/authSlice";
 import { trimAndLowerCase } from "../../../utils";
 

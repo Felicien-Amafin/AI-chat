@@ -7,20 +7,19 @@ import HomePage from './pages/home/HomePage';
 import ErrorPage from './pages/error/Error';
 import ProtectedRoute from './routing/protectedRoute';
 import { useSelector } from 'react-redux';
+import PageContainer from './pages/user/layout/pageContainer/PageContainer';
 
 function App() {
   const { user } = useSelector((state) => state.auth);
-  const { isPending, data } = usePersistLogin(user === null);
+  const { isPending } = usePersistLogin(user === null);
   
-  const isAuthorized = data || user;
-
   if(isPending) return null;
 
   return (
     <Routes>
-      <Route path='/' element={isAuthorized ? <Navigate to={'user'}/> : <HomePage/>}/>
+      <Route path='/' element={user ? <Navigate to={'user'}/> : <HomePage/>}/>
 
-      <Route path='auth' element={isAuthorized ? <Navigate to={'/user'}/> : <Auth/>}>
+      <Route path='auth' element={user ? <Navigate to={'/user'}/> : <Auth/>}>
         {authRoutes.map((route)=> <Route 
           key={route.path} 
           path={route.path} 
@@ -28,7 +27,7 @@ function App() {
         />)}
       </Route>
 
-      <Route path='user' element={<ProtectedRoute isAuthorized={isAuthorized}><User/></ProtectedRoute>}>
+      <Route path='user' element={<ProtectedRoute isAuthorized={user}><User/></ProtectedRoute>}>
         {userRoutes.map((route)=> {
           return <Route key={route.path} path={route.path} element={route.element}/>
         })}

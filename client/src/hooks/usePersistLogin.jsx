@@ -5,14 +5,14 @@ import { setUserCred } from "../store/authSlice";
 
 const usePersistLogin = (isActive) => {
     const dispatch = useDispatch();
-    const [isRefreshing, setIsRefresshing] = useState(isActive);
+    const [isRefreshing, setIsRefreshing] = useState(isActive);
     const { isPending, data, mutate } = useRefreshAccessTk();
 
     if(isRefreshing) mutate();
 
     useEffect(() => {
         if(data) dispatch(setUserCred(data.data)); 
-        setIsRefresshing(false);
+        setIsRefreshing(false);
     },[data, dispatch]);
 
     return { isPending, data };
