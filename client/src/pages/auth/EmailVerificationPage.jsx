@@ -1,15 +1,10 @@
-import Form from "../../components/formUi/form/Form";
-import FormLink from "../../components/formUi/formLink/FormLink";
+import AuthForm from "./components/authForm/AuthForm";
+import AuthFormLink from "./components/authFormLink/AuthFormLink";
 import LandingPage from "../landing/LandingPage";
 import { useEmailVerification } from "../../services/mutations";
 import { useParams } from "react-router-dom";
 import { trimAndLowerCase } from "../../utils";
-
-const form = {
-  title: "Vérification d'email",
-  inputs: [{ label: 'Code de vérification', name: 'code', type: 'text', placeholder: 'votre code de vérification', is_requied: true }],
-  btn_text: 'Validate'
-};
+import { emailVerificationForm } from "./constant";
 
 const EmailVerificationPage = () => {
   const { mutate, isPending, isError, error, data } = useEmailVerification();
@@ -26,17 +21,17 @@ const EmailVerificationPage = () => {
 
   return (
      <LandingPage>
-      <Form 
+      <AuthForm 
         onSubmit={handleSubmission}
-        form={form}
+        form={emailVerificationForm}
         reqResult={reqResult}
       >
         {data && 
-          <FormLink path='/auth/sign-in'>
+          <AuthFormLink path='/auth/sign-in'>
             Sign in
-          </FormLink>
+          </AuthFormLink>
         }
-      </Form>
+      </AuthForm>
     </LandingPage>
   )
 }

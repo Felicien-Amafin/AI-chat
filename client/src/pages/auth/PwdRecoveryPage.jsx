@@ -1,13 +1,8 @@
-import Form from "../../components/formUi/form/Form";
+import AuthForm from "./components/authForm/AuthForm";
 import LandingPage from "../landing/LandingPage";
 import { useSendResetEmail } from "../../services/mutations";
 import { trimAndLowerCase } from "../../utils";
-
-const form = {
-  title: 'Mot de passe oublié',
-  inputs: [{ label: 'Email', name: 'email', type: 'email', placeholder: 'Votre addresse email', is_requied: true }],
-  btn_text: 'Envoi du lien'
-};
+import { pwdRecoveryForm } from "./constant";
 
 const PwdRecoveryPage = () => {
   const { mutate, isPending, isError, error, data } = useSendResetEmail();
@@ -22,9 +17,9 @@ const PwdRecoveryPage = () => {
 
   return (
      <LandingPage>
-      <Form 
+      <AuthForm 
         onSubmit={handleSubmission}
-        form={form}
+        form={pwdRecoveryForm}
         reqResult={reqResult}
       />
     </LandingPage>

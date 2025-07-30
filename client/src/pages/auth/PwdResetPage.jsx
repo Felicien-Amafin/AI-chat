@@ -1,15 +1,10 @@
-import Form from "../../components/formUi/form/Form";
+import AuthForm from "./components/authForm/AuthForm";
+import AuthFormLink from "./components/authFormLink/AuthFormLink";
 import LandingPage from "../landing/LandingPage";
 import { useParams } from "react-router-dom";
 import { useResetPassword } from "../../services/mutations";
 import { trimAndLowerCase } from "../../utils";
-import FormLink from "../../components/formUi/formLink/FormLink";
-
-const form = {
-  title: 'Réinitialisation',
-  inputs: [{ label: 'Nouveau mot de passe', name: 'new_password', type: 'password', placeholder: 'Votre nouveau mot de passe', is_requied: true }],
-  btn_text: 'Valider'
-};
+import { pwdResetForm } from "./constant";
 
 const PwdResetPage = () => {
   const { mutate, isPending, isError, error, data } = useResetPassword();
@@ -27,24 +22,24 @@ const PwdResetPage = () => {
 
   return (
     <LandingPage>
-      <Form 
+      <AuthForm 
         onSubmit={handleSubmission}
-        form={form}
+        form={pwdResetForm}
         reqResult={reqResult}
       >
         <>
           {isTokenInvalid && 
-            <FormLink path='/auth/password-recovery'>
+            <AuthFormLink path='/auth/password-recovery'>
               Mot de passe oublié ?
-            </FormLink>
+            </AuthFormLink>
           }
           {data && 
-            <FormLink path='/auth/sign-in'>
+            <AuthFormLink path='/auth/sign-in'>
               Connexion
-            </FormLink>
+            </AuthFormLink>
           } 
         </>
-      </Form>
+      </AuthForm>
   </LandingPage>
   )
 }

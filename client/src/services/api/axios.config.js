@@ -24,6 +24,7 @@ export const setUpAxiosInterceptors = (store) => {
 
     axiosInstance.interceptors.request.use(
     (config) => {
+        //Getting accessTk from store + setting it in request's header
         const accessToken = store.getState().auth.accessToken;
        
         if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
@@ -40,6 +41,7 @@ export const setUpAxiosInterceptors = (store) => {
             const originalRequest = error.config;
 
             if (error.response.status === 401 && !originalRequest._retry) {
+                //Handling 401 errors and trying to refresh accessTk
                 originalRequest._retry = true; // Mark the request as retried to avoid infinite loops.
 
                 try {

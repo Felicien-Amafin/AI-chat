@@ -1,20 +1,12 @@
-import Form from "../../components/formUi/form/Form";
-import FormLink from "../../components/formUi/formLink/FormLink";
+import AuthForm from "./components/authForm/AuthForm";
+import AuthFormLink from "./components/authFormLink/AuthFormLink";
 import LandingPage from "../landing/LandingPage";
 import { useSignInUser } from "../../services/mutations";
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react'
 import { trimAndLowerCase } from "../../utils";
 import { setUserCred } from "../../store/authSlice";
-
-const form = {
-  title: 'Connexion',
-  inputs: [ 
-    { label: 'Email', name: 'email', type: 'email', placeholder: 'Votre addresse email', is_requied: true }, 
-    { label: 'Mot de passe', name: 'password', type: 'password', placeholder: 'Votre mot de passe', is_requied: true } 
-  ],
-  btn_text: 'Se connecter',
-};
+import { signInForm } from "./constant";
 
 const link = {
   style: {
@@ -44,20 +36,20 @@ const SignInPage = () => {
 
   return (
     <LandingPage>
-      <Form 
+      <AuthForm 
         onSubmit={handleSubmission}
-        form={form}
+        form={signInForm}
         reqResult={reqResult}
       >
         <div style={link.style}>
-          <FormLink path='/auth/sign-up'>
+          <AuthFormLink path='/auth/sign-up'>
             Vous n’avez pas encore de compte ? Inscription
-          </FormLink>
-          <FormLink path='/auth/password-recovery'>
+          </AuthFormLink>
+          <AuthFormLink path='/auth/password-recovery'>
             Mot de passe oublié ?
-          </FormLink>
+          </AuthFormLink>
         </div>
-      </Form>
+      </AuthForm>
     </LandingPage>
   )
 }

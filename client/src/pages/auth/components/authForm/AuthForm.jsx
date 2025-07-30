@@ -1,9 +1,9 @@
-import FormInput from "../formInput/FormInput";
-import FormBtn from "../FormBtn";
-import useForm from "../../../hooks/useForm";
-import style from './form.module.css';
+import FormInput from "../../../../components/formUi/formInput/FormInput";
+import FormBtn from "../../../../components/formUi/FormBtn";
+import useForm from "../../../../hooks/useForm";
+import style from './authForm.module.css';
 
-const Form = ({children, onSubmit, form, reqResult}) => {
+const AuthForm = ({children, onSubmit, form, reqResult}) => {
   const { handleChange, formData } = useForm();
   const inputErrors = reqResult.error?.response?.data?.errors;
   const errorMess = reqResult.error?.response?.data?.message;
@@ -41,4 +41,4 @@ const Form = ({children, onSubmit, form, reqResult}) => {
   )
 }
 
-export default Form;
+export default AuthForm;

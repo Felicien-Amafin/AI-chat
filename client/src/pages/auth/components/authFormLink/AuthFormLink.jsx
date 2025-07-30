@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import style from './formLink.module.css';
+import style from './authformLink.module.css';
 
-const FormLink = ({children, path}) => {
+const AuthFormLink = ({children, path}) => {
   return (
     <Link to={path} className={style.link}>{children}</Link>
   )
 }
 
-export default FormLink;
+export default AuthFormLink;

@@ -1,18 +1,9 @@
-import Form from "../../components/formUi/form/Form";
-import FormLink from "../../components/formUi/formLink/FormLink";
-import LandingPage from "../landing/LandingPage";
 import { useSignUpUser } from "../../services/mutations";
 import { trimAndLowerCase } from "../../utils";
-
-const form = {
-  title: 'Inscription',
-  inputs: [ 
-    { label: "Nom d'utilisateur", name: 'username', type: 'text', placeholder: "Votre nom d'utilisateur", is_requied: true }, 
-    { label: 'Email', name: 'email', type: 'email', placeholder: 'Votre addresse email', is_requied: true }, 
-    { label: 'Mot de passe', name: 'password', type: 'password', placeholder: 'Votre mot de passe', is_requied: true } 
-  ],
-  btn_text: "S'inscrire"
-};
+import LandingPage from "../landing/LandingPage";
+import AuthForm from "./components/authForm/AuthForm";
+import AuthFormLink from "./components/authFormLink/AuthFormLink";
+import { signUpForm } from "./constant";
 
 const SignUpPage = () => {
   const { mutate, isPending, isError, error, data } = useSignUpUser();
@@ -27,15 +18,15 @@ const SignUpPage = () => {
   
   return (
     <LandingPage>
-      <Form 
+      <AuthForm 
         onSubmit={handleSubmission}
-        form={form}
+        form={signUpForm}
         reqResult={reqResult}
       >
-        <FormLink path='/auth/sign-in'>
+        <AuthFormLink path='/auth/sign-in'>
           Vous avez déjà un compte ? Se connecter
-        </FormLink>
-      </Form>
+        </AuthFormLink>
+      </AuthForm>
     </LandingPage>
   )
 }
