@@ -1,15 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useFetchNewAccessToken } from "../services/queries";
+import { useRefreshAccessTk } from "../services/mutations";
 import { setUserCred } from "../store/authSlice";
 
 const usePersistLogin = (isActive) => {
     const dispatch = useDispatch();
-    const { isPending, data } = useFetchNewAccessToken(isActive, 'accessToken');
+    const [isRefreshing, setIsRefresshing] = useState(isActive);
+    const { isPending, data, mutate } = useRefreshAccessTk();
+
+    if(isRefreshing) mutate();
 
     useEffect(() => {
         if(data) dispatch(setUserCred(data.data)); 
-        
+        setIsRefresshing(false);
     },[data, dispatch]);
 
     return { isPending, data };

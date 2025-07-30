@@ -24,16 +24,18 @@ const rateLimiter = rateLimit({
 })
 
 //Setting middlewares (run before API endpoints)
-app.use('/api', rateLimiter);
 app.use(
     cors({
     credentials: true,
     origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'authorization'],
 }));
 app.use(express.json());
 app.use(cookieParser());
 /* app.use(xss());
 app.use(sanitize()); */
+app.use('/api', rateLimiter);
 
 //Defining API endpoints
 app.use("/api/authentication", authRoutes);

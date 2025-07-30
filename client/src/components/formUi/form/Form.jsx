@@ -5,9 +5,9 @@ import style from './form.module.css';
 
 const Form = ({children, onSubmit, form, reqResult}) => {
   const { handleChange, formData } = useForm();
-  const inputErrors = reqResult.error?.response.data.errors;
-  const errorMess = reqResult.error?.response.data.message;
-  const confirmation = reqResult.data?.data.message;
+  const inputErrors = reqResult.error?.response?.data?.errors;
+  const errorMess = reqResult.error?.response?.data?.message;
+  const confirmation = reqResult.data?.data?.message;
 
   return (
     <form 

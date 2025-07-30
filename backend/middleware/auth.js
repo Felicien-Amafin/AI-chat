@@ -4,7 +4,7 @@ import { CustomError } from "../utils/class.js";
 import { tryCatch } from "../utils/tryCatch.js";
 
 export const verifyAccessTk = tryCatch(async (req, res, next) => {
-    const authHeader = req.headers.authorization;
+    const authHeader = req.headers.authorization || req.headers.Authorization;
 
     if(!authHeader?.startsWith('Bearer ')) {
         const error = new CustomError('Unauthorized', 401, {});

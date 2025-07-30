@@ -4,12 +4,12 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
 import { useFetchLogout } from '../../../services/mutations';
 
-const useLogout = (isUnAuthorized) => {
+const useLogout = (isAccessRefused) => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const { data, mutate } = useFetchLogout();
 
-  if(isUnAuthorized) mutate();
+  if(isAccessRefused) mutate();
 
   useEffect(() => {
     if(data) {

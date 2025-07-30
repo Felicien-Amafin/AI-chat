@@ -199,7 +199,7 @@ export const resetPwd = tryCatch(async (req, res) => {
     return res.status(200).json({ message: 'Votre mot de passe a bien été modifié. Vous pouvez maintenant vous connecter' });
 });
 
-export const sendsNewAccessTk = tryCatch(async( req, res, next) => {
+export const refreshAccessTk = tryCatch(async( req, res, next) => {
     const refreshToken = req.cookies?.jwt;
     
     if(!refreshToken) {
@@ -224,6 +224,7 @@ export const sendsNewAccessTk = tryCatch(async( req, res, next) => {
             };
             //Generate accesToken and send it to client
             const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '30s');
+       
             return res.status(200).json({
                 user: { id: user._id, username: user.username },
                 accessToken 
@@ -246,3 +247,4 @@ export const logout = (req, res) => {
 
     return res.status(200).json({ message: 'Cookie cleared' });
 }
+

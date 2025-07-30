@@ -5,7 +5,7 @@ import style from './navBar.module.css';
 
 const NavBar = ({children}) => {
   const { user } = useSelector((state) => state.auth);
-  const userName = capitalizedFirstChar(user.username);
+  const userName = user ? capitalizedFirstChar(user.username) : '';
 
   return (
     <nav className={`${style.navBar} greyScroll flex-column`}>

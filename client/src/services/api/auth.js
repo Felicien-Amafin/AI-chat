@@ -20,14 +20,12 @@ export const resetPassword = async({token, data})=> {
   return await axiosInstance.post(`api/authentication/password-reset/${token}`, data);
 }
 
-export const getNewAccessToken = async({signal})=> {
-  return await axiosInstance.get(`api/authentication/refresh-token`, signal);
-}
-
 export const logout = async()=> {
   return await axiosInstance.post(`api/authentication/logout`);
 }
 
-export const getAuthorization = async({signal})=> {
-  return await axiosInstance.get(`api/authentication/verify-accessTk`, signal);
+export const refreshAccessTk = async()=> {
+  return await axiosInstance.post(`api/authentication/refresh-token`);
 }
+
+

@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react'
 import { trimAndLowerCase } from "../../utils";
 import { setUserCred } from "../../store/authSlice";
-import { useNavigate } from "react-router-dom";
 
 const form = {
   title: 'Connexion',
@@ -27,8 +26,6 @@ const link = {
 
 const SignInPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const { mutate, isPending, isError, error, data } = useSignInUser();
   const reqResult = { isPending, isError, error, data };
 
@@ -43,7 +40,7 @@ const SignInPage = () => {
     if (data) {
       dispatch(setUserCred(data.data)); //Setting accessToken + userId in store
     }
-  });
+  }, [data, dispatch]);
 
   return (
     <LandingPage>

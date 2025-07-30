@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
-import useErrorHandler from "../../../hooks/useErrorHandler";
+import useErrorHandler from "./useErrorHandler";
 import useFormErrorHandler from "../../../hooks/useFormErrorHandler";
 import { useValidateTchatForm } from "../../../services/mutations";
-import useRefreshAccessTk from "./useRefreshAccessTk";
 import useLogout from "./useLogout";
 import { setAccessToken } from "../../../store/authSlice";
 import { trimAndLowerCase } from "../../../utils";
