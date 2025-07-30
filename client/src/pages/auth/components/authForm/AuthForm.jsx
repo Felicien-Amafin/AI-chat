@@ -2,11 +2,11 @@ import FormInput from "../../../../components/formUi/formInput/FormInput";
 import FormBtn from "../../../../components/formUi/FormBtn";
 import useForm from "../../../../hooks/useForm";
 import style from './authForm.module.css';
+import useFormErrorHandler from "../../../../hooks/useFormErrorHandler";
 
 const AuthForm = ({children, onSubmit, form, reqResult}) => {
   const { handleChange, formData } = useForm();
-  const inputErrors = reqResult.error?.response?.data?.errors;
-  const errorMess = reqResult.error?.response?.data?.message;
+  const { inputErrors, inputErrorMess } = useFormErrorHandler(reqResult.error);
   const confirmation = reqResult.data?.data?.message;
 
   return (
@@ -33,8 +33,8 @@ const AuthForm = ({children, onSubmit, form, reqResult}) => {
       {confirmation && <p className={`${style.confirmation} messAnim`}>
         {confirmation}
       </p>}
-      {errorMess && <p className={`${style.error} error messAnim`}>
-        {errorMess}
+      {inputErrorMess && <p className={`${style.error} error messAnim`}>
+        {inputErrorMess}
       </p>}
       {children}
     </form>
