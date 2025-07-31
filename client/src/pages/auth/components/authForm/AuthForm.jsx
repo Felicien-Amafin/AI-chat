@@ -2,12 +2,14 @@ import FormInput from "../../../../components/formUi/formInput/FormInput";
 import FormBtn from "../../../../components/formUi/FormBtn";
 import useForm from "../../../../hooks/useForm";
 import style from './authForm.module.css';
-import useFormErrorHandler from "../../../../hooks/useFormErrorHandler";
+import useFormInputErrorHandler from "../../../../hooks/useFormInputErrorHandler";
+import useRequestErrorHandler from "../../../../hooks/useRequestErrorHandler";
 
-const AuthForm = ({children, onSubmit, form, reqResult}) => {
+const AuthForm = ({children, onSubmit, form, request}) => {
   const { handleChange, formData } = useForm();
-  const { inputErrors, inputErrorMess } = useFormErrorHandler(reqResult.error);
-  const confirmation = reqResult.data?.data?.message;
+  const { isServerError } = useRequestErrorHandler(request.error);
+  const { inputErrors, inputErrorMess } = useFormInputErrorHandler(request.error); 
+  const confirmationMess = request.data?.data?.message;
 
   return (
     <form 
@@ -28,13 +30,16 @@ const AuthForm = ({children, onSubmit, form, reqResult}) => {
       <FormBtn 
         style='button wideBtn whiteBtn'
         text={form.btn_text}
-        isPending={reqResult?.isPending}
+        isPending={request?.isPending}
       />
-      {confirmation && <p className={`${style.confirmation} messAnim`}>
-        {confirmation}
+      {confirmationMess && <p className={`${style.confirmation} messAnim`}>
+          {confirmationMess}
       </p>}
       {inputErrorMess && <p className={`${style.error} error messAnim`}>
         {inputErrorMess}
+      </p>}
+      {isServerError && <p className={`${style.error} error messAnim`}>
+        Erreur de serveur. Réessayez ultérieurement
       </p>}
       {children}
     </form>

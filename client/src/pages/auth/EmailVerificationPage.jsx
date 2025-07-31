@@ -10,7 +10,7 @@ const EmailVerificationPage = () => {
   const { mutate, isPending, isError, error, data } = useEmailVerification();
   const params = useParams();
   const userId = params.userId; 
-  const reqResult = { isPending, isError, error, data };
+  const request = { isPending, isError, error, data };
 
   const handleSubmission = (e, formData)=> {
     e.preventDefault();
@@ -24,7 +24,7 @@ const EmailVerificationPage = () => {
       <AuthForm 
         onSubmit={handleSubmission}
         form={emailVerificationForm}
-        reqResult={reqResult}
+        request={request}
       >
         {data && 
           <AuthFormLink path='/auth/sign-in'>

@@ -6,7 +6,7 @@ import { pwdRecoveryForm } from "./constant";
 
 const PwdRecoveryPage = () => {
   const { mutate, isPending, isError, error, data } = useSendResetEmail();
-  const reqResult = { isPending, isError, error, data };
+  const request = { isPending, isError, error, data };
 
   const handleSubmission = (e, formData)=> {
       e.preventDefault();
@@ -20,7 +20,7 @@ const PwdRecoveryPage = () => {
       <AuthForm 
         onSubmit={handleSubmission}
         form={pwdRecoveryForm}
-        reqResult={reqResult}
+        request={request}
       />
     </LandingPage>
   )

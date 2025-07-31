@@ -1,4 +1,4 @@
-import useErrorHandler from './useErrorHandler';
+import useErrorHandler from '../../../hooks/useRequestErrorHandler';
 import { useFetchCategories } from '../../../services/queries';
 import useLogoutUser from './useLogoutUser';
 

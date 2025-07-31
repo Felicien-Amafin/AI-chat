@@ -10,7 +10,7 @@ const PwdResetPage = () => {
   const { mutate, isPending, isError, error, data } = useResetPassword();
   const params = useParams();
   const token = params.token;
-  const reqResult = { isPending, isError, error, data };
+  const request = { isPending, isError, error, data };
   const isTokenInvalid = error ? error.response.data.errors.isTokenInvalid : false;
 
   const handleSubmission = (e, formData)=> {
@@ -25,7 +25,7 @@ const PwdResetPage = () => {
       <AuthForm 
         onSubmit={handleSubmission}
         form={pwdResetForm}
-        reqResult={reqResult}
+        request={request}
       >
         <>
           {isTokenInvalid && 

@@ -13,7 +13,7 @@ const TchatFormPage = () => {
         <NavBarLinkList links={tchatFormSideBarLinks}/>
       </NavBar>
       <MainPart>
-        {/* <FormContainer/> */}
+        <FormContainer/>
       </MainPart>
     </PageContainer>
   )

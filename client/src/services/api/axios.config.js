@@ -3,7 +3,7 @@ import { setAccessToken } from "../../store/authSlice";
 
 const BASE_URL ='http://localhost:3001';
 
-//Init axios instance
+//Init generic axios instance
 export const axiosInstance = axios.create({
     baseURL:BASE_URL, 
     withCredentials: true,
@@ -11,7 +11,7 @@ export const axiosInstance = axios.create({
         'Content-Type': 'application/json',
     },
 });
-
+// Init axios instance for refreshing accessTk
 export const axiosRefreshInstance = axios.create({
     baseURL: BASE_URL,
     withCredentials: true,
@@ -19,9 +19,16 @@ export const axiosRefreshInstance = axios.create({
         'Content-Type': 'application/json',
     },
 });
+//Init axios instance for authentication routes
+export const axiosAuthInstance = axios.create({
+    baseURL: BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
 
 export const setUpAxiosInterceptors = (store) => {
-
+    //Configuring interceptors for 'before requests' and 'after requests'
     axiosInstance.interceptors.request.use(
     (config) => {
         //Getting accessTk from store + setting it in request's header

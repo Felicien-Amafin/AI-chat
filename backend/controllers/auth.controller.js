@@ -59,7 +59,7 @@ export const signin = tryCatch(async (req, res) => {
     const errors = getSigninErrors(email, password);
 
     if(errors) {
-        throw new CustomError('Les informations fournies sont icorrectes', 401, errors);
+        throw new CustomError('Veuillez remplir les champs manquants', 401, errors);
     }
 
     const user = await User.findOne({ email });

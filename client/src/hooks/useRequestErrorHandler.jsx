@@ -1,5 +1,5 @@
 
-const useErrorHandler = (error) => {
+const useRequestErrorHandler = (error) => {
     const isUnAuthorized = error?.status === 401;
     const isForbidden = error?.status === 403;
     const isServerError = error?.status === 500;
@@ -8,4 +8,4 @@ const useErrorHandler = (error) => {
     return { isUnAuthorized, isForbidden, isServerError, isClientError };
 }
 
-export default useErrorHandler;
+export default useRequestErrorHandler;

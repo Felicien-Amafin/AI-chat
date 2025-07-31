@@ -1,27 +1,27 @@
-import { axiosInstance, axiosRefreshInstance } from "./axios.config.js";
+import { axiosAuthInstance, axiosRefreshInstance } from "./axios.config.js";
 
 export const signUpUser = async(data)=> {
-  return await axiosInstance.post('api/authentication/signup', data);
+  return await axiosAuthInstance.post('api/authentication/signup', data);
 }
 
 export const signInUser = async(data)=> {
-  return await axiosInstance.post('api/authentication/signin', data);
+  return await axiosAuthInstance.post('api/authentication/signin', data);
 }
 
 export const verifyEmail = async({userId, data})=> {
-  return await axiosInstance.post(`api/authentication/verify-email/${userId}`, data);
+  return await axiosAuthInstance.post(`api/authentication/verify-email/${userId}`, data);
 }
 
 export const sendResetEmail = async(data)=> {
-  return await axiosInstance.post(`api/authentication/send-reset-email`, data);
+  return await axiosAuthInstance.post(`api/authentication/send-reset-email`, data);
 }
 
 export const resetPassword = async({token, data})=> {
-  return await axiosInstance.post(`api/authentication/password-reset/${token}`, data);
+  return await axiosAuthInstance.post(`api/authentication/password-reset/${token}`, data);
 }
 
 export const logout = async()=> {
-  return await axiosInstance.post(`api/authentication/logout`);
+  return await axiosAuthInstance.post(`api/authentication/logout`);
 }
 
 export const refreshAccessTk = async()=> {

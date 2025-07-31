@@ -19,7 +19,7 @@ const link = {
 const SignInPage = () => {
   const dispatch = useDispatch();
   const { mutate, isPending, isError, error, data } = useSignInUser();
-  const reqResult = { isPending, isError, error, data };
+  const request = { isPending, isError, error, data };
 
   const handleSubmission = (e, formData)=> {
     e.preventDefault();
@@ -39,7 +39,7 @@ const SignInPage = () => {
       <AuthForm 
         onSubmit={handleSubmission}
         form={signInForm}
-        reqResult={reqResult}
+        request={request}
       >
         <div style={link.style}>
           <AuthFormLink path='/auth/sign-up'>
