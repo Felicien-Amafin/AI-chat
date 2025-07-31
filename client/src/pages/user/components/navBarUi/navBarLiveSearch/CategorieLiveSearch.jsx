@@ -14,7 +14,7 @@ import useSearchFilter from '../../../hooks/useSearchFilter';
 
 const CategorieLiveSearch= () => {
     const [searchValue, setSearchValue] = useState('');
-    const { isCategoriesPending, isForbidden, isUnAuthorized, isServerError, categories } = useGetCategories();
+    const { isPending, categories, isServerError } = useGetCategories();
     const { listResult, isSearchResult } = useSearchFilter(categories, searchValue);
 
     const navigate = useNavigate();
@@ -49,10 +49,10 @@ const CategorieLiveSearch= () => {
                     styling={style.navBarlist}
                 />
             }
-            {(!categories && !isCategoriesPending && !isServerError) && 
+            {(!categories && !isPending && !isServerError) && 
                 <ListDefaultMess defaultMess={defaultMess}> <TbCategory/></ListDefaultMess>
             }
-            {(!categories && isCategoriesPending) && <ListLoader/>}
+            {(!categories && isPending) && <ListLoader/>}
             {isServerError && <ListError errorMess={errorMess}/>}
         </ListContainer>
     )

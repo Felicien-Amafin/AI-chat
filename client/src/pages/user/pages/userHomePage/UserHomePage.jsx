@@ -14,14 +14,14 @@ import style from "./userHomePage.module.css";
 
 const UserHomePage = () => {
   const { user } = useSelector((state) => state.auth);
-  const userName = user ? capitalizedFirstChar(user.username) : '';
+  const userName = capitalizedFirstChar(user.username);
 
   return (
-    <PageContainer> {/* PageContainer checks accessTk expiration */}
+    <PageContainer> 
       <NavBar>
         <>
           <NavBarLinkList links={homeSideBarLinks}/>
-          {/* <CategorieLiveSearch/> */}
+          <CategorieLiveSearch/>
         </>
       </NavBar>
       <MainPart>

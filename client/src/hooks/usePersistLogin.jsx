@@ -1,21 +1,28 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useRefreshAccessTk } from "../services/mutations";
 import { setUserCred } from "../store/authSlice";
 
 const usePersistLogin = (isActive) => {
     const dispatch = useDispatch();
-    const [isRefreshing, setIsRefreshing] = useState(isActive);
-    const { isPending, data, mutate } = useRefreshAccessTk();
-
-    if(isRefreshing) mutate();
+    const { isIdle, isPending, data, mutate } = useRefreshAccessTk();
+ 
+    useEffect(() => {
+        if(isActive) { 
+            mutate(); 
+            console.log('Mutate is running...')
+        }
+    }, [isActive, mutate]);
 
     useEffect(() => {
-        if(data) dispatch(setUserCred(data.data)); 
-        setIsRefreshing(false);
-    },[data, dispatch]);
+        if(data) {
+            dispatch(setUserCred(data.data)); 
+            console.log('dispatching cred')
+        }
+    },[data, dispatch, mutate]);
 
-    return { isPending, data };
+    
+    return { isIdle, isPending }
 }       
 
 export default usePersistLogin;

@@ -75,11 +75,11 @@ export const signin = tryCatch(async (req, res) => {
     }
 
     const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '30s');
-    const refreshToken = generateToken(user._id, process.env.REFRESH_TOKEN_SECRET, '1d');
+    const refreshToken = generateToken(user._id, process.env.REFRESH_TOKEN_SECRET, '1m');
 
     //set refreshToken in cookie
     res.cookie('jwt', refreshToken, {
-        maxAge: 1 * 24 * 60 * 60 * 1000,
+        maxAge: 1 * 60 * 1000,
         httpOnly: true,
         sameSite: 'None',
         secure: true,

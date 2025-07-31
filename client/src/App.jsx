@@ -7,17 +7,16 @@ import HomePage from './pages/home/HomePage';
 import ErrorPage from './pages/error/Error';
 import ProtectedRoute from './routing/protectedRoute';
 import { useSelector } from 'react-redux';
-import PageContainer from './pages/user/layout/pageContainer/PageContainer';
 
 function App() {
   const { user } = useSelector((state) => state.auth);
-  const { isPending } = usePersistLogin(user === null);
-  
-  if(isPending) return null;
+  const { isIdle, isPending } = usePersistLogin(!user);
+
+  if(isIdle || isPending) return null;
 
   return (
     <Routes>
-      <Route path='/' element={user ? <Navigate to={'user'}/> : <HomePage/>}/>
+      <Route path='/' element={user ? <Navigate to={'/user'}/> : <HomePage/>}/>
 
       <Route path='auth' element={user ? <Navigate to={'/user'}/> : <Auth/>}>
         {authRoutes.map((route)=> <Route 

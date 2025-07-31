@@ -8,15 +8,16 @@ const useLogoutUser = (isAccessRefused) => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const { data, mutate } = useLogout();
- 
- /*  if(isAccessRefused) mutate(); */
+  
+  useEffect(() => {
+    if(isAccessRefused) mutate()
+  }, [isAccessRefused, mutate])
 
   useEffect(() => {
     if(data) {
       dispatch(logoutUser());
       queryClient.removeQueries();
     }
-
   },[dispatch, data, queryClient]);
 
   return { mutate };

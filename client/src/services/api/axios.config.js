@@ -12,7 +12,7 @@ export const axiosInstance = axios.create({
     },
 });
 
-const axiosRefreshInstance = axios.create({
+export const axiosRefreshInstance = axios.create({
     baseURL: BASE_URL,
     withCredentials: true,
     headers: {
@@ -45,7 +45,7 @@ export const setUpAxiosInterceptors = (store) => {
                 originalRequest._retry = true; // Mark the request as retried to avoid infinite loops.
 
                 try {
-                    const response = await axiosRefreshInstance.get('/api/authentication/refresh-token');
+                    const response = await axiosRefreshInstance.post('/api/authentication/refresh-token');
                     
                     const accessToken = response.data.accessToken;
                    

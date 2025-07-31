@@ -1,4 +1,4 @@
-import { axiosInstance } from "./axios.config.js";
+import { axiosInstance, axiosRefreshInstance } from "./axios.config.js";
 
 export const signUpUser = async(data)=> {
   return await axiosInstance.post('api/authentication/signup', data);
@@ -25,7 +25,7 @@ export const logout = async()=> {
 }
 
 export const refreshAccessTk = async()=> {
-  return await axiosInstance.post(`api/authentication/refresh-token`);
+  return await axiosRefreshInstance.post(`api/authentication/refresh-token`);
 }
 
 
