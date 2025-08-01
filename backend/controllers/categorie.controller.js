@@ -6,8 +6,6 @@ import { getTchatFormErrors } from "../utils/categories.js";
 
 export const validateForm = tryCatch(async (req, res) => {
     const { categorie, title} = req.body;
-    console.log(categorie)
-    console.log(title)
     const errors = getTchatFormErrors(categorie, title);
     
     if (errors) {
@@ -31,3 +29,29 @@ export const getCategories = tryCatch(async (req, res) => {
     return res.status(200).json({ categories_names: categoriesNames });
 });
 
+export const createCategorie = tryCatch(async (req, res) => {
+    const { categorie } = req.body;
+    const userId = req.user.id;
+
+    //checking if categorrie already exist
+    const categorieFound = await Categorie.findOne({ name: categorie, userId });
+
+    if(categorieFound) {
+        throw new CustomError(
+            'Nom de catégorie déjà existant', 
+            400, 
+            { categorie: 'Choisissez un autre nom de catégorie' }
+        );
+    }
+
+    //Creating the new categorie if doesn't alredy exist
+    const newCategorie = new Categorie({
+        name: categorie,
+        userId,
+        tchats: new Map([])
+    });
+    
+    await newCategorie.save();
+
+    return res.status(201).json({ newCategorie });
+});

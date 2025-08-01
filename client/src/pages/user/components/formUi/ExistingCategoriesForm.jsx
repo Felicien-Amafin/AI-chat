@@ -7,7 +7,11 @@ import useTchatFormValidation from '../../hooks/useTchatFormValidation';
 
 const ExistingCategoriesForm = ({style}) => {
   const { formData, handleChange } = useForm();
-  const { isPending, isFormValid, isServerError, inputErrorMess, inputErrors, handleSubmission} = useTchatFormValidation();
+
+  const { 
+    isValidationPending, isFormValid, data, isClientError, 
+    isValidationServerError, inputErrorMess, inputErrors, handleSubmission 
+  } = useTchatFormValidation();
 
   const handleSelect = (option) => {
     formData.categorie = option.value;
@@ -35,10 +39,10 @@ const ExistingCategoriesForm = ({style}) => {
         style='whiteBtn button'
         text='Commencer' 
         onClick={null} 
-        isPending={isPending}
+        isPending={isValidationPending}
       />
-      {inputErrorMess && <p className='error messAnim'>{inputErrorMess}</p>}
-      {(isServerError) && <p className='error messAnim'>Server error</p>} 
+      {isClientError && <p className='error messAnim'>{inputErrorMess}</p>}
+      {(isValidationServerError) && <p className='error messAnim'>Server error</p>} 
     </form>
   )
 }

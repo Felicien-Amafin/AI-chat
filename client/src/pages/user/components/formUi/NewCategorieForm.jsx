@@ -7,13 +7,13 @@ import { useEffect } from 'react';
 
 const NewCategorieForm = ({style}) => {
   const { formData, handleChange } = useForm();
-  const { isPending, isFormValid, isServerError, inputErrorMess, inputErrors, handleSubmission} = useTchatFormValidation();
 
-  useEffect(() => {
-    //if :
-    // -invalidate queryKey
-    // -data navigate to newTchatpage with new categorie id is param
-  })
+  const { 
+    isValidationPending, isFormValid, data, isClientError, 
+    isValidationServerError, inputErrorMess, inputErrors, handleSubmission 
+  } = useTchatFormValidation();
+
+  
 
   return (
     <form 
@@ -34,10 +34,10 @@ const NewCategorieForm = ({style}) => {
         style='whiteBtn button'
         text='Commencer' 
         onClick={null} 
-        isPending={isPending}
+        isPending={isValidationPending}
       />
-      {inputErrorMess && <p className='error messAnim'>{inputErrorMess}</p>}
-      {(isServerError) && <p className='error messAnim'>Server error</p>} 
+      {isClientError && <p className='error messAnim'>{inputErrorMess}</p>}
+      {(isValidationServerError) && <p className='error messAnim'>Server error</p>} 
     </form>
   )
 }

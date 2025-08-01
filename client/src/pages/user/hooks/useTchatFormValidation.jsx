@@ -5,8 +5,8 @@ import useLogoutUser from "./useLogoutUser";
 import { trimAndLowerCase } from "../../../utils";
 
 const useTchatFormValidation = () => {
-    const { isPending, mutate, reset, data, error } = useValidateTchatForm();
-    const { isServerError, isForbidden, isUnAuthorized } = useRequestErrorHandler(error);
+    const { isPending:isValidationPending, mutate, reset, data, error } = useValidateTchatForm();
+    const { isClientError, isServerError:isValidationServerError, isForbidden, isUnAuthorized } = useRequestErrorHandler(error);
     const { inputErrorMess, inputErrors } = useFormInputErrorHandler(error);
     useLogoutUser(isForbidden || isUnAuthorized);
 
@@ -20,9 +20,11 @@ const useTchatFormValidation = () => {
     };
 
     return { 
-       isPending,
+       isValidationPending,
        isFormValid,
-       isServerError,
+       data,
+       isClientError,
+       isValidationServerError,
        inputErrorMess,
        inputErrors,
        handleSubmission
