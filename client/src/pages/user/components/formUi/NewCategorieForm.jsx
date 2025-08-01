@@ -13,8 +13,8 @@ const NewCategorieForm = ({style}) => {
     isValidationServerError, inputErrorMess, inputErrors, handleSubmission 
   } = useTchatFormValidation();
 
+  console.log(data);
   
-
   return (
     <form 
       className={`${style} flex-column`}

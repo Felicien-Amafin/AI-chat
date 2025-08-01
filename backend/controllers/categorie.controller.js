@@ -12,7 +12,10 @@ export const validateForm = tryCatch(async (req, res) => {
         throw new CustomError('Certaines informations sont invalides', 400, errors);
     }
 
-    return res.status(200).json({ message: 'Formulaire conforme.'});
+    return res.status(200).json({ 
+        form: { categorie, title },
+        message: 'Formulaire conforme.'
+    });
 });
 
 
@@ -50,7 +53,7 @@ export const createCategorie = tryCatch(async (req, res) => {
         userId,
         tchats: new Map([])
     });
-    
+
     await newCategorie.save();
 
     return res.status(201).json({ newCategorie });
