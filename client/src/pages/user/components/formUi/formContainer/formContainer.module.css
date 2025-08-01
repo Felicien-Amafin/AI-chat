@@ -33,7 +33,7 @@
     font-size: 0.75rem;
 }
 
-.content .form {
+.form {
     gap: 30px;
     animation: form 1s;
 }
@@ -46,7 +46,6 @@
   }
 }
 
-.content .form p {
-    color: white;
-    font-size: 1rem;
+.form p {
+    text-align: center;
 }

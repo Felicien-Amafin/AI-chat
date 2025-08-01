@@ -1,29 +1,14 @@
 import { formNewCategorie } from '../../constant/forms';
 import FormInput from '../../../../components/formUi/formInput/FormInput';
 import FormBtn from '../../../../components/formUi/FormBtn';
-import useTchatFormValidation from '../../hooks/useTchatFormValidation';
 import useForm from '../../../../hooks/useForm';
-import { trimAndLowerCase } from '../../../../utils';
-import { useValidateTchatForm } from '../../../../services/mutations';
-import useFormErrorHandler from '../../../../hooks/useFormInputErrorHandler';
-import useErrorHandler from '../../../../hooks/useRequestErrorHandler';
-import useLogoutUser from '../../hooks/useLogoutUser';
+import useTchatFormValidation from '../../hooks/useTchatFormValidation';
 import { useEffect } from 'react';
 
 const NewCategorieForm = ({style}) => {
   const { formData, handleChange } = useForm();
-  const { isPending, mutate, reset, data, error } = useValidateTchatForm();
-  const { isClientError, isServerError, isForbidden, isUnAuthorized } = useErrorHandler(error);
-  const { inputErrorMess, inputErrors } = useFormErrorHandler(isClientError, error);
-  useLogoutUser(isForbidden || isUnAuthorized);
+  const { isPending, isFormValid, isServerError, inputErrorMess, inputErrors, handleSubmission} = useTchatFormValidation();
 
-  const handleSubmission = (e) => {
-    e.preventDefault();
-    const newFormData = trimAndLowerCase(formData);
-    reset(); // reset the form from previous mutation
-    mutate({...newFormData});
-  }
-  
   useEffect(() => {
     //if :
     // -invalidate queryKey
@@ -33,7 +18,7 @@ const NewCategorieForm = ({style}) => {
   return (
     <form 
       className={`${style} flex-column`}
-      onSubmit={handleSubmission}
+      onSubmit={(e) => handleSubmission(e, formData)}
     >
       {formNewCategorie.map((input) => 
         <FormInput
@@ -51,8 +36,8 @@ const NewCategorieForm = ({style}) => {
         onClick={null} 
         isPending={isPending}
       />
-      {inputErrorMess && <p>{inputErrorMess}</p>}
-      {(isServerError) && <p>Server error</p>} 
+      {inputErrorMess && <p className='error messAnim'>{inputErrorMess}</p>}
+      {(isServerError) && <p className='error messAnim'>Server error</p>} 
     </form>
   )
 }

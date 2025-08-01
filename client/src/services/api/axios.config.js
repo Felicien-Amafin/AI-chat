@@ -22,6 +22,7 @@ export const axiosRefreshInstance = axios.create({
 //Init axios instance for authentication routes
 export const axiosAuthInstance = axios.create({
     baseURL: BASE_URL,
+    withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
     },

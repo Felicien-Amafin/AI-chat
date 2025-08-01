@@ -8,9 +8,8 @@ const FormInput = ({ input, error, value, required, onInputChange }) => {
   
   const isPassword = input.type === 'password';
   const passwdInputType = isPwrdVisible ? 'text' : 'password';
-  //Checks if there is an error for each in put
-  const isError = error && error[input?.name] ? true : false;
-  console.log(isError)
+  const isInputError = error && error[input?.name] ? true : false;//Checks if there is an error for each input
+
   const handleInputChange = (e)=> {
     onInputChange ? onInputChange(e) : null;
   }
@@ -34,7 +33,7 @@ const FormInput = ({ input, error, value, required, onInputChange }) => {
             {isPwrdVisible ? <IoEye/> : <IoMdEyeOff/>}
           </span>}
       </div>
-      {isError && <p className={`${style.error} error messAnim`}>
+      {isInputError && <p className={`${style.error} error messAnim`}>
         {error[input?.name]}
       </p>}
     </div>

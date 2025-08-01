@@ -33,7 +33,7 @@ const AuthForm = ({children, onSubmit, form, request}) => {
         isPending={request?.isPending}
       />
       {confirmationMess && <p className={`${style.confirmation} messAnim`}>
-          {confirmationMess}
+        {confirmationMess}
       </p>}
       {inputErrorMess && <p className={`${style.error} error messAnim`}>
         {inputErrorMess}

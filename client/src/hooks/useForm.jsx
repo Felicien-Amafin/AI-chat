@@ -5,11 +5,11 @@ const useForm = () => {
 
   const handleChange = (e)=> {
     setForm((prevForm)=> {
-        const newForm = {...prevForm, 
-          [e.target.name]: e.target.value
-        }
+      const newForm = {...prevForm, 
+        [e.target.name]: e.target.value
+      }
 
-        return newForm;
+      return newForm;
     });
   }
 

@@ -62,7 +62,6 @@ export const formExistingCategories = {
                 ...baseStyles,
                 color: 'white'
             }),
-
         }
     }
 }
