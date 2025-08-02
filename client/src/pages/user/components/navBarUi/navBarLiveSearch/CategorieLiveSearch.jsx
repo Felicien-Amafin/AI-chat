@@ -11,11 +11,13 @@ import ListLoader from '../../listUi/listLoader/ListLoader';
 import ListError from '../../listUi/listError/ListError';
 import style from './navBarLiveSearch.module.css';
 import useSearchFilter from '../../../hooks/useSearchFilter';
+import useExtractCategoriesNames from '../../../hooks/useExtractCategoriesNames';
 
 const CategorieLiveSearch= () => {
     const [searchValue, setSearchValue] = useState('');
     const { isPending, categories, isServerError } = useGetCategories();
-    const { listResult, isSearchResult } = useSearchFilter(categories, searchValue);
+    const { categoriesNames } = useExtractCategoriesNames(categories);
+    const { listResult, isSearchResult } = useSearchFilter(categoriesNames, searchValue);
 
     const navigate = useNavigate();
     const handleNavigation = (categorie) => {
@@ -31,7 +33,7 @@ const CategorieLiveSearch= () => {
     
     return (
         <ListContainer style={style.listContainer}>
-            {categories && 
+            {categoriesNames && 
                 <SearchField 
                     style={style}
                     type='text'
@@ -40,8 +42,8 @@ const CategorieLiveSearch= () => {
                     onInputChange={handleChange}
                 />
             }
-            {categories && <ListTitle title='Mes catégories'/>}
-            {categories && 
+            {categoriesNames && <ListTitle title='Mes catégories'/>}
+            {categoriesNames && 
                 <List 
                     onSelect={handleNavigation} 
                     list={listResult} 
@@ -49,10 +51,10 @@ const CategorieLiveSearch= () => {
                     styling={style.navBarlist}
                 />
             }
-            {(!categories && !isPending && !isServerError) && 
+            {(!categoriesNames && !isPending && !isServerError) && 
                 <ListDefaultMess defaultMess={defaultMess}> <TbCategory/></ListDefaultMess>
             }
-            {(!categories && isPending) && <ListLoader/>}
+            {(!categoriesNames && isPending) && <ListLoader/>}
             {isServerError && <ListError errorMess={errorMess}/>}
         </ListContainer>
     )

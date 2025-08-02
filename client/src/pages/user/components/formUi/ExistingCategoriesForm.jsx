@@ -9,14 +9,21 @@ const ExistingCategoriesForm = ({style}) => {
   const { formData, handleChange } = useForm();
 
   const { 
-    isValidationPending, isFormValid, data, isClientError, 
-    isValidationServerError, inputErrorMess, inputErrors, handleSubmission 
+    isValidationPending,
+    isFormValid,
+    tchatForm,
+    isValidationClientError,
+    isValidationServerError,
+    validationInputErrorMess,
+    validationInputErrors,
+    handleSubmission 
   } = useTchatFormValidation();
 
   const handleSelect = (option) => {
     formData.categorie = option.value;
   }
   
+  console.log(tchatForm)
   return (
     <form 
       className={`${style} flex-column`}
@@ -30,7 +37,7 @@ const ExistingCategoriesForm = ({style}) => {
       />
       <FormInput
         input={formExistingCategories.input}
-        error={inputErrors}
+        error={validationInputErrors}
         value={formData[formExistingCategories.input.name] || ''}
         required={true}
         onInputChange={handleChange}
@@ -41,8 +48,12 @@ const ExistingCategoriesForm = ({style}) => {
         onClick={null} 
         isPending={isValidationPending}
       />
-      {isClientError && <p className='error messAnim'>{inputErrorMess}</p>}
-      {(isValidationServerError) && <p className='error messAnim'>Server error</p>} 
+      {(isValidationClientError /* || isCreationClientError */) && 
+        <p className='error messAnim'>{validationInputErrorMess /* || creationInputErrorMess */}</p>
+      }
+      {(isValidationServerError /* || isCreationServerError */) && 
+        <p className='error messAnim'>Server error</p>
+      } 
     </form>
   )
 }

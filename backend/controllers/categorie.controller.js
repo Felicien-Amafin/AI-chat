@@ -23,13 +23,18 @@ export const getCategories = tryCatch(async (req, res) => {
     const userId = req.user.id;
 
     const categories = await Categorie.find({ userId });
-    let categoriesNames = [];
+    let categorieList = [];
 
     if(categories.length > 0) {
-        categoriesNames = categories.map((categorie) => capitalizedFirstChar(categorie.name));
+        categorieList = categories.map((categorie) => {
+            return {
+                name: capitalizedFirstChar(categorie.name),
+                id: categorie._id
+            }
+        });
     }
 
-    return res.status(200).json({ categories_names: categoriesNames });
+    return res.status(200).json({ categories: categorieList });
 });
 
 export const createCategorie = tryCatch(async (req, res) => {

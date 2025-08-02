@@ -29,7 +29,7 @@ const NewCategorieForm = ({style}) => {
     creationInputErrors 
   } = useHandleCategorieCreation(isFormValid, tchatForm);
 
-  console.log(categorieData)
+  
   return (
     <form 
       className={`${style} flex-column`}

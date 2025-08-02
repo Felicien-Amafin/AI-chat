@@ -7,10 +7,13 @@ const useGetCategories = () => {
     const { isPending, data, error } = useFetchCategories(categoriesKey); 
     const { isServerError, isUnAuthorized, isForbidden } = useRequestErrorHandler(error);
     useLogoutUser(isUnAuthorized || isForbidden);
-    
-    let categories = data?.data.categories_names.length > 0 ? 
-    data?.data.categories_names : null;
+
+    let categories = null;
    
+    if(data && data.data.categories.length > 0) {
+       categories = data.data.categories;
+    }
+
     return { isPending, categories, isServerError };
 }
 
