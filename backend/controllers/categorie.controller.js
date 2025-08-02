@@ -56,5 +56,10 @@ export const createCategorie = tryCatch(async (req, res) => {
 
     await newCategorie.save();
 
-    return res.status(201).json({ newCategorie });
+    return res.status(201).json({ 
+        categorie: { 
+            id: newCategorie._id,
+            name: newCategorie.name
+        } 
+    });
 });
