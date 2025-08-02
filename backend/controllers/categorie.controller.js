@@ -7,7 +7,7 @@ import { getTchatFormErrors } from "../utils/categories.js";
 export const validateForm = tryCatch(async (req, res) => {
     const { categorie, title} = req.body;
     const errors = getTchatFormErrors(categorie, title);
-    
+ 
     if (errors) {
         throw new CustomError('Certaines informations sont invalides', 400, errors);
     }

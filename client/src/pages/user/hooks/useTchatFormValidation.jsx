@@ -5,28 +5,44 @@ import useLogoutUser from "./useLogoutUser";
 import { trimAndLowerCase } from "../../../utils";
 
 const useTchatFormValidation = () => {
-    const { isPending:isValidationPending, mutate, reset, data, error } = useValidateTchatForm();
-    const { isClientError, isServerError:isValidationServerError, isForbidden, isUnAuthorized } = useRequestErrorHandler(error);
-    const { inputErrorMess, inputErrors } = useFormInputErrorHandler(error);
+    const { 
+        isPending:isValidationPending, 
+        mutate,
+        data, 
+        error 
+    } = useValidateTchatForm();
+
+    const { 
+        isClientError:isValidationClientError, 
+        isServerError:isValidationServerError, 
+        isForbidden, 
+        isUnAuthorized 
+    } = useRequestErrorHandler(error);
+
+    const { 
+        inputErrorMess:validationInputErrorMess, 
+        inputErrors:validationInputErrors 
+    } = useFormInputErrorHandler(error);
+
     useLogoutUser(isForbidden || isUnAuthorized);
 
     const isFormValid = data?.status === 200;
+    const tchatForm = data?.data.form;
 
     const handleSubmission = (e, formData) => {
         e.preventDefault();
         const newFormData = trimAndLowerCase(formData);
-        reset(); // reset the form from previous mutation
         mutate({...newFormData});
     };
 
     return { 
        isValidationPending,
        isFormValid,
-       data,
-       isClientError,
+       tchatForm,
+       isValidationClientError,
        isValidationServerError,
-       inputErrorMess,
-       inputErrors,
+       validationInputErrorMess,
+       validationInputErrors,
        handleSubmission
     }
 }

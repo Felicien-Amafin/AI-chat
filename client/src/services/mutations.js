@@ -8,7 +8,7 @@ import {
     signUpUser, 
     verifyEmail,
 } from "./api/auth";
-import { validateTchatForm } from "./api/categories";
+import { createCategorie, validateTchatForm } from "./api/categories";
 
 //Auth mutation
 export const useSignUpUser = ()=> {
@@ -53,10 +53,16 @@ export const useRefreshAccessTk = ()=> {
    });
 }
 
-//Others mutation
+//Others mutations
 export const useValidateTchatForm = ()=> {
     return useMutation({
         mutationFn: validateTchatForm
+    });
+}
+
+export const useCreateCategorie = ()=> {
+    return useMutation({
+        mutationFn: createCategorie
     });
 }
 

@@ -3,18 +3,32 @@ import FormInput from '../../../../components/formUi/formInput/FormInput';
 import FormBtn from '../../../../components/formUi/FormBtn';
 import useForm from '../../../../hooks/useForm';
 import useTchatFormValidation from '../../hooks/useTchatFormValidation';
+import useHandleCategorieCreation from '../../hooks/useHandleCategorieCreation';
 import { useEffect } from 'react';
 
 const NewCategorieForm = ({style}) => {
   const { formData, handleChange } = useForm();
 
   const { 
-    isValidationPending, isFormValid, data, isClientError, 
-    isValidationServerError, inputErrorMess, inputErrors, handleSubmission 
+    isValidationPending, 
+    isFormValid, 
+    tchatForm, 
+    isValidationClientError, 
+    isValidationServerError, 
+    validationInputErrorMess, 
+    validationInputErrors, 
+    handleSubmission 
   } = useTchatFormValidation();
 
-  console.log(data);
-  
+  const { 
+    isCreationPending, 
+    categorieData,
+    isCreationClientError, 
+    isCreationServerError,
+    creationInputErrorMess, 
+    creationInputErrors 
+  } = useHandleCategorieCreation(isFormValid, tchatForm);
+
   return (
     <form 
       className={`${style} flex-column`}
@@ -24,7 +38,7 @@ const NewCategorieForm = ({style}) => {
         <FormInput
           key={input.name}
           input={input}
-          error={inputErrors}
+          error={validationInputErrors || creationInputErrors}
           value={formData[input.name] || ''}
           required={true}
           onInputChange={handleChange}
@@ -34,10 +48,14 @@ const NewCategorieForm = ({style}) => {
         style='whiteBtn button'
         text='Commencer' 
         onClick={null} 
-        isPending={isValidationPending}
+        isPending={isValidationPending || isCreationPending}
       />
-      {isClientError && <p className='error messAnim'>{inputErrorMess}</p>}
-      {(isValidationServerError) && <p className='error messAnim'>Server error</p>} 
+      {(isValidationClientError || isCreationClientError) && 
+        <p className='error messAnim'>{validationInputErrorMess || creationInputErrorMess}</p>
+      }
+      {(isValidationServerError || isCreationServerError) && 
+        <p className='error messAnim'>Server error</p>
+      } 
     </form>
   )
 }
