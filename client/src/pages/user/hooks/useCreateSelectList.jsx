@@ -1,10 +1,5 @@
 import { capitalizedFirstChar } from "../../../utils";
 
-/* options: [
-            { value: 'finance', label: 'Finance' },
-            { value: 'histoire', label: 'Histoire' },
-            { value: 'actualité', label: 'Actualité' },
-        ], */
 const useCreateSelectList = (list) => {
     const listOptions = list.map((listItem) => {
        return { 

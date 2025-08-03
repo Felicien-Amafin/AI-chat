@@ -17,7 +17,7 @@ const ExistingCategoriesForm = ({style}) => {
 
   const { 
     isValidationPending,
-    formValue,
+    formData,
     isFormValid,
     tchatForm,
     isValidationClientError,
@@ -28,10 +28,7 @@ const ExistingCategoriesForm = ({style}) => {
     handleSelect,
     handleSubmission //Triggers form's submission
   } = useTchatFormHandler();//Handles Tchat form's validation and errors
-
-  console.log('tchatForm', tchatForm)
-  console.log('isFormValid', isFormValid)
-
+ 
   return (
     <form 
       className={`${style} flex-column`}
@@ -46,7 +43,7 @@ const ExistingCategoriesForm = ({style}) => {
       <FormInput
         input={formExistingCategories.input}
         error={validationInputErrors}
-        value={formValue}
+        value={formData[formExistingCategories.input.name] || ''}
         required={true}
         onInputChange={handleChange}
       />

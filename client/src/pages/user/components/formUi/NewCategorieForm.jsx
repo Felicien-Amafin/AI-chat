@@ -1,22 +1,21 @@
 import { formNewCategorie } from '../../constant/forms';
 import FormInput from '../../../../components/formUi/formInput/FormInput';
 import FormBtn from '../../../../components/formUi/FormBtn';
-import useForm from '../../../../hooks/useForm';
 import useTchatFormHandler from '../../hooks/useTchatFormHandler';
-import useHandleCategorieCreation from '../../hooks/useHandleCategorieCreation';
+import useCategorieCreationHandler from '../../hooks/useCategorieCreationHandler';
 import { useEffect } from 'react';
 
 const NewCategorieForm = ({style}) => {
-  const { formData, handleChange } = useForm();//Handles form's input data
-
   const { 
     isValidationPending, 
-    isFormValid, 
+    isFormValid,
+    formData,
     tchatForm, 
     isValidationClientError, 
     isValidationServerError, 
     validationInputErrorMess, 
-    validationInputErrors, 
+    validationInputErrors,
+    handleChange,
     handleSubmission 
   } = useTchatFormHandler();//Handles Tchat form's validation and potentials errors
 
@@ -27,13 +26,12 @@ const NewCategorieForm = ({style}) => {
     isCreationServerError,
     creationInputErrorMess, 
     creationInputErrors 
-  } = useHandleCategorieCreation(isFormValid, tchatForm);//Handles categories creation and potentials errors
+  } = useCategorieCreationHandler(isFormValid, tchatForm);//Handles categories creation and potentials errors
 
-  
   return (
     <form 
       className={`${style} flex-column`}
-      onSubmit={(e) => handleSubmission(e, formData)}
+      onSubmit={handleSubmission}
     >
       {formNewCategorie.map((input) => 
         <FormInput

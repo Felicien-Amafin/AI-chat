@@ -4,7 +4,6 @@ import useRequestErrorHandler from "../../../hooks/useRequestErrorHandler";
 import useLogoutUser from "./useLogoutUser";
 import useForm from "../../../hooks/useForm";
 import { trimAndLowerCase } from "../../../utils";
-import { formExistingCategories } from "../constant/forms";
 
 const useTchatFormHandler = () => {
     const { formData, handleChange } = useForm(); //Handles form's input data
@@ -40,13 +39,12 @@ const useTchatFormHandler = () => {
 
     useLogoutUser(isForbidden || isUnAuthorized);//Logout user if needed
 
-    const formValue = formData[formExistingCategories.input.name] || '';
     const isFormValid = data?.status === 200;
     const tchatForm = data?.data.form;//Gets form's data returned from useValidateTchatForm
 
-    return { //Returns values to for UI to display
+    return { //Returns values to UI to display
        isValidationPending,
-       formValue,
+       formData,
        isFormValid,
        tchatForm,
        isValidationClientError,
