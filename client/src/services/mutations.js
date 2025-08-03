@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { 
     logout, 
     refreshAccessTk, 
@@ -61,8 +61,13 @@ export const useValidateTchatForm = ()=> {
 }
 
 export const useCreateCategorie = ()=> {
+    const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: createCategorie
+        mutationFn: createCategorie,
+        onSuccess: () => {
+        //invalidate quey key to get updated data
+        queryClient.invalidateQueries({ queryKey: ['categories'] }); 
+    },
     });
 }
 

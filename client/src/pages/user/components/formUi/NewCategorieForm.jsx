@@ -27,7 +27,8 @@ const NewCategorieForm = ({style}) => {
     creationInputErrorMess, 
     creationInputErrors 
   } = useCategorieCreationHandler(isFormValid, tchatForm);//Handles categories creation and potentials errors
-
+ 
+  //invalidate query key
   return (
     <form 
       className={`${style} flex-column`}

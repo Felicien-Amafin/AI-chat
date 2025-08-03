@@ -5,6 +5,7 @@ import { formExistingCategories } from '../../constant/forms';
 import useTchatFormHandler from '../../hooks/useTchatFormHandler';
 import useGetCategories from '../../hooks/useGetCategories';
 import useCreateSelectList from '../../hooks/useCreateSelectList';
+import Loader from '../../../../components/others/Loader';
 
 const ExistingCategoriesForm = ({style}) => {
   const { 
@@ -28,18 +29,19 @@ const ExistingCategoriesForm = ({style}) => {
     handleSelect,
     handleSubmission //Triggers form's submission
   } = useTchatFormHandler();//Handles Tchat form's validation and errors
- 
+
   return (
     <form 
       className={`${style} flex-column`}
       onSubmit={handleSubmission}
     >
-      <Select 
+      {listOptions && <Select 
         styles={formExistingCategories.select.styles}
         options={listOptions}
         placeholder='Rechercher une catégorie'
         onChange={handleSelect}
-      />
+      />}
+      {!listOptions && <Loader size={10}/>}
       <FormInput
         input={formExistingCategories.input}
         error={validationInputErrors}
