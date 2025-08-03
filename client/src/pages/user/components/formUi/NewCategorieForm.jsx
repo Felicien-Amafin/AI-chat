@@ -2,12 +2,12 @@ import { formNewCategorie } from '../../constant/forms';
 import FormInput from '../../../../components/formUi/formInput/FormInput';
 import FormBtn from '../../../../components/formUi/FormBtn';
 import useForm from '../../../../hooks/useForm';
-import useTchatFormValidation from '../../hooks/useTchatFormValidation';
+import useTchatFormHandler from '../../hooks/useTchatFormHandler';
 import useHandleCategorieCreation from '../../hooks/useHandleCategorieCreation';
 import { useEffect } from 'react';
 
 const NewCategorieForm = ({style}) => {
-  const { formData, handleChange } = useForm();
+  const { formData, handleChange } = useForm();//Handles form's input data
 
   const { 
     isValidationPending, 
@@ -18,7 +18,7 @@ const NewCategorieForm = ({style}) => {
     validationInputErrorMess, 
     validationInputErrors, 
     handleSubmission 
-  } = useTchatFormValidation();
+  } = useTchatFormHandler();//Handles Tchat form's validation and potentials errors
 
   const { 
     isCreationPending, 
@@ -27,7 +27,7 @@ const NewCategorieForm = ({style}) => {
     isCreationServerError,
     creationInputErrorMess, 
     creationInputErrors 
-  } = useHandleCategorieCreation(isFormValid, tchatForm);
+  } = useHandleCategorieCreation(isFormValid, tchatForm);//Handles categories creation and potentials errors
 
   
   return (

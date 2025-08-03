@@ -25,11 +25,6 @@ export const formExistingCategories = {
         is_requied: true 
     },
     select: {
-        options: [
-            { value: 'finance', label: 'Finance' },
-            { value: 'histoire', label: 'Histoire' },
-            { value: 'actualité', label: 'Actualité' },
-        ],
         styles: {
             control: (baseStyles, state) => ({
                 ...baseStyles,

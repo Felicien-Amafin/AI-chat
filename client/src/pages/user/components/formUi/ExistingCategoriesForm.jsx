@@ -2,43 +2,51 @@ import Select from 'react-select';
 import FormInput from '../../../../components/formUi/formInput/FormInput';
 import FormBtn from '../../../../components/formUi/FormBtn';
 import { formExistingCategories } from '../../constant/forms';
-import useForm from '../../../../hooks/useForm';
-import useTchatFormValidation from '../../hooks/useTchatFormValidation';
+import useTchatFormHandler from '../../hooks/useTchatFormHandler';
+import useGetCategories from '../../hooks/useGetCategories';
+import useCreateSelectList from '../../hooks/useCreateSelectList';
 
 const ExistingCategoriesForm = ({style}) => {
-  const { formData, handleChange } = useForm();
+  const { 
+    isPending:isCategoriesPending, 
+    categories, 
+    isCategoriesServerError 
+  } = useGetCategories();//Gets categories from db
+
+  const { listOptions } = useCreateSelectList(categories);//Create list for Select component
 
   const { 
     isValidationPending,
+    formValue,
     isFormValid,
     tchatForm,
     isValidationClientError,
     isValidationServerError,
     validationInputErrorMess,
     validationInputErrors,
-    handleSubmission 
-  } = useTchatFormValidation();
+    handleChange,
+    handleSelect,
+    handleSubmission //Triggers form's submission
+  } = useTchatFormHandler();//Handles Tchat form's validation and errors
 
-  const handleSelect = (option) => {
-    formData.categorie = option.value;
-  }
-  
-  console.log(tchatForm)
+  console.log('tchatForm', tchatForm)
+  console.log('isFormValid', isFormValid)
+
   return (
     <form 
       className={`${style} flex-column`}
-      onSubmit={(e) => handleSubmission(e, formData)}
+      onSubmit={handleSubmission}
     >
       <Select 
         styles={formExistingCategories.select.styles}
-        options={formExistingCategories.select.options}
+        options={listOptions}
         placeholder='Rechercher une catégorie'
         onChange={handleSelect}
       />
       <FormInput
         input={formExistingCategories.input}
         error={validationInputErrors}
-        value={formData[formExistingCategories.input.name] || ''}
+        value={formValue}
         required={true}
         onInputChange={handleChange}
       />
@@ -46,12 +54,12 @@ const ExistingCategoriesForm = ({style}) => {
         style='whiteBtn button'
         text='Commencer' 
         onClick={null} 
-        isPending={isValidationPending}
+        isPending={isValidationPending || isCategoriesPending}
       />
-      {(isValidationClientError /* || isCreationClientError */) && 
-        <p className='error messAnim'>{validationInputErrorMess /* || creationInputErrorMess */}</p>
+      {isValidationClientError  && 
+        <p className='error messAnim'>{validationInputErrorMess}</p>
       }
-      {(isValidationServerError /* || isCreationServerError */) && 
+      {(isValidationServerError || isCategoriesServerError) && 
         <p className='error messAnim'>Server error</p>
       } 
     </form>

@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { useCreateCategorie } from '../../../services/mutations';
 import useRequestErrorHandler from '../../../hooks/useRequestErrorHandler';

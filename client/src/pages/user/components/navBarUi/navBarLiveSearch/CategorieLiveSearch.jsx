@@ -11,13 +11,13 @@ import ListLoader from '../../listUi/listLoader/ListLoader';
 import ListError from '../../listUi/listError/ListError';
 import style from './navBarLiveSearch.module.css';
 import useSearchFilter from '../../../hooks/useSearchFilter';
-import useExtractCategoriesNames from '../../../hooks/useExtractCategoriesNames';
+import useCreateNavList from '../../../hooks/useCreateNavList';
 
 const CategorieLiveSearch= () => {
     const [searchValue, setSearchValue] = useState('');
     const { isPending, categories, isServerError } = useGetCategories();
-    const { categoriesNames } = useExtractCategoriesNames(categories);
-    const { listResult, isSearchResult } = useSearchFilter(categoriesNames, searchValue);
+    const { listNames } = useCreateNavList(categories);
+    const { listResult, isSearchResult } = useSearchFilter(listNames, searchValue);
 
     const navigate = useNavigate();
     const handleNavigation = (categorie) => {
@@ -33,7 +33,7 @@ const CategorieLiveSearch= () => {
     
     return (
         <ListContainer style={style.listContainer}>
-            {categoriesNames && 
+            {listNames && 
                 <SearchField 
                     style={style}
                     type='text'
@@ -42,8 +42,8 @@ const CategorieLiveSearch= () => {
                     onInputChange={handleChange}
                 />
             }
-            {categoriesNames && <ListTitle title='Mes catégories'/>}
-            {categoriesNames && 
+            {listNames && <ListTitle title='Mes catégories'/>}
+            {listNames && 
                 <List 
                     onSelect={handleNavigation} 
                     list={listResult} 
@@ -51,10 +51,10 @@ const CategorieLiveSearch= () => {
                     styling={style.navBarlist}
                 />
             }
-            {(!categoriesNames && !isPending && !isServerError) && 
+            {(!listNames && !isPending && !isServerError) && 
                 <ListDefaultMess defaultMess={defaultMess}> <TbCategory/></ListDefaultMess>
             }
-            {(!categoriesNames && isPending) && <ListLoader/>}
+            {(!listNames && isPending) && <ListLoader/>}
             {isServerError && <ListError errorMess={errorMess}/>}
         </ListContainer>
     )
