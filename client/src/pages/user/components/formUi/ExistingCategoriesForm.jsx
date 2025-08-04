@@ -5,6 +5,9 @@ import { formExistingCategories } from '../../constant/forms';
 import useTchatFormHandler from '../../hooks/useTchatFormHandler';
 import useGetCategories from '../../hooks/useGetCategories';
 import useCreateSelectList from '../../hooks/useCreateSelectList';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { getCategorieInArray } from '../../../../utils';
 import Loader from '../../../../components/others/Loader';
 
 const ExistingCategoriesForm = ({style}) => {
@@ -20,7 +23,7 @@ const ExistingCategoriesForm = ({style}) => {
     isValidationPending,
     formData,
     isFormValid,
-    tchatForm,
+    validatedForm,
     isValidationClientError,
     isValidationServerError,
     validationInputErrorMess,
@@ -30,6 +33,22 @@ const ExistingCategoriesForm = ({style}) => {
     handleSubmission //Triggers form's submission
   } = useTchatFormHandler();//Handles Tchat form's validation and errors
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(isFormValid) {
+      //Gathering some usefull data before navigating to /user/new-tchat
+      const categorie = getCategorieInArray(validatedForm?.categorie, categories);
+      const dataToSend = { 
+        categorie_id: categorie[0].id, 
+        categorie_name: categorie[0].name,
+        tchat_title: validatedForm.title
+      };
+
+      navigate('/user/new-tchat', { state: dataToSend, replace: true });
+    }
+  },[categories, validatedForm?.categorie, validatedForm?.title, isFormValid, navigate])
+ 
   return (
     <form 
       className={`${style} flex-column`}

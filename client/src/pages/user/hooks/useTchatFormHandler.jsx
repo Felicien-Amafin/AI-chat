@@ -40,13 +40,13 @@ const useTchatFormHandler = () => {
     useLogoutUser(isForbidden || isUnAuthorized);//Logout user if needed
 
     const isFormValid = data?.status === 200;
-    const tchatForm = data?.data.form;//Gets form's data returned from useValidateTchatForm
+    const validatedForm = data?.data.form;//Gets validated form from useValidateTchatForm
 
     return { //Returns values to UI to display
        isValidationPending,
        formData,
        isFormValid,
-       tchatForm,
+       validatedForm,
        isValidationClientError,
        isValidationServerError,
        validationInputErrorMess,

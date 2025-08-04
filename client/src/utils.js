@@ -44,4 +44,12 @@ export const searchFilter = (list, searchTerm)=> {
     })
 }
 
+export const getCategorieInArray = (categorieName, categories) =>{
+    const matchingCategorie = categories?.filter((categorie) => {
+        if(categorieName.toLowerCase() === categorie.name.toLowerCase()) {
+            return categorie;
+        }
+    })
 
+    return matchingCategorie;
+}

@@ -6,7 +6,6 @@ import FormContainer from "../components/formUi/formContainer/FormContainer";
 import { tchatFormSideBarLinks } from "../constant/SideBarLinks";
 
 const TchatFormPage = () => {
-
   return (
     <PageContainer>
       <NavBar>
