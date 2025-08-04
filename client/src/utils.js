@@ -27,7 +27,7 @@ export const capitalizedFirstChar = (string)=> {
     return newString;
 }
 
-export const searchFilter = (list, searchTerm)=> {
+export const termFilter = (list, searchTerm)=> {
     if(!list) return;
     
     return list.filter((listTerm)=> {
@@ -53,3 +53,29 @@ export const getCategorieInArray = (categorieName, categories) =>{
 
     return matchingCategorie;
 }
+
+export const createNavList = (list) => {
+    const listNames = list?.map((categorie) => categorie.name);
+
+    return listNames;
+}
+
+export const createSelectList = (list) => {
+    const listOptions = list?.map((listItem) => {
+       return { 
+            value: listItem.name.toLowerCase(),
+            label: capitalizedFirstChar(listItem.name) 
+        }
+    });
+ 
+    return listOptions;
+}
+
+export const searchFilter = (list, searchValue) => {
+    const listResult = termFilter(list, searchValue);
+    const isSearchResult = listResult?.length > 0;
+
+    return { listResult, isSearchResult };
+}
+
+

@@ -1,7 +1,6 @@
 import style from './list.module.css';
 
 const List = ({onSelect, list, isSearchResult, styling}) => {
-
     return (
         <ul className={`${style.list} ${styling} flex-column`}>
             {list && list.map((listItem)=> <li 

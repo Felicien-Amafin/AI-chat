@@ -51,7 +51,6 @@ const NewCategorieForm = ({style}) => {
     navigate
   ]);
 
-  
   return (
     <form 
       className={`${style} flex-column`}

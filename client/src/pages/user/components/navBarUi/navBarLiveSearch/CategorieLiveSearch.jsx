@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import useGetCategories from '../../../hooks/useGetCategories';
+import useGetCategoriesHandler from '../../../hooks/useGetCategoriesHandler';
+import { createNavList, searchFilter } from '../../../../../utils';
 import { TbCategory } from "react-icons/tb";
 import List from '../../listUi/list/List';
 import ListContainer from '../../listUi/ListContainer';
@@ -10,15 +11,13 @@ import ListDefaultMess from '../../listUi/listDefaultMess/ListDefaultMess';
 import ListLoader from '../../listUi/listLoader/ListLoader';
 import ListError from '../../listUi/listError/ListError';
 import style from './navBarLiveSearch.module.css';
-import useSearchFilter from '../../../hooks/useSearchFilter';
-import useCreateNavList from '../../../hooks/useCreateNavList';
 
 const CategorieLiveSearch= () => {
     const [searchValue, setSearchValue] = useState('');
-    const { isPending, categories, isServerError } = useGetCategories();
-    const { listNames } = useCreateNavList(categories);
-    const { listResult, isSearchResult } = useSearchFilter(listNames, searchValue);
-
+    const { isPending, categories, isServerError } = useGetCategoriesHandler();
+    const listNames = createNavList(categories);
+    const { listResult, isSearchResult } = searchFilter(listNames, searchValue);
+    
     const navigate = useNavigate();
     const handleNavigation = (categorie) => {
         navigate(`/user/categories/${categorie}`);

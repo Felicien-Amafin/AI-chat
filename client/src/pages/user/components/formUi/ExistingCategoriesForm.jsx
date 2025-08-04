@@ -3,11 +3,10 @@ import FormInput from '../../../../components/formUi/formInput/FormInput';
 import FormBtn from '../../../../components/formUi/FormBtn';
 import { formExistingCategories } from '../../constant/forms';
 import useTchatFormHandler from '../../hooks/useTchatFormHandler';
-import useGetCategories from '../../hooks/useGetCategories';
-import useCreateSelectList from '../../hooks/useCreateSelectList';
+import useGetCategoriesHandler from '../../hooks/useGetCategoriesHandler';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getCategorieInArray } from '../../../../utils';
+import { createSelectList, getCategorieInArray } from '../../../../utils';
 import Loader from '../../../../components/others/Loader';
 
 const ExistingCategoriesForm = ({style}) => {
@@ -15,9 +14,9 @@ const ExistingCategoriesForm = ({style}) => {
     isPending:isCategoriesPending, 
     categories, 
     isCategoriesServerError 
-  } = useGetCategories();//Gets categories from db
+  } = useGetCategoriesHandler();//Gets categories from db
 
-  const { listOptions } = useCreateSelectList(categories);//Create list for Select component
+  const listOptions = createSelectList(categories);//Create list for Select component
 
   const { 
     isValidationPending,
