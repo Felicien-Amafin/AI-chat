@@ -27,7 +27,7 @@ const useCategorieCreationHandler = (isActive, formData) => {
     useLogoutUser(isForbidden || isUnAuthorized);//Logout user if needed
 
     useEffect(() => {
-        if(isActive && formData) {//Sends form's data to db conditionally
+        if(isActive && formData) {//Sends  validated form's data to db conditionally
             mutate(formData);
         }
     }, [isActive, formData, mutate]);

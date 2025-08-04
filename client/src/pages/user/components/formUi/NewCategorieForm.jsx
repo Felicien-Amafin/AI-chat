@@ -4,13 +4,14 @@ import FormBtn from '../../../../components/formUi/FormBtn';
 import useTchatFormHandler from '../../hooks/useTchatFormHandler';
 import useCategorieCreationHandler from '../../hooks/useCategorieCreationHandler';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const NewCategorieForm = ({style}) => {
   const { 
     isValidationPending, 
     isFormValid,
     formData,
-    tchatForm, 
+    validatedForm, 
     isValidationClientError, 
     isValidationServerError, 
     validationInputErrorMess, 
@@ -26,8 +27,31 @@ const NewCategorieForm = ({style}) => {
     isCreationServerError,
     creationInputErrorMess, 
     creationInputErrors 
-  } = useCategorieCreationHandler(isFormValid, tchatForm);//Handles categories creation and potentials errors
- 
+  } = useCategorieCreationHandler(isFormValid, validatedForm);//Handles categories creation and potentials errors
+  
+  const isCategorieCreated = categorieData?.status === 201;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(isCategorieCreated) {
+      //Gathering some usefull data before navigating to /user/new-tchat
+      const dataToSend = { 
+        categorie_id: categorieData?.data.categorie.id,
+        categorie_name: categorieData?.data.categorie.name,
+        tchat_title: validatedForm?.title
+      };
+    
+      navigate('/user/new-tchat', { state: dataToSend, replace: true });
+    }
+  },[
+    categorieData?.data.categorie.id, 
+    categorieData?.data.categorie.name, 
+    validatedForm?.title,
+    isCategorieCreated,
+    navigate
+  ]);
+
+  
   return (
     <form 
       className={`${style} flex-column`}
