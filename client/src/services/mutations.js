@@ -9,6 +9,7 @@ import {
     verifyEmail,
 } from "./api/auth";
 import { createCategorie, validateTchatForm } from "./api/categories";
+import { createTchat } from "./api/tchats";
 
 //Auth mutation
 export const useSignUpUser = ()=> {
@@ -65,9 +66,11 @@ export const useCreateCategorie = ()=> {
     return useMutation({
         mutationFn: createCategorie,
         onSuccess: () => {
-        //invalidate quey key to get updated data
-        queryClient.invalidateQueries({ queryKey: ['categories'] }); 
-    },
+            //invalidate quey key to get updated data
+            queryClient.invalidateQueries({ queryKey: ['categories'] }); 
+        },
     });
 }
+
+
 

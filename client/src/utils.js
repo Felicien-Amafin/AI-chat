@@ -23,11 +23,13 @@ export const trimAndLowerCase = (obj, array)=> {
 }
 
 export const capitalizedFirstChar = (string)=> {
+    //Capitalize first Char of string
     const newString = string.charAt(0).toUpperCase() + string.slice(1);
     return newString;
 }
 
 export const termFilter = (list, searchTerm)=> {
+    //Return an array of string matching with searchTerm
     if(!list) return;
     
     return list.filter((listTerm)=> {
@@ -45,6 +47,7 @@ export const termFilter = (list, searchTerm)=> {
 }
 
 export const getCategorieInArray = (categorieName, categories) =>{
+    //Return a single categorie using categorieName as a filter element
     const matchingCategorie = categories?.filter((categorie) => {
         if(categorieName.toLowerCase() === categorie.name.toLowerCase()) {
             return categorie;
@@ -55,12 +58,14 @@ export const getCategorieInArray = (categorieName, categories) =>{
 }
 
 export const createNavList = (list) => {
+    //Returns the list of all categories' name
     const listNames = list?.map((categorie) => categorie.name);
 
     return listNames;
 }
 
 export const createSelectList = (list) => {
+    //Returns the list of all categories' name to use in Select component
     const listOptions = list?.map((listItem) => {
        return { 
             value: listItem.name.toLowerCase(),
@@ -72,6 +77,7 @@ export const createSelectList = (list) => {
 }
 
 export const searchFilter = (list, searchValue) => {
+    //Returns values needed in the search filtering process
     const listResult = termFilter(list, searchValue);
     const isSearchResult = listResult?.length > 0;
 

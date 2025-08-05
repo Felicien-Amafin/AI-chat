@@ -10,11 +10,13 @@ const useLogoutUser = (isAccessRefused) => {
   const { data, mutate } = useLogout();
   
   useEffect(() => {
+    //Logout user if isAccessRefused is true
     if(isAccessRefused) mutate()
   }, [isAccessRefused, mutate])
 
   useEffect(() => {
     if(data) {
+      //Remove user cred in auth store and clear the cache (if data is true)
       dispatch(logoutUser());
       queryClient.removeQueries();
     }

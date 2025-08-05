@@ -4,8 +4,8 @@ import useLogoutUser from './useLogoutUser';
 
 const useGetCategoriesHandler = () => {
     const categoriesKey = 'categories';
-    const { isPending, data, error } = useFetchCategories(categoriesKey); 
-    const { isServerError, isUnAuthorized, isForbidden } = useRequestErrorHandler(error);
+    const { isPending, data, error } = useFetchCategories(categoriesKey); //Fetches categories'name in db
+    const { isServerError, isUnAuthorized, isForbidden } = useRequestErrorHandler(error);// Handle potential errors after fetching categories'name
     useLogoutUser(isUnAuthorized || isForbidden);
 
     let categories = null;

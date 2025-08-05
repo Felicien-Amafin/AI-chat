@@ -1,21 +1,22 @@
+import TchatContainer from "../components/tchatUi/tchatContainer/TchatContainer";
+import NavBar from "../layout/navBar/NavBar";
+import NavBarLinkList from "../components/navBarUi/navBarLinkList/NavBarLinkList";
+import MainPart from "../layout/mainPart/MainPart";
+import { allSideBarLinks } from "../constant/SideBarLinks";
 import PageContainer from "../layout/pageContainer/PageContainer";
-import { useLocation } from 'react-router-dom';
+import QuestionLiveSearch from "../components/navBarUi/navBarLiveSearch/QuestionLiveSearch";
 
 const NewTchatPage = () => {
-    const location = useLocation();
-
-  // Accès aux données via `location.state`
-    const data = location.state;
-
-    console.log(data)
+    
     return (
         <PageContainer>
-        {/* <NavBar>
-            <NavBarLinkList links={tchatFormSideBarLinks}/>
-        </NavBar>
-        <MainPart>
-            <FormContainer/>
-        </MainPart> */}
+            <NavBar>
+                <NavBarLinkList links={allSideBarLinks}/>
+                {/* <QuestionLiveSearch/> */}
+            </NavBar>
+            <MainPart>
+                <TchatContainer/>
+            </MainPart>
         </PageContainer>
     )
 }

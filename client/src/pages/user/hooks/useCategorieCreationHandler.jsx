@@ -17,14 +17,14 @@ const useCategorieCreationHandler = (isActive, formData) => {
         isServerError:isCreationServerError, 
         isForbidden, 
         isUnAuthorized, 
-    } = useRequestErrorHandler(error);//Handles potential requests errors
+    } = useRequestErrorHandler(error);
      
     const { 
         inputErrorMess:creationInputErrorMess, 
         inputErrors:creationInputErrors 
-    } = useFormInputErrorHandler(error);//Handles potential form's inputs errors
+    } = useFormInputErrorHandler(error);
 
-    useLogoutUser(isForbidden || isUnAuthorized);//Logout user if needed
+    useLogoutUser(isForbidden || isUnAuthorized);
 
     useEffect(() => {
         if(isActive && formData) {//Sends  validated form's data to db conditionally
@@ -32,7 +32,7 @@ const useCategorieCreationHandler = (isActive, formData) => {
         }
     }, [isActive, formData, mutate]);
 
-    return {//Returns values to UI to display
+    return {
         isCreationPending, 
         categorieData, 
         isCreationClientError, 
