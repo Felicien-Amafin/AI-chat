@@ -52,3 +52,29 @@ export const createCategorie = tryCatch(async (req, res) => {
         } 
     });
 });
+
+export const updateCategorie = tryCatch(async (req, res) => {
+    const { categorieId } = req.body;
+    const { tchat } = req.body;
+    const userId = req.user.id;
+
+    //Getting categorie to save new tchat in it
+    const categorie = await Categorie.findOne({ _id: categorieId, userId });
+
+    if(categorie) {
+        throw new CustomError(
+            'categorie inexistante', 
+            401, 
+            {}
+        );
+    }
+
+    categorie.tchats.set(tchat.id, {
+        title: tchat.title,
+        date: tchat.date
+    });
+
+    categorie.save();
+
+    return res.satus(200).json({ message: 'Un nouveau tchat a été ajouté à la catégorie' });
+})

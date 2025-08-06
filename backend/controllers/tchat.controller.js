@@ -24,7 +24,7 @@ export const createTchat = tryCatch(async (req, res) => {
     const userId = req.user.id;
 
     //Checking if categorie exist so that newly created tchat can be saved in it
-    const categorie = await Categorie.findOne({ _id:categorieId});
+    const categorie = await Categorie.findOne({ _id:categorieId, userId});
 
     if(!categorie) {
         throw new CustomError('Catégorie introuvable', 404, {});
