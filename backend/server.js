@@ -8,7 +8,8 @@ import cors from 'cors';
 import connectToDb from "./db/mongodbConnection.js";
 
 import authRoutes from "./routes/auth.routes.js";
-import categorieRoutes from "./routes/categorie.routes.js";
+import categoriesRoutes from "./routes/categories.routes.js";
+import tchatsRoutes from "./routes/tchats.routes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { verifyAccessTk } from "./middleware/auth.js";
 
@@ -39,7 +40,8 @@ app.use('/api', rateLimiter);
 
 //Defining API endpoints
 app.use("/api/authentication", authRoutes);
-app.use("/api/categories", verifyAccessTk, categorieRoutes);
+app.use("/api/categories", verifyAccessTk, categoriesRoutes);
+app.use("/api/tchats", verifyAccessTk, tchatsRoutes);
 app.use(errorHandler);
 
 app.listen(PORT, ()=> {

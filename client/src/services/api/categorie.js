@@ -4,11 +4,7 @@ export const getCategories = async({signal})=> {
   return await axiosInstance.get(`api/categories`, signal);
 }
 
-export const validateTchatForm = async(data)=> {
-  return await axiosInstance.post(`api/categories/validate-tchat-form`, data);
-}
-
 export const createCategorie = async(data)=> {
-  return await axiosInstance.post(`api/categories/`, data);
+  return await axiosInstance.post(`api/categories`, data);
 }
 

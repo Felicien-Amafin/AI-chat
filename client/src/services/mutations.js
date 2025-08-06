@@ -8,8 +8,8 @@ import {
     signUpUser, 
     verifyEmail,
 } from "./api/auth";
-import { createCategorie, validateTchatForm } from "./api/categories";
-import { createTchat } from "./api/tchats";
+import { createCategorie } from "./api/categorie";
+import { validateTchatForm } from "./api/tchat";
 
 //Auth mutation
 export const useSignUpUser = ()=> {
