@@ -119,7 +119,7 @@ body {
 }
 
 .greyScroll {
-  overflow-Y: auto;
+  overflow-y: auto;
 }
 .greyScroll::-webkit-scrollbar {
   width: 5px;               
