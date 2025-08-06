@@ -5,7 +5,7 @@ import Tchat from "../models/tchat.model.js";
 import Categorie from "../models/categorie.model.js";
 import { getNewDate } from "../utils/genericFunc.js";
 
-export const validateForm = tryCatch(async (req, res) => {
+export const validateTchatForm = tryCatch(async (req, res) => {
     const { categorie, title} = req.body;
     const errors = getTchatFormErrors(categorie, title);
  
@@ -20,24 +20,31 @@ export const validateForm = tryCatch(async (req, res) => {
 });
 
 export const createTchat = tryCatch(async (req, res) => {
-    const { categorieId, } = req.body;
+    const { categorie_id, tchat_title } = req.body;
     const userId = req.user.id;
 
     //Checking if categorie exist so that newly created tchat can be saved in it
-    const categorie = await Categorie.findOne({ _id:categorieId, userId});
+    const categorie = await Categorie.findOne({ _id:categorie_id, userId});
 
     if(!categorie) {
         throw new CustomError('Catégorie introuvable', 404, {});
     }
 
     const newTchat = new Tchat({//Creating new tchat
-        categorieId,
+        categorieId: categorie_id,
         userId,
         date: `${getNewDate()}`,
         messages: []
     });
 
-    newTchat.save();
+    await newTchat.save();
+
+    categorie.tchats.set(newTchat._id, {//Saving new tchat in it's corresponding categorie
+        title: tchat_title,
+        date: newTchat.date
+    });
+
+    await categorie.save();
 
     return res.status(201).json({
         message: 'Un nouveau tchat a été créé',

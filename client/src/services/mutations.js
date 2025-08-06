@@ -9,7 +9,7 @@ import {
     verifyEmail,
 } from "./api/auth";
 import { createCategorie } from "./api/categorie";
-import { validateTchatForm } from "./api/tchat";
+import { createTchat, validateTchatForm } from "./api/tchat";
 
 //Auth mutation
 export const useSignUpUser = ()=> {
@@ -72,5 +72,9 @@ export const useCreateCategorie = ()=> {
     });
 }
 
-
+export const useCreateTchat = ()=> {
+    return useMutation({
+        mutationFn: createTchat
+    });
+}
 
