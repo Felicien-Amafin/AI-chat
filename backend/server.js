@@ -6,7 +6,6 @@ import rateLimit from 'express-rate-limit';
 import cookieParser from "cookie-parser";
 import cors from 'cors';
 import connectToDb from "./db/mongodbConnection.js";
-
 import authRoutes from "./routes/auth.routes.js";
 import categoriesRoutes from "./routes/categories.routes.js";
 import tchatsRoutes from "./routes/tchats.routes.js";

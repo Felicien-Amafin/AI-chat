@@ -6,7 +6,7 @@ import PwdResetPage from "../pages/auth/PwdResetPage";
 import UserHomePage from "../pages/user/pages/userHomePage/UserHomePage";
 import TchatFormPage from "../pages/user/pages/TchatFormPage";
 import CategoriePage from "../pages/user/pages/categoriePage/CategoriePage";
-import NewTchatPage from "../pages/user/pages/NewTchatPage";
+import NewTchatPage from "../pages/user/pages/newTchatPage/NewTchatPage";
 
 export const authRoutes = [
     {

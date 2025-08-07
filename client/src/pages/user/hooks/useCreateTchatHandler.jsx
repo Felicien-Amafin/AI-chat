@@ -13,6 +13,7 @@ const useCreateTchatHandler = (dataToSend) => {
 
     const isTchatCreated = data?.status === 201;
     const createdTchat = data?.data.tchat;
+    const serverError =  'Erreur interne au serveur. Veuillez Réessayer plus tard.'
 
     useEffect(() => {
         if(dataToSend) {
@@ -21,7 +22,7 @@ const useCreateTchatHandler = (dataToSend) => {
         }
     }, [dataToSend, mutate]);
 
-    return { mutate, isPending, isTchatCreated, createdTchat, isServerError }
+    return { mutate, isPending, isTchatCreated, createdTchat, isServerError, serverError }
 }
 
 export default useCreateTchatHandler;

@@ -22,7 +22,7 @@ export const validateTchatForm = tryCatch(async (req, res) => {
 export const createTchat = tryCatch(async (req, res) => {
     const { categorie_id, tchat_title } = req.body;
     const userId = req.user.id;
-
+ 
     //Checking if categorie exist so that newly created tchat can be saved in it
     const categorie = await Categorie.findOne({ _id:categorie_id, userId});
 
