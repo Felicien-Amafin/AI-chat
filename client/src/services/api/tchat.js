@@ -5,5 +5,9 @@ export const validateTchatForm = async(data)=> {
 }
 
 export const createTchat = async(data)=> {
-    return await axiosInstance.post(`api/tchats/`, data);
+  return await axiosInstance.post(`api/tchats/`, data);
+}
+
+export const sendTchatMessage = async(data)=> {
+  return await axiosInstance.post(`api/tchats/send-message`, data);
 }

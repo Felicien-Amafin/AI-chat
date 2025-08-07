@@ -9,34 +9,34 @@ import {
     verifyEmail,
 } from "./api/auth";
 import { createCategorie } from "./api/categorie";
-import { createTchat, validateTchatForm } from "./api/tchat";
+import { createTchat, sendTchatMessage, validateTchatForm } from "./api/tchat";
 
 //Auth mutation
-export const useSignUpUser = ()=> {
+export const useSignUpUser = () => {
     return useMutation({
         mutationFn: signUpUser
     });
 }
 
-export const useSignInUser = ()=> {
+export const useSignInUser = () => {
     return useMutation({
         mutationFn: signInUser
     });
 }
 
-export const useEmailVerification = ()=> {
+export const useEmailVerification = () => {
     return useMutation({
         mutationFn: verifyEmail
     });
 }
 
-export const useSendResetEmail = ()=> {
+export const useSendResetEmail = () => {
     return useMutation({
         mutationFn: sendResetEmail
     });
 }
 
-export const useResetPassword = ()=> {
+export const useResetPassword = () => {
     return useMutation({
         mutationFn: resetPassword
     });
@@ -48,20 +48,20 @@ export const useLogout = ()=> {
     });
 }
 
-export const useRefreshAccessTk = ()=> {
+export const useRefreshAccessTk = () => {
    return useMutation({
       mutationFn: refreshAccessTk
    });
 }
 
 //Others mutations
-export const useValidateTchatForm = ()=> {
+export const useValidateTchatForm = () => {
     return useMutation({
         mutationFn: validateTchatForm
     });
 }
 
-export const useCreateCategorie = ()=> {
+export const useCreateCategorie = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: createCategorie,
@@ -72,9 +72,14 @@ export const useCreateCategorie = ()=> {
     });
 }
 
-export const useCreateTchat = ()=> {
+export const useCreateTchat = () => {
     return useMutation({
         mutationFn: createTchat
     });
 }
 
+export const useSendTchatMessage = () => {
+    return useMutation({
+        mutationFn: sendTchatMessage
+    })
+}

@@ -30,7 +30,8 @@ const NewTchatPage = () => {
                 {isTchatCreated && <QuestionLiveSearch tchatId={createdTchat.id}/>}
             </NavBar>
             <MainPart>
-                {isTchatCreated && <TchatContainer/>}
+                {/* TchatContainer needs tchat's id to send it to backend for saving tchat history */}
+                {isTchatCreated && <TchatContainer tchatId={createdTchat.id}/>}
                 {isPending && <div className={style.centeredElmt}><Loader size={50} color='white'/></div>}
                 {isServerError && <p className={`${style.centeredElmt} error`}>{serverError}</p>}
             </MainPart>

@@ -4,6 +4,11 @@ import { tryCatch } from "../utils/tryCatch.js";
 import Tchat from "../models/tchat.model.js";
 import Categorie from "../models/categorie.model.js";
 import { getNewDate } from "../utils/genericFunc.js";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+// Initialise le modèle gemini-2.0-flash-lite
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
 
 export const validateTchatForm = tryCatch(async (req, res) => {
     const { categorie, title} = req.body;
@@ -53,4 +58,32 @@ export const createTchat = tryCatch(async (req, res) => {
             date: newTchat.date,
         }
     });    
-})
+});
+
+export const sendTchatMessage = tryCatch(async (req, res) => {
+    const { user_message, tchat_history, tchat_id } = req.body;
+    const userId = req.user.id;
+
+    //Passing tchat's history (useful for contextualization)
+    const chat = model.startChat({ history: tchat_history }); 
+    
+    const result = await chat.sendMessage(user_message);//Sending message to Gemini
+    const response = result.response;
+    const aiAnswer = response.text();
+    
+    if(!aiAnswer) throw new CustomError("Le message n'a pas pu être délivré. Réessayez", 500, {});
+
+    const tchat = await Tchat.findOne({userId, _id: tchat_id });
+    
+    if(!tchat) throw new CustomError("Erreur interne", 500, {});
+
+    const dialog = {
+        question: user_message,
+        answer: aiAnswer
+    }
+
+    tchat.messages.push(dialog); //Saving tchat in db
+    await tchat.save();
+
+    return res.status(200).json({ dialog });
+});
