@@ -79,7 +79,12 @@ export const useCreateTchat = () => {
 }
 
 export const useSendTchatMessage = () => {
+    const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: sendTchatMessage
+        mutationFn: sendTchatMessage,
+        onSuccess: () => {
+            //invalidate quey key to get updated data
+            queryClient.invalidateQueries({ queryKey: ['tchatQuestions'] }); 
+        },
     })
 }

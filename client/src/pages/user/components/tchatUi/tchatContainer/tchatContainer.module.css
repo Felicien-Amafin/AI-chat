@@ -48,6 +48,19 @@
   max-width: 100%;
 }
 
+.tchat .serverError {
+  font-size: 0.875rem;
+}
+
+.tchat .waiting {
+  gap: 10px;
+  align-self: self-start;
+}
+
+.waiting .waitingMess {
+  font-size: 0.875rem;
+}
+
 .tchatContainer .tchatPrompt {
   display: flex;
   width: 100%;
