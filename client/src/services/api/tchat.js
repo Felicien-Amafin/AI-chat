@@ -11,3 +11,7 @@ export const createTchat = async(data)=> {
 export const sendTchatMessage = async(data)=> {
   return await axiosInstance.post(`api/tchats/send-message`, data);
 }
+
+export const getTchatMessages = async({signal})=> {
+  /* return await axiosInstance.get(`api/categories`, signal); */
+}
