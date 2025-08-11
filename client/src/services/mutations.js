@@ -84,7 +84,7 @@ export const useSendTchatMessage = () => {
         mutationFn: sendTchatMessage,
         onSuccess: () => {
             //invalidate quey key to get updated data
-            queryClient.invalidateQueries({ queryKey: ['tchatMessages'] }); 
+            queryClient.invalidateQueries({ queryKey: ['tchat'] }); 
         },
     })
 }

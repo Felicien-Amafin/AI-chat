@@ -6,18 +6,17 @@ import ListDefaultMess from "../../listUi/listDefaultMess/ListDefaultMess";
 import ListError from "../../listUi/listError/ListError";
 import { TbMessageCircleQuestion } from "react-icons/tb";
 import style from './navBarLiveSearch.module.css';
-import useGetTchatMessagesHandler from "../../../hooks/useGetTchatMessagesHandler";
+import useGetTchatHandler from "../../../hooks/useGetTchatHandler";
 
-const QuestionLiveSearch = () => {
+const QuestionLiveSearch = ({ tchatId }) => {
     /* const list = true;
     const isLoading = false;
     const isError = false;
     const defaultMess = `Vos questions apparaitrons ici. Commencez à tchatcher pour voir apparaitre votre liste de questions.`
     const errorMess = `La liste de vos questions est indisponible pour le momment. Réessayez plus tard.` */
-    
-    const { isPending, categories, isServerError } = useGetTchatMessagesHandler();
-
-    return (
+    const { isPending, tchatMessages, isServerError } = useGetTchatHandler(tchatId);
+    console.log(tchatMessages)
+    /* return (
         <ListContainer style={style.listContainer}>
             {list && <SearchField 
                 style={style}
@@ -36,7 +35,7 @@ const QuestionLiveSearch = () => {
             {isLoading && <ListLoader/>}
             {isError && <ListError errorMess={errorMess}/>}
         </ListContainer>
-    )
+    ) */
 }
 
 export default QuestionLiveSearch;

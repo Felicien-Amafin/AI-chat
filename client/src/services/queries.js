@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCategories } from "./api/categorie";
-import { getTchatMessages } from "./api/tchat";
+import { getTchat } from "./api/tchat";
 
 export const useFetchCategories = (key) => {
    return useQuery({
@@ -10,10 +10,10 @@ export const useFetchCategories = (key) => {
    });
 }
 
-export const useFetchTchatMessages = (key) => {
+export const useFetchTchat = (key, tchatId) => {
    return useQuery({
       queryKey: [key],
-      queryFn: ({signal}) => getTchatMessages({signal}),
+      queryFn: ({signal}) => getTchat({signal, tchatId}),
       retry: 1
    })
 }

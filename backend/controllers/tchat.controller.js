@@ -87,3 +87,16 @@ export const sendTchatMessage = tryCatch(async (req, res) => {
 
     return res.status(200).json({ dialog });
 });
+
+export const getTchat = tryCatch(async (req, res) => {
+    const tchatId = req.params.tchatId;
+    console.log(tchatId)
+    const userId = req.user.id;
+
+    const tchat = await Tchat.findOne({ userId, _id:tchatId });
+
+    if(!tchatId) throw new CustomError('Tchat not found', 404, {});
+    
+    console.log(tchat)
+    return res.status(200).json({ tchat });
+});
