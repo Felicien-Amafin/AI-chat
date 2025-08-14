@@ -16,7 +16,7 @@ const CategoriePage = () => {
       <NavBar>
         <>
           <NavBarLinkList links={allSideBarLinks}/>
-          <CategorieLiveSearch/>
+          {/* <CategorieLiveSearch/> */}
         </>
       </NavBar>
       <MainPart>

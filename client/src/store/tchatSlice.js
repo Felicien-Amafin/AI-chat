@@ -5,12 +5,11 @@ const tchat = createSlice({
     initialState: {
         tchatHistory: [],
         userQuestion: '',
-        prevDialog: null,
+        aiAnswer: '',
         defaultMess: 'Comment puis-je vous aider?'
     },
     reducers: {
         setTchatHistory: (state, action) => {
-            console.log(action)
             state.tchatHistory = [
                 ... state.tchatHistory, 
                 { role: "user", parts: [{ text: action.payload.question }] },
@@ -20,11 +19,16 @@ const tchat = createSlice({
         setUserQuestion: (state, action) => {
             state.userQuestion = action.payload;
         },
-        /* setPrevDialog: (state, action) => {
-
-        } */
+        setAiAnswer: (state, action) => {
+            state.aiAnswer = action.payload;
+        },
+        resetTchat: (state) => {
+            state.tchatHistory = [];
+            state.userQuestion = '';
+            state.aiAnswer = '';
+        }
     }
 });
 
-export const { setTchatHistory, setUserQuestion } = tchat.actions;
+export const { setTchatHistory, setUserQuestion, setAiAnswer, resetTchat } = tchat.actions;
 export default tchat.reducer;

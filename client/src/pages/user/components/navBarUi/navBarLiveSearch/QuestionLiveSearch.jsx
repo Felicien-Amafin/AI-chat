@@ -4,38 +4,64 @@ import List from "../../listUi/list/List";
 import ListTitle from "../../listUi/listTitle/ListTitle";
 import ListDefaultMess from "../../listUi/listDefaultMess/ListDefaultMess";
 import ListError from "../../listUi/listError/ListError";
+import ListLoader from "../../listUi/listLoader/ListLoader"
 import { TbMessageCircleQuestion } from "react-icons/tb";
-import style from './navBarLiveSearch.module.css';
 import useGetTchatHandler from "../../../hooks/useGetTchatHandler";
+import { useState } from "react";
+import { createQuestionsList, searchFilter, truncateStringInList } from "../../../../../utils";
+import { useDispatch } from "react-redux";
+import style from './navBarLiveSearch.module.css';
+import { setAiAnswer, setUserQuestion } from "../../../../../store/tchatSlice";
 
 const QuestionLiveSearch = ({ tchatId }) => {
-    /* const list = true;
-    const isLoading = false;
-    const isError = false;
-    const defaultMess = `Vos questions apparaitrons ici. Commencez à tchatcher pour voir apparaitre votre liste de questions.`
-    const errorMess = `La liste de vos questions est indisponible pour le momment. Réessayez plus tard.` */
-    const { isPending, tchatMessages, isServerError } = useGetTchatHandler(tchatId);
-    console.log(tchatMessages)
-    /* return (
+    const [searchValue, setSearchValue] = useState('');
+    const { isPending, tchatMessages, isServerError } = useGetTchatHandler(tchatId);//Get tchat's questions + answer
+    const { questions, reversedTchatsList } = createQuestionsList(tchatMessages);//Create list of questions to display in ui
+    const { filteredList, isFilteredTerm } = searchFilter(questions, searchValue);//Search for a question by entering specific terms
+    const { formatedList } = truncateStringInList(filteredList, 80);//Adds ellipses to questions when they are too long
+    
+    const errorMess = 'La liste de vos questions est indisponible. Réessayez plus tard.'
+    const defaultMess = 'Vos questions appraitront ici';
+    
+    const dispatch = useDispatch();
+
+    const handleChange = (e) => {
+        setSearchValue(e.target.value);
+    }
+    
+    const handleTchat = (index) => {
+        //Displays user's question and ai's answer in TchatContainer ui 
+        dispatch(setUserQuestion(reversedTchatsList[index].question));
+        dispatch(setAiAnswer(reversedTchatsList[index].answer));
+    }
+
+    return (
         <ListContainer style={style.listContainer}>
-            {list && <SearchField 
+            {questions && <SearchField 
                 style={style}
                 type='text'
-                value=''
+                value={searchValue}
                 placeholder='Rechercher une questions'
-                onInputChange={null}
+                onInputChange={handleChange}
             />}
-            {list && <ListTitle title='Vos questions'/>}
-            {list && <List onSelect={null} list={questions} styling={style.navBarlist}/>}
-            {(!list && !isLoading && !isError) && 
+            {questions && <ListTitle title='Vos questions'/>}
+            {questions && 
+                <List 
+                    onSelect={handleTchat} 
+                    list={formatedList} 
+                    isSearchResult={isFilteredTerm}
+                    styling={style.navBarlist}
+                />
+            }
+            {(!questions && !isPending && !isServerError) && 
                 <ListDefaultMess defaultMess={defaultMess}> 
                     <TbMessageCircleQuestion />
                 </ListDefaultMess>
             }
-            {isLoading && <ListLoader/>}
-            {isError && <ListError errorMess={errorMess}/>}
+            {isPending && <ListLoader/>}
+            {isServerError && <ListError errorMess={errorMess}/>}
         </ListContainer>
-    ) */
+    )
 }
 
 export default QuestionLiveSearch;

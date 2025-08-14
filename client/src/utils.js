@@ -78,10 +78,31 @@ export const createSelectList = (list) => {
 
 export const searchFilter = (list, searchValue) => {
     //Returns values needed in the search filtering process
-    const listResult = termFilter(list, searchValue);
-    const isSearchResult = listResult?.length > 0;
+    const filteredList = termFilter(list, searchValue);
+    const isFilteredTerm = filteredList?.length > 0;
 
-    return { listResult, isSearchResult };
+    return { filteredList, isFilteredTerm };
 }
 
+export const createQuestionsList = (tchatsList) => {
+    //Create tchat questions list to use in navBar
+    const reversedTchatsList = tchatsList?.reverse();
 
+    const questions = reversedTchatsList?.map((tchat) => {
+        return capitalizedFirstChar(tchat.question);
+    });
+
+    return { reversedTchatsList, questions};
+}
+
+export const truncateStringInList = (list, strMaxLength) => {
+    //Adds ellipses to the end of strings in a list
+    const formatedList = list?.map((str) => {
+        if (str.length <= strMaxLength) {
+            return str;
+        }
+        return str.slice(0, strMaxLength) + '...';
+    })
+
+    return { formatedList }
+}

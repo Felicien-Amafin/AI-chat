@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useSendTchatMessHandler from "../../../hooks/useSendTchatMessHandler";
 import style from './tchatContainer.module.css';
-import { setTchatHistory, setUserQuestion } from "../../../../../store/tchatSlice";
+import { setAiAnswer, setTchatHistory, setUserQuestion } from "../../../../../store/tchatSlice";
 
 const TchatContainer = ({tchatId}) => {
   const { formData, handleChange, resetForm } = useForm();//Receives user question
@@ -13,6 +13,7 @@ const TchatContainer = ({tchatId}) => {
   
   const dispatch = useDispatch();
   const { userQuestion } = useSelector((state) => state.tchat);
+  const { aiAnswer } = useSelector((state) => state.tchat);
   const { tchatHistory } = useSelector((state) => state.tchat);
   const { defaultMess } = useSelector((state) => state.tchat);
   
@@ -29,11 +30,12 @@ const TchatContainer = ({tchatId}) => {
     });
     
     resetForm();
-  }
+  };
 
   useEffect(() => {
     if(dialog) {
-      dispatch(setTchatHistory(dialog));//Dialog is user question + ai response
+      dispatch(setTchatHistory(dialog));//Dialog = user question + ai response
+      dispatch(setAiAnswer(dialog.answer));
     }
 
   },[dialog, dispatch]);
@@ -46,8 +48,8 @@ const TchatContainer = ({tchatId}) => {
             <div className={`${style.defaultMess} flexColumn-allCentered`}>{defaultMess}</div>
           }
           {userQuestion && <p className={style.userQuestion}>{userQuestion}</p>}
+          {(!isPending && aiAnswer) && <p className={style.aiAnswer}>{aiAnswer}</p>}
           {isServerError && <p className={`${style.serverError} error`}>{serverError}</p>}
-          {dialog?.answer && <p className={style.aiAnswer}>{dialog.answer}</p>}
           {isPending && 
             <div className={`${style.waiting} flexRow-allCentered`}>
               <Loader size={25} color='white'/> <p className={style.waitingMess}>Un instant...</p>
