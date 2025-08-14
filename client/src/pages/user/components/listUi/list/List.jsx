@@ -1,5 +1,5 @@
 import style from './list.module.css';
-import React, { useRef } from "react";
+import { useRef } from "react";
 
 const List = ({onSelect, list, isSearchResult, styling}) => {
     const listRef = useRef(null);
@@ -19,16 +19,16 @@ const List = ({onSelect, list, isSearchResult, styling}) => {
 
     return (
         <ul className={`${style.list} ${styling} flex-column`} ref={listRef}>
-            {list && list.map((listItem, index)=> 
-                <li 
-                    key={`${listItem}-${index}`}
+            {list && list.map((listElmt)=> 
+                <li //listElmt[0] is a string. listElmt[1] is the index of the string
+                    key={`${listElmt[0]}-${listElmt[1]}`}
                     className={`${style.option} flex-column`}
                 >
                     <button 
-                        onClick={()=> onSelect(index)}
+                        onClick={()=> onSelect(listElmt[1])}
                         className={style.button}
                     >
-                        {listItem}
+                        {listElmt[0]}
                     </button>
                 </li>)
             }

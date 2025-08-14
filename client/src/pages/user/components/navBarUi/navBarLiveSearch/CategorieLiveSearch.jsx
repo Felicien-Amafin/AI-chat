@@ -16,11 +16,12 @@ const CategorieLiveSearch= () => {
     const [searchValue, setSearchValue] = useState('');
     const { isPending, categories, isServerError } = useGetCategoriesHandler();
     const listNames = createNavList(categories);
-    const { listResult, isSearchResult } = searchFilter(listNames, searchValue);
+    const { filteredList, isFilteredTerm } = searchFilter(listNames, searchValue);
     
     const navigate = useNavigate();
-    const handleNavigation = (categorie) => {
-        navigate(`/user/categories/${categorie}`);
+    const handleNavigation = (index) => {
+        navigate(`/user/categories/${listNames[index]}`);
+        console.log(listNames[index], index)
     };
 
     const handleChange = (e) => {
@@ -45,8 +46,8 @@ const CategorieLiveSearch= () => {
             {listNames && 
                 <List 
                     onSelect={handleNavigation} 
-                    list={listResult} 
-                    isSearchResult={isSearchResult} 
+                    list={filteredList} 
+                    isSearchResult={isFilteredTerm} 
                     styling={style.navBarlist}
                 />
             }

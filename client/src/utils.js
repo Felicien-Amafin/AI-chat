@@ -32,12 +32,12 @@ export const termFilter = (list, searchTerm)=> {
     //Return an array of string matching with searchTerm
     if(!list) return;
     
-    return list.filter((listTerm)=> {
-        const listTermToLCase = listTerm.toLowerCase();
+    return list.filter((listElmt)=> {
+        const stringToLCase = listElmt[0].toLowerCase();
         const searchTermToLCase = searchTerm?.toLowerCase();
 
-        if(listTermToLCase.includes(searchTermToLCase)) {
-            return listTerm;
+        if(stringToLCase.includes(searchTermToLCase)) {
+            return listElmt;
         }
 
         if((searchTerm === '' )||( searchTerm === undefined)) {
@@ -88,20 +88,23 @@ export const createQuestionsList = (tchatsList) => {
     //Create tchat questions list to use in navBar
     const reversedTchatsList = tchatsList?.reverse();
 
-    const questions = reversedTchatsList?.map((tchat) => {
-        return capitalizedFirstChar(tchat.question);
+    const questions = reversedTchatsList?.map((tchat, index) => {
+        return [ capitalizedFirstChar(tchat.question), index ];
     });
-
+    
     return { reversedTchatsList, questions};
 }
 
 export const truncateStringInList = (list, strMaxLength) => {
     //Adds ellipses to the end of strings in a list
-    const formatedList = list?.map((str) => {
-        if (str.length <= strMaxLength) {
-            return str;
+    const formatedList = list?.map((listElmt) => {
+        //listElmt[0] is a string
+        if (listElmt[0].length <= strMaxLength) {
+            return [listElmt[0], listElmt[1]]; //Returns the string + it's index
         }
-        return str.slice(0, strMaxLength) + '...';
+
+        //Returns the truncated string + it's index
+        return [listElmt[0].slice(0, strMaxLength) + '...', listElmt[1]] 
     })
 
     return { formatedList }

@@ -14,6 +14,7 @@ import style from './navBarLiveSearch.module.css';
 import { setAiAnswer, setUserQuestion } from "../../../../../store/tchatSlice";
 
 const QuestionLiveSearch = ({ tchatId }) => {
+    const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState('');
     const { isPending, tchatMessages, isServerError } = useGetTchatHandler(tchatId);//Get tchat's questions + answer
     const { questions, reversedTchatsList } = createQuestionsList(tchatMessages);//Create list of questions to display in ui
@@ -22,15 +23,13 @@ const QuestionLiveSearch = ({ tchatId }) => {
     
     const errorMess = 'La liste de vos questions est indisponible. Réessayez plus tard.'
     const defaultMess = 'Vos questions appraitront ici';
-    
-    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setSearchValue(e.target.value);
     }
     
     const handleTchat = (index) => {
-        //Displays user's question and ai's answer in TchatContainer ui 
+        //Displays user's question and ai's answer in TchatContainer's ui 
         dispatch(setUserQuestion(reversedTchatsList[index].question));
         dispatch(setAiAnswer(reversedTchatsList[index].answer));
     }

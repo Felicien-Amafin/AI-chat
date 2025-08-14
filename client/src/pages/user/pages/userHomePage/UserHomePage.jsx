@@ -21,7 +21,7 @@ const UserHomePage = () => {
       <NavBar>
         <>
           <NavBarLinkList links={homeSideBarLinks}/>
-          {/* <CategorieLiveSearch/> */}
+          <CategorieLiveSearch/>
         </>
       </NavBar>
       <MainPart>
