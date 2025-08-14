@@ -3,9 +3,9 @@ import { useState } from 'react';
 import useGetCategoriesHandler from '../../../hooks/useGetCategoriesHandler';
 import { createNavList, searchFilter } from '../../../../../utils';
 import { TbCategory } from "react-icons/tb";
+import SearchField from '../../SearchField';
 import List from '../../listUi/list/List';
 import ListContainer from '../../listUi/ListContainer';
-import SearchField from '../../SearchField';
 import ListTitle from "../../listUi/listTitle/ListTitle";
 import ListDefaultMess from '../../listUi/listDefaultMess/ListDefaultMess';
 import ListLoader from '../../listUi/listLoader/ListLoader';
@@ -17,11 +17,11 @@ const CategorieLiveSearch= () => {
     const { isPending, categories, isServerError } = useGetCategoriesHandler();
     const listNames = createNavList(categories);
     const { filteredList, isFilteredTerm } = searchFilter(listNames, searchValue);
-    
+
     const navigate = useNavigate();
+
     const handleNavigation = (index) => {
-        navigate(`/user/categories/${listNames[index]}`);
-        console.log(listNames[index], index)
+        navigate(`/user/categories/${listNames[index][0]}`); //Navigate to a specific categorie
     };
 
     const handleChange = (e) => {

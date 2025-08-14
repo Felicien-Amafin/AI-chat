@@ -53,3 +53,17 @@ export const createCategorie = tryCatch(async (req, res) => {
     });
 });
 
+export const getSingleCategorie = tryCatch(async (req, res) => {
+    const categorieName = req.params.categorieName;
+    const userId = req.user.id;
+
+    if(!categorieName) throw new CustomError('Nom de categorie manquant', 400, {});
+
+    const categorie = await Categorie.findOne({ userId, name: categorieName });
+
+    if(!categorie) throw new CustomError('Categorie introuvable', 404, {});
+
+    const tchatsList = Array.from(categorie.tchats);
+    
+    return res.status(200).json({ tchats_lis: tchatsList });
+})

@@ -59,7 +59,7 @@ export const getCategorieInArray = (categorieName, categories) =>{
 
 export const createNavList = (list) => {
     //Returns the list of all categories' name
-    const listNames = list?.map((categorie) => categorie.name);
+    const listNames = list?.map((categorie, index) => [categorie.name, index]);
 
     return listNames;
 }

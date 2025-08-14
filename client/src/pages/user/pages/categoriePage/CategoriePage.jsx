@@ -16,7 +16,7 @@ const CategoriePage = () => {
       <NavBar>
         <>
           <NavBarLinkList links={allSideBarLinks}/>
-          {/* <CategorieLiveSearch/> */}
+          <CategorieLiveSearch/>
         </>
       </NavBar>
       <MainPart>
@@ -31,7 +31,7 @@ const CategoriePage = () => {
                 type
                 value=''
                 placeholder='Rechercher un tchat'
-                onInputChange
+                /* onInputChange */
               />
               <button className={style.delete}>
                 <i><FaRegTrashAlt/></i>
