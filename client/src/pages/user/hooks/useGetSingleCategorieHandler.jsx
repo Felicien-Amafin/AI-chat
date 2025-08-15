@@ -7,8 +7,12 @@ const useGetSingleCategorieHandler = (categorieName) => {
   const { isForbidden, isUnAuthorized, isServerError} = useRequestErrorHandler(error);
   useLogoutUser(isForbidden || isUnAuthorized);
 
-  const tchatList = data?.data.tchats_list;
+  let tchatList = null;
   const serverError = 'List de tchats indisponible. Veuillez réessayer plus tard.'
+
+  if(data && data.data.tchats_list.length > 0) {
+    tchatList = data.data.tchats_list;
+  }
 
   return { isPending, tchatList, isServerError, serverError }
 }

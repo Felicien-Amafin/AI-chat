@@ -12,3 +12,8 @@
     flex-wrap: wrap;
     gap: 20px;
 }
+
+.message {
+    color: white;
+    font-size: 0.75rem;
+}

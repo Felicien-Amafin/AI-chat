@@ -53,7 +53,7 @@ const CategoriePage = () => {
                 />
                 <DeleteCategorie/>
               </div>
-              <TchatList tchatList={filteredTchats}/>
+              <TchatList tchatList={filteredTchats} />
               {isServerError && <p className={`${style.serverError} error`}>{serverError}</p>}
             </div>
           </div>

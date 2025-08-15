@@ -114,7 +114,11 @@ export const truncateStringInList = (list, strMaxLength) => {
 export const tchatFilter = (tchatList, searchTerm) => {
     //Returns tchats that matches the search term
 
-    if((searchTerm === '' )|| (searchTerm === undefined)) {
+    if(
+        (searchTerm === '' ) || 
+        (searchTerm === undefined) ||
+        (tchatList === null)
+    ) {
         return tchatList;
     }
 
