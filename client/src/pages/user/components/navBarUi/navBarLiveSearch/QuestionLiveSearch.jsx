@@ -8,7 +8,7 @@ import ListLoader from "../../listUi/listLoader/ListLoader"
 import { TbMessageCircleQuestion } from "react-icons/tb";
 import useGetTchatHandler from "../../../hooks/useGetTchatHandler";
 import { useState } from "react";
-import { createQuestionsList, searchFilter, truncateStringInList } from "../../../../../utils";
+import { createQuestionsList, navBarLiveFilter, truncateStringInList } from "../../../../../utils";
 import { useDispatch } from "react-redux";
 import style from './navBarLiveSearch.module.css';
 import { setAiAnswer, setUserQuestion } from "../../../../../store/tchatSlice";
@@ -18,7 +18,7 @@ const QuestionLiveSearch = ({ tchatId }) => {
     const [searchValue, setSearchValue] = useState('');
     const { isPending, tchatMessages, isServerError } = useGetTchatHandler(tchatId);//Get tchat's questions + answer
     const { questions, reversedTchatsList } = createQuestionsList(tchatMessages);//Create list of questions to display in ui
-    const { filteredList, isFilteredTerm } = searchFilter(questions, searchValue);//Search for a question by entering specific terms
+    const { filteredList, isFilteredTerm } = navBarLiveFilter(questions, searchValue);//Search for a question by entering specific terms
     const { formatedList } = truncateStringInList(filteredList, 80);//Adds ellipses to questions when they are too long
     
     const errorMess = 'La liste de vos questions est indisponible. Réessayez plus tard.'

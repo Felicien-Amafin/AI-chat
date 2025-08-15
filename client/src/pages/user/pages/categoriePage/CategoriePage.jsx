@@ -1,23 +1,29 @@
 import PageContainer from '../../layout/pageContainer/PageContainer';
 import NavBar from '../../layout/navBar/NavBar';
 import MainPart from '../../layout/mainPart/MainPart';
-import Widget from '../../components/widgetUi/widget/Widget';
 import SearchField from '../../components/others/SearchField';
 import NavBarLinkList from '../../components/navBarUi/navBarLinkList/NavBarLinkList';
 import CategorieLiveSearch from '../../components/navBarUi/navBarLiveSearch/CategorieLiveSearch';
-import WidgetTchatTopic from '../../components/widgetUi/widgetTchatTopic/WidgetTchatTopic';
 import { allSideBarLinks } from '../../constant/SideBarLinks';
 import { useParams } from 'react-router-dom';
-import style from './categoriePage.module.css';
 import useGetSingleCategorieHandler from '../../hooks/useGetSingleCategorieHandler';
 import Loader from '../../../../components/others/Loader';
 import CategorieName from '../../components/others/categorieName/CategorieName';
 import DeleteCategorie from '../../components/others/deleteCategorie/DeleteCategorie';
 import TchatList from '../../components/tchatUi/tchatList/TchatList';
+import { useState } from 'react';
+import { tchatFilter } from '../../../../utils';
+import style from './categoriePage.module.css';
 
 const CategoriePage = () => {
   const { categorieName } = useParams();
+  const [searchValue, setSearchValue] = useState('');
   const { isPending, tchatList, isServerError, serverError } = useGetSingleCategorieHandler(categorieName);
+  const filteredTchats = tchatFilter(tchatList, searchValue);
+
+  const handleChange = (e) => {
+    setSearchValue(e.target.value);
+  }
 
   return (
     <PageContainer>
@@ -40,14 +46,14 @@ const CategoriePage = () => {
                 <CategorieName name={categorieName}/>
                 <SearchField 
                   style={style}
-                  type
-                  value=''
+                  type='text'
+                  value={searchValue}
                   placeholder='Rechercher un tchat'
-                  /* onInputChange */
+                  onInputChange={handleChange}
                 />
                 <DeleteCategorie/>
               </div>
-              <TchatList tchatList={tchatList}/>
+              <TchatList tchatList={filteredTchats}/>
               {isServerError && <p className={`${style.serverError} error`}>{serverError}</p>}
             </div>
           </div>

@@ -29,9 +29,10 @@ export const capitalizedFirstChar = (string)=> {
 }
 
 export const termFilter = (list, searchTerm)=> {
-    //Return an array of string matching with searchTerm
+    //Returns an array of string that matching with searchTerm
     if(!list) return;
     
+    //List is an array of array.
     return list.filter((listElmt)=> {
         const stringToLCase = listElmt[0].toLowerCase();
         const searchTermToLCase = searchTerm?.toLowerCase();
@@ -44,6 +45,14 @@ export const termFilter = (list, searchTerm)=> {
             return list;
         } 
     })
+}
+
+export const navBarLiveFilter = (list, searchValue) => {
+    //Returns values needed in the search filtering process
+    const filteredList = termFilter(list, searchValue);
+    const isFilteredTerm = filteredList?.length > 0;
+
+    return { filteredList, isFilteredTerm };
 }
 
 export const getCategorieInArray = (categorieName, categories) =>{
@@ -76,14 +85,6 @@ export const createSelectList = (list) => {
     return listOptions;
 }
 
-export const searchFilter = (list, searchValue) => {
-    //Returns values needed in the search filtering process
-    const filteredList = termFilter(list, searchValue);
-    const isFilteredTerm = filteredList?.length > 0;
-
-    return { filteredList, isFilteredTerm };
-}
-
 export const createQuestionsList = (tchatsList) => {
     //Create tchat questions list to use in navBar
     const reversedTchatsList = tchatsList?.reverse();
@@ -108,4 +109,21 @@ export const truncateStringInList = (list, strMaxLength) => {
     })
 
     return { formatedList }
+}
+
+export const tchatFilter = (tchatList, searchTerm) => {
+    //Returns tchats that matches the search term
+
+    if((searchTerm === '' )|| (searchTerm === undefined)) {
+        return tchatList;
+    }
+
+    return tchatList?.filter((tchat) => {
+        const tchatTitle = tchat[1].title.toLowerCase();
+        const search = searchTerm.toLowerCase();
+
+        if(tchatTitle.includes(search)) {
+            return tchat;
+        }
+    })
 }
