@@ -15,7 +15,7 @@ const TchatFormPage = () => {
 
   useEffect(() => {
     dispatch(resetTchat()); //Reset tchat state to initial state before starting a new tchat
-    queryClient.removeQueries({ queryKey: ['tchat'] }); // Clear tchat's questions list from cache before starting new tchat
+    queryClient.removeQueries({ queryKey: ['tchat-messages'] }); // Clear tchat's questions list from cache before starting new tchat
 
   },[dispatch, queryClient]);
 

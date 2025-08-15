@@ -1,0 +1,14 @@
+.tchatList {
+    display: flex;
+    max-height: 300px;
+    width: 100%;
+    padding-right: 20px;
+}
+.tchatList ol {
+    display: flex;
+    height: auto;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}

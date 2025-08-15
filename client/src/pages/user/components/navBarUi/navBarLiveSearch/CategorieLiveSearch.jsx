@@ -3,7 +3,7 @@ import { useState } from 'react';
 import useGetCategoriesHandler from '../../../hooks/useGetCategoriesHandler';
 import { createNavList, searchFilter } from '../../../../../utils';
 import { TbCategory } from "react-icons/tb";
-import SearchField from '../../SearchField';
+import SearchField from '../../others/SearchField';
 import List from '../../listUi/list/List';
 import ListContainer from '../../listUi/ListContainer';
 import ListTitle from "../../listUi/listTitle/ListTitle";
@@ -21,7 +21,7 @@ const CategorieLiveSearch= () => {
     const navigate = useNavigate();
 
     const handleNavigation = (index) => {
-        navigate(`/user/categories/${listNames[index][0]}`); //Navigate to a specific categorie
+        navigate(`/user/categories/${listNames[index][0].toLowerCase()}`); //Navigate to a specific categorie
     };
 
     const handleChange = (e) => {

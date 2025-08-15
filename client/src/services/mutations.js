@@ -74,7 +74,7 @@ export const useCreateCategorie = () => {
 
 export const useCreateTchat = () => {
     return useMutation({
-        mutationFn: createTchat
+        mutationFn: createTchat,
     });
 }
 
@@ -84,7 +84,7 @@ export const useSendTchatMessage = () => {
         mutationFn: sendTchatMessage,
         onSuccess: () => {
             //invalidate quey key to get updated data
-            queryClient.invalidateQueries({ queryKey: ['tchat'] }); 
+            queryClient.invalidateQueries({ queryKey: ['tchat-messages'] }); 
         },
     })
 }

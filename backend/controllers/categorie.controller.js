@@ -65,5 +65,5 @@ export const getSingleCategorie = tryCatch(async (req, res) => {
 
     const tchatsList = Array.from(categorie.tchats);
     
-    return res.status(200).json({ tchats_lis: tchatsList });
+    return res.status(200).json({ tchats_list: tchatsList.reverse() });
 })

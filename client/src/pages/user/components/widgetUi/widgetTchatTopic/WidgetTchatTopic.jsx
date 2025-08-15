@@ -1,14 +1,14 @@
-import { IoMdChatboxes } from "react-icons/io";
 import { FaRegTrashCan } from "react-icons/fa6";
 import WidgetIcon from "../widgetIcon/WidgetIcon";
 import style from './widgetTchatTopic.module.css';
+import { capitalizedFirstChar } from "../../../../../utils";
 
-const WidgetTchatTopic = () => {
+const WidgetTchatTopic = ({tchat}) => {
   return (
     <div className={style.tchatTopic}>
       <div className={style.text}>
-        <h3>Tchat du 22-06-2025 </h3>
-        <p>Le conflit Israélo-palestinien depuis 1946 jusqu`à nos jour.</p>
+        <h3>Tchat du {tchat[1].date}</h3>
+        <p>{capitalizedFirstChar(tchat[1].title)}</p>
       </div>
       <div className={`${style.icon} flex-column`}>
         <WidgetIcon color='delete'><FaRegTrashCan/></WidgetIcon>
