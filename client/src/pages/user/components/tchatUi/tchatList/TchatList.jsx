@@ -3,6 +3,7 @@ import WidgetTchatTopic from '../../widgetUi/widgetTchatTopic/WidgetTchatTopic';
 import style from './tchatList.module.css';
 
 const TchatList = ({tchatList}) => {
+
     const isNoSearchResult = tchatList?.length === 0;
 
     return (
@@ -10,8 +11,8 @@ const TchatList = ({tchatList}) => {
             <ol>
                 {tchatList && tchatList.map((tchat) => 
                     //tchat[0] is the tchat's id
-                    <Widget key={tchat[0]}>
-                        <WidgetTchatTopic tchat={tchat}/>
+                    <Widget key={tchat[0]} /* onClick={} */>
+                        <WidgetTchatTopic tchat={tchat}/*  onDelete={} *//>
                     </Widget>
                 )}
                 {!tchatList && <p className={style.message}>Cette catégorie est vide</p>}

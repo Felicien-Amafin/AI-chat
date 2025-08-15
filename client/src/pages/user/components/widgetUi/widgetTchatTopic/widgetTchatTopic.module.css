@@ -1,6 +1,7 @@
 .tchatTopic {
     width: 100%;
     height: 100%;
+    padding: 15px;
     display: grid;
     grid-template-columns: 4fr 1fr;
     grid-template-rows: auto;
