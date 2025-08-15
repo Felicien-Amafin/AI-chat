@@ -11,8 +11,8 @@ const TchatList = ({tchatList}) => {
             <ol>
                 {tchatList && tchatList.map((tchat) => 
                     //tchat[0] is the tchat's id
-                    <Widget key={tchat[0]} /* onClick={} */>
-                        <WidgetTchatTopic tchat={tchat}/*  onDelete={} *//>
+                    <Widget key={tchat[0]}>
+                        <WidgetTchatTopic tchat={tchat}/>
                     </Widget>
                 )}
                 {!tchatList && <p className={style.message}>Cette catégorie est vide</p>}

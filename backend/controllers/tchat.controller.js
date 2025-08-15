@@ -95,7 +95,32 @@ export const getTchat = tryCatch(async (req, res) => {
 
     const tchat = await Tchat.findOne({ userId, _id:tchatId });
 
-    if(!tchatId) throw new CustomError('Tchat not found', 404, {});
+    if(!tchat) throw new CustomError('Tchat not found', 404, {});
     
     return res.status(200).json({ tchat });
+});
+
+export const deleteTchat = tryCatch(async (req, res) => {
+    const tchatId = req.params.tchatId;
+   
+    const userId = req.user.id;
+    
+    //Fetching the tchat to get the categorie's id. 
+    const tchat = await Tchat.findOne({ userId, _id:tchatId }); 
+
+    if(!tchat) throw new CustomError('Tchat not found', 404, {});
+
+    const categorieId = tchat.categorieId; //Getting the categorie's id
+
+    const deletedTchat = await Tchat.findOneAndDelete({ userId, _id:tchatId });//Deleting the tchat doc
+
+    if(!deletedTchat) throw new CustomError('Erreur lors de la suppression du tchat', 500, {});
+    
+    //Fetching the categorie in which the tchat's infos are stored
+    const categorie = await Categorie.findOne({ userId, _id:categorieId });
+
+    categorie.tchats.delete(tchatId);//Deleting tchat's info in its corresponding categorie
+    await categorie.save();
+
+    return res.status(200).json({ message: 'Tchat has been deleted successfully' });
 });
