@@ -11,12 +11,12 @@ import Loader from '../../../../components/others/Loader';
 
 const ExistingCategoriesForm = ({style}) => {
   const { 
-    isPending:isCategoriesPending, 
+    isCategoriesPending, 
     categories, 
     isCategoriesServerError 
   } = useGetCategoriesHandler();//Gets categories from db
 
-  const listOptions = createSelectList(categories);//Create list for Select component
+  const optionList = createSelectList(categories);//Create list for Select component
 
   const { 
     isValidationPending,
@@ -29,8 +29,8 @@ const ExistingCategoriesForm = ({style}) => {
     validationInputErrors,
     handleChange,
     handleSelect,
-    handleSubmission //Triggers form's submission
-  } = useTchatFormHandler();//Handles Tchat form's validation and errors
+    handleSubmission 
+  } = useTchatFormHandler();
 
   const navigate = useNavigate();
 
@@ -38,6 +38,7 @@ const ExistingCategoriesForm = ({style}) => {
     if(isFormValid) {
       //Gathering some usefull data before navigating to /user/new-tchat
       const categorie = getCategorieInArray(validatedForm?.categorie, categories);
+
       const dataToSend = { 
         categorie_id: categorie[0].id, 
         categorie_name: categorie[0].name,
@@ -47,38 +48,48 @@ const ExistingCategoriesForm = ({style}) => {
       navigate('/user/new-tchat', { state: dataToSend, replace: true });
     }
   },[categories, validatedForm?.categorie, validatedForm?.title, isFormValid, navigate])
- 
+  
   return (
     <form 
       className={`${style} flex-column`}
       onSubmit={handleSubmission}
     >
-      {listOptions && <Select 
-        styles={formExistingCategories.select.styles}
-        options={listOptions}
-        placeholder='Rechercher une catégorie'
-        onChange={handleSelect}
-      />}
-      {!listOptions && <Loader size={10}/>}
-      <FormInput
-        input={formExistingCategories.input}
-        error={validationInputErrors}
-        value={formData[formExistingCategories.input.name] || ''}
-        required={true}
-        onInputChange={handleChange}
-      />
-      <FormBtn
-        style='whiteBtn button'
-        text='Commencer' 
-        onClick={null} 
-        isPending={isValidationPending || isCategoriesPending}
-      />
+      {optionList &&
+        <> 
+          <Select 
+            styles={formExistingCategories.select.styles}
+            options={optionList}
+            placeholder='Rechercher une catégorie'
+            onChange={handleSelect}
+          />
+          <FormInput
+            input={formExistingCategories.input}
+            error={validationInputErrors}
+            value={formData[formExistingCategories.input.name] || ''}
+            required={true}
+            onInputChange={handleChange}
+          />
+        
+          <FormBtn
+            style='whiteBtn button'
+            text='Commencer' 
+            onClick={null} 
+            isPending={isValidationPending || isCategoriesPending}
+          />
+        </>
+      }
+      {!optionList && 
+        <p style={{ color: 'white', fontSize: '12px' }}>
+          Vous n'avez pas encore de categories
+        </p>
+      }
       {isValidationClientError  && 
         <p className='error messAnim'>{validationInputErrorMess}</p>
       }
       {(isValidationServerError || isCategoriesServerError) && 
         <p className='error messAnim'>Server error</p>
       } 
+      {isCategoriesPending && <Loader size={10}/>}
     </form>
   )
 }
