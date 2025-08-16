@@ -3,10 +3,10 @@ import WidgetTchatTopic from '../../widgetUi/widgetTchatTopic/WidgetTchatTopic';
 import style from './tchatList.module.css';
 
 const TchatList = ({tchatList}) => {
-
     const isNoSearchResult = tchatList?.length === 0;
 
     return (
+
         <div className={`${style.tchatList} content`}>
             <ol>
                 {tchatList && tchatList.map((tchat) => 

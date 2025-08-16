@@ -11,14 +11,18 @@ import Loader from '../../../../components/others/Loader';
 import CategorieName from '../../components/others/categorieName/CategorieName';
 import DeleteCategorie from '../../components/others/deleteCategorie/DeleteCategorie';
 import TchatList from '../../components/tchatUi/tchatList/TchatList';
-import { useState } from 'react';
 import { tchatFilter } from '../../../../utils';
 import style from './categoriePage.module.css';
 import ConfirmActionModal from '../../components/others/confirmActionModal/ConfirmActionModal';
+import { useState } from 'react';
+import useConfirmActionModal from '../../hooks/useConfirmActionModal';
 
-const CategoriePage = () => {
+const CategoriePage = () => {  
   const { categorieName } = useParams();
   const [searchValue, setSearchValue] = useState('');
+
+  const { setIsModalOpened, setIsConfirmed, isModalOpened, isConfirmed } = useConfirmActionModal(categorieName);
+  
   const { isPending, tchatList, isServerError, serverError } = useGetSingleCategorieHandler(categorieName);
   const filteredTchats = tchatFilter(tchatList, searchValue);
 
@@ -52,7 +56,7 @@ const CategoriePage = () => {
                   placeholder='Rechercher un tchat'
                   onInputChange={handleChange}
                 />
-                <DeleteCategorie/>
+                <DeleteCategorie onDelete={() => setIsModalOpened(true)}/>
               </div>
               <TchatList tchatList={filteredTchats} />
               {isServerError && <p className={`${style.serverError} error`}>{serverError}</p>}
@@ -60,7 +64,12 @@ const CategoriePage = () => {
           </div>
         }
       </MainPart>
-      <ConfirmActionModal/>
+      {isModalOpened && 
+        <ConfirmActionModal 
+          onCancel={() => setIsModalOpened(false)}
+          onConfirm={() => setIsConfirmed(true)} 
+        />
+      }
     </PageContainer>
   )
 }
