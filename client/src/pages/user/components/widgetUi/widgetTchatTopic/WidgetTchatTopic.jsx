@@ -20,7 +20,10 @@ const WidgetTchatTopic = ({tchat}) => {
         <h3>Tchat du {tchat[1].date}</h3>
         <p>{capitalizedFirstChar(tchat[1].title)}</p>
       </div>
-      <button className={`${style.deleteTchat} flex-column`} onClick={handleTchatDeletion}>
+      <button 
+        className={`${style.deleteTchat} flex-column`} 
+        onClick={handleTchatDeletion}
+      >
         <WidgetIcon color='delete'><FaRegTrashCan/></WidgetIcon>
       </button>
     </div>

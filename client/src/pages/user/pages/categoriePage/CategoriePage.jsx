@@ -14,6 +14,7 @@ import TchatList from '../../components/tchatUi/tchatList/TchatList';
 import { useState } from 'react';
 import { tchatFilter } from '../../../../utils';
 import style from './categoriePage.module.css';
+import ConfirmActionModal from '../../components/others/confirmActionModal/ConfirmActionModal';
 
 const CategoriePage = () => {
   const { categorieName } = useParams();
@@ -59,6 +60,7 @@ const CategoriePage = () => {
           </div>
         }
       </MainPart>
+      <ConfirmActionModal/>
     </PageContainer>
   )
 }

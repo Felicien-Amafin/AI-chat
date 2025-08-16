@@ -1,0 +1,39 @@
+.modal {
+    z-index: var(--zIndexMax);
+    position: fixed;
+    inset: 0 0 0 0;
+    backdrop-filter: blur(22px);
+}
+
+.modal .alert {
+    width: 350px;
+    height: 200px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    gap: 50px;
+}
+
+.alert .message {
+    color: white;
+    font-size: 0.875rem;
+}
+
+.alert .btns {
+    display: flex;
+    gap: 20px;
+}
+
+.btns .btn {
+    width: 100px;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background-color: transparent;
+    color: white;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    box-shadow: rgba(234, 234, 234, 0.35) 0px 1px 8px;
+}
