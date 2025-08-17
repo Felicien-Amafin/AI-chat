@@ -1,7 +1,7 @@
 export const getTchatFormErrors = (categorie, title) => {
     //Get chat form's input errors
     const errors = {};
-    const CATEGORIE_MAX_LENGTH = 20;
+    const CATEGORIE_MAX_LENGTH = 40;
     const CATEGORIE_MIN_LENGTH = 5;
     const TITLE_MAX_LENGTH  = 65;
     const TITLE_MIN_LENGTH  = 5;
