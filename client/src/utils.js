@@ -111,6 +111,10 @@ export const truncateStringInList = (list, strMaxLength) => {
     return { formatedList }
 }
 
+export const truncateString = (str, maxLength) => {
+    return str.slice(0, maxLength) + '...';
+}
+
 export const tchatFilter = (tchatList, searchTerm) => {
     //Returns tchats that matches the search term
 

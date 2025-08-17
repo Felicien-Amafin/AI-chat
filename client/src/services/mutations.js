@@ -9,7 +9,7 @@ import {
     verifyEmail,
 } from "./api/auth";
 import { createCategorie } from "./api/categorie";
-import { createTchat, sendTchatMessage, validateTchatForm } from "./api/tchat";
+import { createTchat, deleteTchat, sendTchatMessage, validateTchatForm } from "./api/tchat";
 
 //Auth mutation
 export const useSignUpUser = () => {
@@ -80,11 +80,26 @@ export const useCreateTchat = () => {
 
 export const useSendTchatMessage = () => {
     const queryClient = useQueryClient();
+
     return useMutation({
         mutationFn: sendTchatMessage,
         onSuccess: () => {
-            //invalidate quey key to get updated data
+            //invalidate quey key to get updated tchat messages
             queryClient.invalidateQueries({ queryKey: ['tchat-messages'] }); 
+        },
+    })
+}
+
+export const useDeleteTchat = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: deleteTchat,
+        onSuccess: (_, variables) => {
+            //invalidate quey key to get updated tchat list
+            if (variables?.invalidateKey) {
+                queryClient.invalidateQueries({ queryKey: [variables.invalidateKey] });
+            } 
         },
     })
 }

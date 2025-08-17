@@ -7,6 +7,6 @@ router.post('/validate-form', validateTchatForm);
 router.post('/', createTchat);
 router.post('/send-message', sendTchatMessage);
 router.get('/:tchatId', getTchat);
-router.delete('/:tchatId', deleteTchat)
+router.delete('/:tchatId', deleteTchat);
 
 export default router;

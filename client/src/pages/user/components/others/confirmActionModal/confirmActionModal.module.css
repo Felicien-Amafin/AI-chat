@@ -7,15 +7,27 @@
 
 .modal .alert {
     width: 350px;
-    height: 200px;
+    min-height: 200px;
     border-radius: 20px;
     border: 1px solid var(--border);
     gap: 50px;
+    padding: 20px 15px;
 }
 
-.alert .message {
+.alert .text {
+    gap: 20px;
+}
+
+.serverError {
+    text-align: center;
+    line-height: 22px;
+}
+
+.text .question {
     color: white;
     font-size: 0.875rem;
+    text-align: center;
+    line-height: 24px;
 }
 
 .alert .btns {

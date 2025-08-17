@@ -30,6 +30,7 @@ const CategoriePage = () => {
     setSearchValue(e.target.value);
   }
 
+  console.log(`${categorieName} is rendering`)
   return (
     <PageContainer>
       <NavBar>
@@ -68,6 +69,7 @@ const CategoriePage = () => {
         <ConfirmActionModal 
           onCancel={() => setIsModalOpened(false)}
           onConfirm={() => setIsConfirmed(true)} 
+          /* confirmationQuestion={} */
         />
       }
     </PageContainer>

@@ -8,7 +8,7 @@ import { signUpForm } from "./constant";
 const SignUpPage = () => {
   const { mutate, isPending, isError, error, data } = useSignUpUser();
   const request = { isPending, isError, error, data };
-  console.log(error)
+ 
   const handleSubmission = (e, formData)=> {
     e.preventDefault();
     const newFormData = trimAndLowerCase(formData, ['username', 'email']);
