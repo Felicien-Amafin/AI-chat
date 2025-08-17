@@ -21,7 +21,7 @@ const CategoriePage = () => {
   const { categorieName } = useParams();
   const [searchValue, setSearchValue] = useState('');
 
-  const { setIsModalOpened, setIsConfirmed, isModalOpened, isConfirmed } = useConfirmActionModal(categorieName);
+  const { setIsModalOpened, isModalOpened} = useConfirmActionModal(categorieName);
   
   const { isPending, tchatList, isServerError, serverError } = useGetSingleCategorieHandler(categorieName);
   const filteredTchats = tchatFilter(tchatList, searchValue);
@@ -30,7 +30,10 @@ const CategoriePage = () => {
     setSearchValue(e.target.value);
   }
 
-  console.log(`${categorieName} is rendering`)
+  const handleCategorieDeletion = () => {
+    
+  }
+
   return (
     <PageContainer>
       <NavBar>
@@ -68,8 +71,11 @@ const CategoriePage = () => {
       {isModalOpened && 
         <ConfirmActionModal 
           onCancel={() => setIsModalOpened(false)}
-          onConfirm={() => setIsConfirmed(true)} 
-          /* confirmationQuestion={} */
+          onConfirm={handleTchatDeletion} 
+          confirmationQuestion={confirmationQuestion}
+          isPending={isPending}
+          isServerError={isServerError}
+          serverErrorMess={serverErrorMess}
         />
       }
     </PageContainer>
