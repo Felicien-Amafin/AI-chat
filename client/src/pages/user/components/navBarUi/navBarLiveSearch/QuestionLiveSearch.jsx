@@ -8,7 +8,7 @@ import ListLoader from "../../listUi/listLoader/ListLoader"
 import { TbMessageCircleQuestion } from "react-icons/tb";
 import useGetTchatHandler from "../../../hooks/useGetTchatHandler";
 import { useState } from "react";
-import { createQuestionsList, navBarLiveFilter, truncateStringInList } from "../../../../../utils";
+import { capitalizedFirstChar, createQuestionsList, navBarLiveFilter, truncateStringInList } from "../../../../../utils";
 import { useDispatch } from "react-redux";
 import style from './navBarLiveSearch.module.css';
 import { setAiAnswer, setUserQuestion } from "../../../../../store/tchatSlice";
@@ -30,7 +30,7 @@ const QuestionLiveSearch = ({ tchatId }) => {
     
     const handleTchat = (index) => {
         //Displays user's question and ai's answer in TchatContainer's ui 
-        dispatch(setUserQuestion(reversedTchatsList[index].question));
+        dispatch(setUserQuestion(capitalizedFirstChar(reversedTchatsList[index].question)));
         dispatch(setAiAnswer(reversedTchatsList[index].answer));
     }
 

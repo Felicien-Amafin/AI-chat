@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useSendTchatMessHandler from "../../../hooks/useSendTchatMessHandler";
 import style from './tchatContainer.module.css';
 import { setAiAnswer, setTchatHistory, setUserQuestion } from "../../../../../store/tchatSlice";
-import { capitalizedFirstChar } from "../../../../../utils";
+import { capitalizedFirstChar, trimAndLowerCase } from "../../../../../utils";
 
 const TchatContainer = ({tchatId}) => {
   const { formData, handleChange, resetForm } = useForm();//Receives user question
@@ -20,9 +20,11 @@ const TchatContainer = ({tchatId}) => {
   
   const handleMessage = (e) => {
     e.preventDefault();
-    if(!formData.prompt) return;
+    const newFormData = trimAndLowerCase(formData);
+    const userMessage = newFormData.prompt;
+    
+    if(!userMessage) return;
 
-    const userMessage = formData.prompt.toLowerCase();
     dispatch(setUserQuestion(capitalizedFirstChar(userMessage)));
  
     mutate({//Submit tchat data to db
