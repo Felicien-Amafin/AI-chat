@@ -3,7 +3,6 @@ import AuthFormLink from "./components/authFormLink/AuthFormLink";
 import LandingPage from "../landing/LandingPage";
 import { useParams } from "react-router-dom";
 import { useResetPassword } from "../../services/mutations";
-import { trimAndLowerCase } from "../../utils";
 import { pwdResetForm } from "./constant";
 
 const PwdResetPage = () => {
@@ -11,13 +10,12 @@ const PwdResetPage = () => {
   const params = useParams();
   const token = params.token;
   const request = { isPending, isError, error, data };
-  const isTokenInvalid = error ? error.response.data.errors.isTokenInvalid : false;
+  const isTokenInvalid = error ? error.response.data.errors?.isTokenInvalid : false;
 
   const handleSubmission = (e, formData)=> {
     e.preventDefault();
-
-    const newFormData = trimAndLowerCase(formData);
-    mutate({ token , data:newFormData });
+    
+    mutate({ token , data:formData });
   };
 
   return (
@@ -30,7 +28,7 @@ const PwdResetPage = () => {
         <>
           {isTokenInvalid && 
             <AuthFormLink path='/auth/password-recovery'>
-              Mot de passe oublié ?
+              Obtenir un nouveau lien
             </AuthFormLink>
           }
           {data && 

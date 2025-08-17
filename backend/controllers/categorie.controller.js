@@ -30,9 +30,9 @@ export const createCategorie = tryCatch(async (req, res) => {
 
     if(categorieFound) {
         throw new CustomError(
-            'Nom de catégorie déjà existant', 
+            'Choisissez un autre nom de catégorie', 
             400, 
-            { categorie: 'Choisissez un autre nom de catégorie' }
+            { categorie: 'Nom de catégorie déjà existant' }
         );
     }
 

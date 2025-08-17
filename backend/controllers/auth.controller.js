@@ -176,7 +176,7 @@ export const resetPwd = tryCatch(async (req, res) => {
     const user = await User.findOne({ resetEmailToken: token });
 
     if (!user) {
-        const errorMess = `L'url comporte un token incorrect. Utilisez le lien envoyé à votre adresse email, ou obtenez un nouveau lien ci-dessous.`;
+        const errorMess = `L'url est incorrecte. Utilisez le lien envoyé à votre adresse email, ou obtenez un nouveau lien ci-dessous.`;
         throw new CustomError(errorMess, 401, { isTokenInvalid: true });
     }
 
@@ -190,7 +190,7 @@ export const resetPwd = tryCatch(async (req, res) => {
         throw new CustomError(errorMess, 401, { isTokenInvalid: true });
     }
 
-    const hashedPsswd = await encryptPassword(new_password);
+    const hashedPsswd = await hashPassword(new_password);
     user.password = hashedPsswd;
     user.isPasswordReseted = true;
 
