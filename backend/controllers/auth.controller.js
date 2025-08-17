@@ -84,7 +84,7 @@ export const signin = tryCatch(async (req, res) => {
         sameSite: 'None',
         secure: true,
     });
-
+   
     return res.status(200).json({
         message: 'Successfully authenticated.', 
         user: { id: user._id, username: user.username },
@@ -223,7 +223,7 @@ export const refreshAccessTk = tryCatch(async( req, res, next) => {
                 return next(error);
             };
             //Generate accesToken and send it to client
-            const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '2m');
+            const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '1d');
        
             return res.status(200).json({
                 user: { id: user._id, username: user.username },

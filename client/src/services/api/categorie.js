@@ -12,3 +12,8 @@ export const createCategorie = async(data)=> {
   return await axiosInstance.post(`api/categories`, data);
 }
 
+export const deleteCategorie = async({categorieName})=> {
+  return await axiosInstance.delete(`api/categories/${categorieName}`);
+}
+
+

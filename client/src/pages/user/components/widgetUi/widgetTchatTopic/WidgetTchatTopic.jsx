@@ -9,8 +9,8 @@ import useDeleteTchatHandler from "../../../hooks/useDeleteTchatHandler";
 
 const WidgetTchatTopic = ({tchat}) => {
   const { setIsModalOpened, isModalOpened } = useConfirmActionModal(null);
-  const truncatedTchatTitle = truncateString(tchat[1].title, 25);
-  const confirmationQuestion = `Voulez-vous vraiment supprimer: "${capitalizedFirstChar(truncatedTchatTitle)}"`;
+  const tchatTitle = truncateString(tchat[1].title, 25);
+  const confirmationQuestion = `Voulez-vous vraiment supprimer: "${capitalizedFirstChar(tchatTitle)}"`;
 
   const { categorieName } = useParams();
   const invalidateKey = `categories-${categorieName}`;

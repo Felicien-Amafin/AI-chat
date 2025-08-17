@@ -8,7 +8,7 @@ import {
     signUpUser, 
     verifyEmail,
 } from "./api/auth";
-import { createCategorie } from "./api/categorie";
+import { createCategorie, deleteCategorie } from "./api/categorie";
 import { createTchat, deleteTchat, sendTchatMessage, validateTchatForm } from "./api/tchat";
 
 //Auth mutation
@@ -100,6 +100,18 @@ export const useDeleteTchat = () => {
             if (variables?.invalidateKey) {
                 queryClient.invalidateQueries({ queryKey: [variables.invalidateKey] });
             } 
+        },
+    })
+}
+
+export const useDeleteCategorie = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: deleteCategorie,
+        onSuccess: () => {
+            //invalidate query key to get updated categorie list
+            queryClient.invalidateQueries({ queryKey: ['categories'] });
         },
     })
 }

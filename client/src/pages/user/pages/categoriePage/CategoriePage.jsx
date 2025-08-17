@@ -4,34 +4,38 @@ import MainPart from '../../layout/mainPart/MainPart';
 import SearchField from '../../components/others/SearchField';
 import NavBarLinkList from '../../components/navBarUi/navBarLinkList/NavBarLinkList';
 import CategorieLiveSearch from '../../components/navBarUi/navBarLiveSearch/CategorieLiveSearch';
-import { allSideBarLinks } from '../../constant/SideBarLinks';
-import { useParams } from 'react-router-dom';
-import useGetSingleCategorieHandler from '../../hooks/useGetSingleCategorieHandler';
 import Loader from '../../../../components/others/Loader';
 import CategorieName from '../../components/others/categorieName/CategorieName';
 import DeleteCategorie from '../../components/others/deleteCategorie/DeleteCategorie';
 import TchatList from '../../components/tchatUi/tchatList/TchatList';
-import { tchatFilter } from '../../../../utils';
-import style from './categoriePage.module.css';
 import ConfirmActionModal from '../../components/others/confirmActionModal/ConfirmActionModal';
+import { allSideBarLinks } from '../../constant/SideBarLinks';
+import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import useConfirmActionModal from '../../hooks/useConfirmActionModal';
+import useDeleteCategorieHandler from '../../hooks/useDeleteCategorieHandler';
+import useGetSingleCategorieHandler from '../../hooks/useGetSingleCategorieHandler';
+import { capitalizedFirstChar, tchatFilter } from '../../../../utils';
+import style from './categoriePage.module.css';
 
 const CategoriePage = () => {  
   const { categorieName } = useParams();
   const [searchValue, setSearchValue] = useState('');
-
   const { setIsModalOpened, isModalOpened} = useConfirmActionModal(categorieName);
   
-  const { isPending, tchatList, isServerError, serverError } = useGetSingleCategorieHandler(categorieName);
+  const { isCategoriePending, tchatList, isCategorieServerError, categorieServerError } = useGetSingleCategorieHandler(categorieName);
   const filteredTchats = tchatFilter(tchatList, searchValue);
+
+  const { mutate, isDeletionPending, isDeletionServerError, deletionServerErrorMess } = useDeleteCategorieHandler(setIsModalOpened);
+
+  const confirmationQuestion = `Voulez-vous vraiment supprimer: "${capitalizedFirstChar(categorieName)}"`;
 
   const handleChange = (e) => {
     setSearchValue(e.target.value);
   }
 
   const handleCategorieDeletion = () => {
-    
+    mutate({categorieName});
   }
 
   return (
@@ -43,12 +47,12 @@ const CategoriePage = () => {
         </>
       </NavBar>
       <MainPart>
-        {isPending && 
+        {isCategoriePending && 
           <div className={`${style.loader} flexRow-allCentered`}>
               <Loader size={40} color='white'/>
           </div>
         }
-        {!isPending && 
+        {!isCategoriePending && 
           <div className={`${style.container} containerAnim`}>
             <div className={`${style.elements} gradientScroll flex-column`}>
               <div className={style.header}>
@@ -63,7 +67,7 @@ const CategoriePage = () => {
                 <DeleteCategorie onDelete={() => setIsModalOpened(true)}/>
               </div>
               <TchatList tchatList={filteredTchats} />
-              {isServerError && <p className={`${style.serverError} error`}>{serverError}</p>}
+              {isCategorieServerError && <p className={`${style.serverError} error`}>{categorieServerError}</p>}
             </div>
           </div>
         }
@@ -71,11 +75,11 @@ const CategoriePage = () => {
       {isModalOpened && 
         <ConfirmActionModal 
           onCancel={() => setIsModalOpened(false)}
-          onConfirm={handleTchatDeletion} 
+          onConfirm={handleCategorieDeletion} 
           confirmationQuestion={confirmationQuestion}
-          isPending={isPending}
-          isServerError={isServerError}
-          serverErrorMess={serverErrorMess}
+          isPending={isDeletionPending}
+          isServerError={isDeletionServerError}
+          serverErrorMess={deletionServerErrorMess}
         />
       }
     </PageContainer>
