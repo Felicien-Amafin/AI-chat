@@ -6,7 +6,6 @@ const tchat = createSlice({
         tchatHistory: [],
         userQuestion: '',
         aiAnswer: '',
-        defaultMess: 'Comment puis-je vous aider?'
     },
     reducers: {
         setTchatHistory: (state, action) => {

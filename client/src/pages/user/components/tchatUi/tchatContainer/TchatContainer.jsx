@@ -1,28 +1,26 @@
-import { IoSendOutline } from "react-icons/io5";
-import Loader from "../../../../../components/others/Loader";
 import useForm from "../../../../../hooks/useForm";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useSendTchatMessHandler from "../../../hooks/useSendTchatMessHandler";
-import style from './tchatContainer.module.css';
 import { setAiAnswer, setTchatHistory, setUserQuestion } from "../../../../../store/tchatSlice";
 import { capitalizedFirstChar, trimAndLowerCase } from "../../../../../utils";
+import TchatPrompt from "../tchatPrompt/TchatPrompt";
+import TchatScreen from "../tchatScreen/TchatScreen";
+import style from './tchatContainer.module.css';
 
 const TchatContainer = ({tchatId}) => {
   const { formData, handleChange, resetForm } = useForm();//Receives user question
   const { mutate, isPending, dialog, isServerError, serverError } = useSendTchatMessHandler();
   
   const dispatch = useDispatch();
-  const { userQuestion } = useSelector((state) => state.tchat);
-  const { aiAnswer } = useSelector((state) => state.tchat);
-  const { tchatHistory } = useSelector((state) => state.tchat);
-  const { defaultMess } = useSelector((state) => state.tchat);
-  
-  const handleMessage = (e) => {
+
+  const { userQuestion, aiAnswer, tchatHistory } = useSelector((state) => state.tchat);
+
+  const handleMessageSubmission = (e) => {
     e.preventDefault();
     const newFormData = trimAndLowerCase(formData);
     const userMessage = newFormData.prompt;
-    
+
     if(!userMessage) return;
 
     dispatch(setUserQuestion(capitalizedFirstChar(userMessage)));
@@ -46,33 +44,19 @@ const TchatContainer = ({tchatId}) => {
 
   return (
     <div className={`${style.tchatContainer} containerAnim flex-column`}>
-      <div className={style.tchatBox}>
-        <section className={`${style.tchat} gradientScroll flex-column`}>
-          {!userQuestion && 
-            <div className={`${style.defaultMess} flexColumn-allCentered`}>{defaultMess}</div>
-          }
-          {userQuestion && <p className={style.userQuestion}>{userQuestion}</p>}
-          {(!isPending && aiAnswer) && <p className={style.aiAnswer}>{aiAnswer}</p>}
-          {isServerError && <p className={`${style.serverError} error`}>{serverError}</p>}
-          {isPending && 
-            <div className={`${style.waiting} flexRow-allCentered`}>
-              <Loader size={25} color='white'/> <p className={style.waitingMess}>Un instant...</p>
-            </div>
-          }
-        </section>
-      </div>
-      <form className={style.tchatPrompt} onSubmit={handleMessage}>
-        <input 
-          name="prompt"
-          type="text" 
-          placeholder="Entrez votre demande"
-          value={formData['prompt'] || ''} 
-          onChange={handleChange}
-          required
-          disabled={isPending}
-        />
-        <button><i><IoSendOutline/></i></button>
-      </form>
+      <TchatScreen
+        userQuestion={userQuestion}
+        aiAnswer={aiAnswer}
+        isPending={isPending}
+        isServerError={isServerError}
+        serverError={serverError}
+      />
+      <TchatPrompt
+        onSubmit={handleMessageSubmission}
+        value={formData['prompt'] || ''}
+        onInputChange={handleChange}
+        isPending={isPending}
+      />
     </div>
   )
 }

@@ -11,6 +11,7 @@ const FormBtn = ({style, text, onClick, isPending}) => {
       onClick={onClick ? handleClick : null}
       className={style}
       disabled={isPending ? true : false}
+      type="submit"
     >
       {isPending && <Loader size={25}/>}
       {!isPending && text}

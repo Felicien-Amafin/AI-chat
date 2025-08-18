@@ -40,6 +40,7 @@ const WidgetTchatTopic = ({tchat}) => {
           className={`${style.deleteTchat} flex-column`} 
           onClick={handleModalDisplay}
           disabled={isPending}
+          aria-label="Supprimer le tchat"
         >
           <WidgetIcon color='delete'><FaRegTrashCan/></WidgetIcon>
         </button>
