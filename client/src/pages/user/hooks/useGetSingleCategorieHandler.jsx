@@ -1,11 +1,13 @@
 import useRequestErrorHandler from "../../../hooks/useRequestErrorHandler";
 import { useFetchSingleCategorie } from "../../../services/queries";
 import useLogoutUser from "./useLogoutUser";
+import useRedirectTo404 from "./useRedirectTo404";
 
 const useGetSingleCategorieHandler = (categorieName) => {
   const { isPending:isCategoriePending, data, error } = useFetchSingleCategorie(categorieName);
-  const { isForbidden, isUnAuthorized, isServerError:isCategorieServerError} = useRequestErrorHandler(error);
+  const { isForbidden, isUnAuthorized, isServerError:isCategorieServerError, isNotFound } = useRequestErrorHandler(error);
   useLogoutUser(isForbidden || isUnAuthorized);
+  useRedirectTo404(isNotFound);
 
   let tchatList = null;
   const categorieServerError = 'List de tchats indisponible. Veuillez réessayer plus tard.'

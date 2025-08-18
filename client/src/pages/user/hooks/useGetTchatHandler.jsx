@@ -5,7 +5,7 @@ import useLogoutUser from "./useLogoutUser";
 const useGetTchatHandler = (tchatId) => {
   const { isPending, data, error } = useFetchTchat('tchat-messages', tchatId);
   // Handles potential errors after fetching tchat's messages
-  const { isServerError, isUnAuthorized, isForbidden, isClientError } = useRequestErrorHandler(error);
+  const { isServerError, isUnAuthorized, isForbidden, isClientError, isNotFound } = useRequestErrorHandler(error);
   useLogoutUser(isUnAuthorized || isForbidden);
 
   let tchatMessages = null;
@@ -14,7 +14,7 @@ const useGetTchatHandler = (tchatId) => {
     tchatMessages = data.data.tchat.messages;
   }
 
-  return { isPending, tchatMessages, isServerError, isClientError };
+  return { isPending, tchatMessages, isServerError, isClientError, isNotFound };
 }
 
 export default useGetTchatHandler;

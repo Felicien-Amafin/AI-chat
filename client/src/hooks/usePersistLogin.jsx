@@ -17,7 +17,7 @@ const usePersistLogin = (isActive) => {
         if(data) {
             dispatch(setUserCred(data.data)); 
         }
-    },[data, dispatch, mutate]);
+    },[data, dispatch]);
 
     
     return { data, error }
