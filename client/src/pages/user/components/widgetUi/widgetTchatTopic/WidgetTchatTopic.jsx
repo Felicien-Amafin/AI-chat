@@ -30,7 +30,7 @@ const WidgetTchatTopic = ({tchat}) => {
     // Clear tchat's questions list from cache before starting new tchat
     queryClient.removeQueries({ queryKey: ['tchat-messages'] }); 
 
-    navigate(`/user/tchat/${tchat[0]}`)
+    navigate(`/user/tchat/${tchat[0]}`)//Navigate to specific tchat's page
   }
 
   const handleModalDisplay = (e) => {

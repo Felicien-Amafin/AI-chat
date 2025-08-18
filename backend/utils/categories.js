@@ -26,3 +26,7 @@ export const getTchatFormErrors = (categorie, title) => {
 
     return isErrors ? errors : null;
 }
+
+export const sortCategorieNames = (arr) => {
+  return arr.sort((a, b) => a.name.localeCompare(b.name));
+}

@@ -3,6 +3,7 @@ import Categorie from "../models/categorie.model.js";
 import Tchat from "../models/tchat.model.js";
 import { capitalizedFirstChar } from "../utils/genericFunc.js";
 import { CustomError } from "../utils/class.js";
+import { sortCategorieNames } from "../utils/categories.js";
 
 export const getCategories = tryCatch(async (req, res) => {
     const userId = req.user.id;
@@ -18,8 +19,10 @@ export const getCategories = tryCatch(async (req, res) => {
             }
         });
     }
+   
+    const sortedCategories = sortCategorieNames(categorieList);
 
-    return res.status(200).json({ categories: categorieList });
+    return res.status(200).json({ categories: sortedCategories });
 });
 
 export const createCategorie = tryCatch(async (req, res) => {
