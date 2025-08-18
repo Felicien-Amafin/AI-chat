@@ -5,8 +5,8 @@ import useLogoutUser from "./useLogoutUser";
 import { useNavigate } from "react-router-dom";
 
 const useDeleteCategorieHandler = (closeModal) => {
-    const { mutate, isDeletionPending, data, error } = useDeleteCategorie();
-    const { isForbidden, isUnAuthorized, isDeletionServerError } = useRequestErrorHandler(error);
+    const { mutate, isPending:isDeletionPending, data, error } = useDeleteCategorie();
+    const { isForbidden, isUnAuthorized, isServerError:isDeletionServerError } = useRequestErrorHandler(error);
     useLogoutUser(isForbidden || isUnAuthorized);
 
     const deletionServerErrorMess = "Impossible de supprimer la catégorie. Réessayez ultérieurement."
