@@ -14,7 +14,7 @@ import style from "./userHomePage.module.css";
 
 const UserHomePage = () => {
   const { user } = useSelector((state) => state.auth);
-  const userName = capitalizedFirstChar(user.username);
+  const userName = capitalizedFirstChar(user?.username);
 
   return (
     <PageContainer> 

@@ -10,15 +10,17 @@ import { useSelector } from 'react-redux';
 
 function App() {
   const { user } = useSelector((state) => state.auth);
-  const { isIdle, isPending } = usePersistLogin(!user);
+  const { data, error } = usePersistLogin(!user);
 
-  if(isIdle || isPending) return null;
+  if(!data && !error) return null;
+
+  const isAuthorized = user || data;
 
   return (
     <Routes>
-      <Route path='/' element={user ? <Navigate to={'/user'}/> : <HomePage/>}/>
+      <Route path='/' element={isAuthorized ? <Navigate to={'/user'}/> : <HomePage/>}/>
 
-      <Route path='auth' element={user ? <Navigate to={'/user'}/> : <Auth/>}>
+      <Route path='auth' element={isAuthorized ? <Navigate to={'/user'}/> : <Auth/>}>
         {authRoutes.map((route)=> <Route 
           key={route.path} 
           path={route.path} 
@@ -26,7 +28,7 @@ function App() {
         />)}
       </Route>
 
-      <Route path='user' element={<ProtectedRoute isAuthorized={user}><User/></ProtectedRoute>}>
+      <Route path='user' element={<ProtectedRoute isAuthorized={isAuthorized}><User/></ProtectedRoute>}>
         {userRoutes.map((route)=> {
           return <Route key={route.path} path={route.path} element={route.element}/>
         })}

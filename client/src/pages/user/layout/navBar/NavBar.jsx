@@ -6,7 +6,7 @@ import useZoom from "../../hooks/useZoom";
 
 const NavBar = ({children}) => {
   const { user } = useSelector((state) => state.auth);
-  const userName = capitalizedFirstChar(user.username);
+  const userName = capitalizedFirstChar(user?.username);
   const isZoomed = useZoom();
 
   return (

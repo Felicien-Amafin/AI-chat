@@ -5,7 +5,7 @@ import { setUserCred } from "../store/authSlice";
 
 const usePersistLogin = (isActive) => {
     const dispatch = useDispatch();
-    const { isIdle, isPending, data, mutate } = useRefreshAccessTk();
+    const { mutate, data, error } = useRefreshAccessTk();
  
     useEffect(() => {
         if(isActive) { 
@@ -20,7 +20,7 @@ const usePersistLogin = (isActive) => {
     },[data, dispatch, mutate]);
 
     
-    return { isIdle, isPending }
+    return { data, error }
 }       
 
 export default usePersistLogin;

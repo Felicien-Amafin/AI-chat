@@ -24,7 +24,7 @@ export const trimAndLowerCase = (obj, array)=> {
 
 export const capitalizedFirstChar = (string)=> {
     //Capitalize first Char of string
-    const newString = string.charAt(0).toUpperCase() + string.slice(1);
+    const newString = string?.charAt(0).toUpperCase() + string?.slice(1);
     return newString;
 }
 
