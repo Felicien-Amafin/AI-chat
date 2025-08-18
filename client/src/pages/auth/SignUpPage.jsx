@@ -1,6 +1,6 @@
 import { useSignUpUser } from "../../services/mutations";
 import { trimAndLowerCase } from "../../utils";
-import LandingPage from "../landing/LandingPage";
+import Landing from "../../layout/landing/Landing";
 import AuthForm from "./components/authForm/AuthForm";
 import AuthFormLink from "./components/authFormLink/AuthFormLink";
 import { signUpForm } from "./constant";
@@ -17,7 +17,7 @@ const SignUpPage = () => {
   }
   
   return (
-    <LandingPage>
+    <Landing>
       <AuthForm 
         onSubmit={handleSubmission}
         form={signUpForm}
@@ -27,7 +27,7 @@ const SignUpPage = () => {
           Vous avez déjà un compte ? Se connecter
         </AuthFormLink>
       </AuthForm>
-    </LandingPage>
+    </Landing>
   )
 }
 

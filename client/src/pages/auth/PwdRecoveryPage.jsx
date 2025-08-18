@@ -1,5 +1,5 @@
 import AuthForm from "./components/authForm/AuthForm";
-import LandingPage from "../landing/LandingPage";
+import Landing from "../../layout/landing/Landing";
 import { useSendResetEmail } from "../../services/mutations";
 import { trimAndLowerCase } from "../../utils";
 import { pwdRecoveryForm } from "./constant";
@@ -16,13 +16,13 @@ const PwdRecoveryPage = () => {
   }
 
   return (
-     <LandingPage>
+     <Landing>
       <AuthForm 
         onSubmit={handleSubmission}
         form={pwdRecoveryForm}
         request={request}
       />
-    </LandingPage>
+    </Landing>
   )
 }
 

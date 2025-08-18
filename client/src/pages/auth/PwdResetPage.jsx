@@ -1,6 +1,6 @@
 import AuthForm from "./components/authForm/AuthForm";
 import AuthFormLink from "./components/authFormLink/AuthFormLink";
-import LandingPage from "../landing/LandingPage";
+import Landing from "../../layout/landing/Landing";
 import { useParams } from "react-router-dom";
 import { useResetPassword } from "../../services/mutations";
 import { pwdResetForm } from "./constant";
@@ -19,7 +19,7 @@ const PwdResetPage = () => {
   };
 
   return (
-    <LandingPage>
+    <Landing>
       <AuthForm 
         onSubmit={handleSubmission}
         form={pwdResetForm}
@@ -38,7 +38,7 @@ const PwdResetPage = () => {
           } 
         </>
       </AuthForm>
-  </LandingPage>
+    </Landing>
   )
 }
 

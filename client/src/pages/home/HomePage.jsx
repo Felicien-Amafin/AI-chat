@@ -1,9 +1,9 @@
-import LandingPage from "../landing/LandingPage";
+import Landing from "../../layout/landing/Landing";
 import style from './homePage.module.css';
 
 const HomePage = () => {
   return (
-    <LandingPage>
+    <Landing>
       <div className={style.imgBox}>
         <figure className={`${style.img} bckGroundImg`}>
           <div className={style.dialog}>
@@ -12,7 +12,7 @@ const HomePage = () => {
           </div>
         </figure>
       </div>
-    </LandingPage>
+    </Landing>
   )
 }
 

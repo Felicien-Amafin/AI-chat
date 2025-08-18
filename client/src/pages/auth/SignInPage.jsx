@@ -1,6 +1,6 @@
 import AuthForm from "./components/authForm/AuthForm";
 import AuthFormLink from "./components/authFormLink/AuthFormLink";
-import LandingPage from "../landing/LandingPage";
+import Landing from "../../layout/landing/Landing";
 import { useSignInUser } from "../../services/mutations";
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react'
@@ -35,7 +35,7 @@ const SignInPage = () => {
   }, [data, dispatch]);
 
   return (
-    <LandingPage>
+    <Landing>
       <AuthForm 
         onSubmit={handleSubmission}
         form={signInForm}
@@ -50,7 +50,7 @@ const SignInPage = () => {
           </AuthFormLink>
         </div>
       </AuthForm>
-    </LandingPage>
+    </Landing>
   )
 }
 

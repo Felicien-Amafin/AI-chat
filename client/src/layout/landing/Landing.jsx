@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import Header from '../../layout/header/Header';
-import Footer from './layout/footer/Footer';
-import style from './landingPage.module.css';
+import Header from '../header/Header';
+import Footer from '../footer/Footer';
+import style from './landing.module.css';
 
-const LandingPage = ({children}) => {
+const Landing = ({children}) => {
   return (
     <div className={`${style.landingPage} bckGroundImg`}>
       <Header>
@@ -25,4 +25,4 @@ const LandingPage = ({children}) => {
   )
 }
 
-export default LandingPage;
+export default Landing;

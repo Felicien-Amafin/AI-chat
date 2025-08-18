@@ -1,6 +1,6 @@
 import AuthForm from "./components/authForm/AuthForm";
 import AuthFormLink from "./components/authFormLink/AuthFormLink";
-import LandingPage from "../landing/LandingPage";
+import Landing from "../../layout/landing/Landing";
 import { useEmailVerification } from "../../services/mutations";
 import { useParams } from "react-router-dom";
 import { trimAndLowerCase } from "../../utils";
@@ -20,7 +20,7 @@ const EmailVerificationPage = () => {
   }
 
   return (
-     <LandingPage>
+     <Landing>
       <AuthForm 
         onSubmit={handleSubmission}
         form={emailVerificationForm}
@@ -32,7 +32,7 @@ const EmailVerificationPage = () => {
           </AuthFormLink>
         }
       </AuthForm>
-    </LandingPage>
+    </Landing>
   )
 }
 
