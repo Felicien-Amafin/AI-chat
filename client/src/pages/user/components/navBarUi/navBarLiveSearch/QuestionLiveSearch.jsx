@@ -12,15 +12,17 @@ import { capitalizedFirstChar, createQuestionsList, navBarLiveFilter, truncateSt
 import { useDispatch } from "react-redux";
 import style from './navBarLiveSearch.module.css';
 import { setAiAnswer, setUserQuestion } from "../../../../../store/tchatSlice";
+import useRedirectTo404 from "../../../hooks/useRedirectTo404";
 
 const QuestionLiveSearch = ({ tchatId }) => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState('');
-    const { isPending, tchatMessages, isServerError } = useGetTchatHandler(tchatId);//Get tchat's questions + answer
+    const { isPending, tchatMessages, isServerError, isClientError } = useGetTchatHandler(tchatId);//Get tchat's questions + answer
     const { questions, reversedTchatsList } = createQuestionsList(tchatMessages);//Create list of questions to display in ui
     const { filteredList, isFilteredTerm } = navBarLiveFilter(questions, searchValue);//Search for a question by entering specific terms
     const { formatedList } = truncateStringInList(filteredList, 80);//Adds ellipses to questions when they are too long
-    
+/*     useRedirectTo404(isClientError); */
+
     const errorMess = 'La liste de vos questions est indisponible. Réessayez plus tard.'
     const defaultMess = 'Vos questions appraitront ici';
 

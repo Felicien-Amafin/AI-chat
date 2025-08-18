@@ -31,7 +31,7 @@ function App() {
           return <Route key={route.path} path={route.path} element={route.element}/>
         })}
       </Route>
-
+      <Route path="/404" element={<ErrorPage />} />
       <Route path='*' element={<ErrorPage/>}/>
     </Routes>
   )

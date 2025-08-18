@@ -5,6 +5,7 @@ import Tchat from "../models/tchat.model.js";
 import Categorie from "../models/categorie.model.js";
 import { getNewDate } from "../utils/genericFunc.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import mongoose from "mongoose";
 
 // Initialise le modèle gemini-2.0-flash-lite
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -89,13 +90,16 @@ export const sendTchatMessage = tryCatch(async (req, res) => {
 });
 
 export const getTchat = tryCatch(async (req, res) => {
-    const tchatId = req.params.tchatId;
-    
+    const tchatId = req.params.tchatId.trim();
     const userId = req.user.id;
+
+    if (!mongoose.Types.ObjectId.isValid(tchatId)) {
+        throw new CustomError('Format du tchat Id invalide', 400, {});
+    }
 
     const tchat = await Tchat.findOne({ userId, _id:tchatId });
 
-    if(!tchat) throw new CustomError('Tchat not found', 404, {});
+    if(!tchat) throw new CustomError('Tchat introuvable', 404, {});
     
     return res.status(200).json({ tchat });
 });

@@ -7,6 +7,7 @@ import UserHomePage from "../pages/user/pages/userHomePage/UserHomePage";
 import TchatFormPage from "../pages/user/pages/TchatFormPage";
 import CategoriePage from "../pages/user/pages/categoriePage/CategoriePage";
 import NewTchatPage from "../pages/user/pages/newTchatPage/NewTchatPage";
+import ExistingTchatPage from "../pages/user/pages/ExistingTchatPage";
 
 export const authRoutes = [
     {
@@ -44,10 +45,10 @@ export const userRoutes = [
         path: 'new-tchat',
         element: <NewTchatPage/>
     },
-    /* {
+    {
         path: 'tchat/:tchatId',
-        element: <TchatPage/>
-    }, */
+        element: <ExistingTchatPage/>
+    },
     {
         path: 'categories/:categorieName',
         element: <CategoriePage/>
