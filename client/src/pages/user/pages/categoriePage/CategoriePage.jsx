@@ -17,16 +17,30 @@ import useDeleteCategorieHandler from '../../hooks/useDeleteCategorieHandler';
 import useGetSingleCategorieHandler from '../../hooks/useGetSingleCategorieHandler';
 import { capitalizedFirstChar, tchatFilter } from '../../../../utils';
 import style from './categoriePage.module.css';
+import PageLoader from '../../../../components/others/pageLoader/PageLoader';
 
 const CategoriePage = () => {  
-  const { categorieName } = useParams();
   const [searchValue, setSearchValue] = useState('');
-  const { setIsModalOpened, isModalOpened} = useConfirmActionModal(categorieName);
   
-  const { isCategoriePending, tchatList, isCategorieServerError, categorieServerError } = useGetSingleCategorieHandler(categorieName);
+  const { categorieName } = useParams();
+  const { setIsModalOpened, isModalOpened} = useConfirmActionModal(categorieName);
+  const { 
+    isCategoriePending, 
+    tchatList, 
+    isCategorieServerError, 
+    categorieServerError, 
+    isCategorieNotFound, 
+    categorieNotFoundMess
+  } = useGetSingleCategorieHandler(categorieName);
+
   const filteredTchats = tchatFilter(tchatList, searchValue);
 
-  const { mutate, isDeletionPending, isDeletionServerError, deletionServerErrorMess } = useDeleteCategorieHandler(setIsModalOpened);
+  const { 
+    mutate, 
+    isDeletionPending, 
+    isDeletionServerError, 
+    deletionServerErrorMess 
+  } = useDeleteCategorieHandler(setIsModalOpened);
 
   const confirmationQuestion = `Voulez-vous vraiment supprimer: "${capitalizedFirstChar(categorieName)}"`;
 
@@ -47,12 +61,12 @@ const CategoriePage = () => {
         </>
       </NavBar>
       <MainPart>
-        {isCategoriePending && 
-          <div className={`${style.loader} flexRow-allCentered`}>
-              <Loader size={40} color='white'/>
-          </div>
-        }
-        {!isCategoriePending && 
+        {isCategoriePending && <PageLoader size={50} color='white'/>}
+          {/* <div className={`${style.loader} flexRow-allCentered`}>
+            <Loader size={40} color='white'/>
+          </div> */}
+        
+        {tchatList && 
           <div className={`${style.container} containerAnim`}>
             <div className={`${style.elements} gradientScroll flex-column`}>
               <div className={style.header}>
@@ -67,10 +81,11 @@ const CategoriePage = () => {
                 <DeleteCategorie onDelete={() => setIsModalOpened(true)}/>
               </div>
               <TchatList tchatList={filteredTchats} />
-              {isCategorieServerError && <p className={`${style.serverError} error`}>{categorieServerError}</p>}
             </div>
           </div>
         }
+        {isCategorieServerError && <p className={`${style.error} error`}>{categorieServerError}</p>}
+        {isCategorieNotFound && <p className={`${style.error} error`}>{categorieNotFoundMess}</p>}
       </MainPart>
       {isModalOpened && 
         <ConfirmActionModal 

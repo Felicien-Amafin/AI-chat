@@ -25,7 +25,7 @@
     font-size: 0.75rem;
 }
 
-.elements .serverError {
+.elements .error {
     text-align: center;
 }
 
@@ -63,7 +63,3 @@
     color: rgba(191, 191, 191, 0.896);
 }
 
-.loader {
-    width: 100%;
-    height: 100%;
-}
