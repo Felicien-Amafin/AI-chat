@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { createSelectList, getCategorieInArray } from '../../../../utils';
 import Loader from '../../../../components/others/Loader';
+import FormErrorMess from '../../../../components/formUi/formErrorMess/FormErrorMess';
 
 const ExistingCategoriesForm = ({style}) => {
   const { 
@@ -83,11 +84,9 @@ const ExistingCategoriesForm = ({style}) => {
           Vous n'avez pas encore de categories
         </p>
       }
-      {isValidationClientError  && 
-        <p className='error messAnim'>{validationInputErrorMess}</p>
-      }
+      {isValidationClientError  && <FormErrorMess error={validationInputErrorMess}/>}
       {(isValidationServerError || isCategoriesServerError) && 
-        <p className='error messAnim'>Server error</p>
+        <FormErrorMess error='Erreur de server'/>
       } 
       {isCategoriesPending && <Loader size={10}/>}
     </form>

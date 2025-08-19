@@ -1,6 +1,7 @@
 import { formNewCategorie } from '../../constant/forms';
 import FormInput from '../../../../components/formUi/formInput/FormInput';
 import FormBtn from '../../../../components/formUi/FormBtn';
+import FormErrorMess from '../../../../components/formUi/formErrorMess/FormErrorMess';
 import useTchatFormHandler from '../../hooks/useTchatFormHandler';
 import useCategorieCreationHandler from '../../hooks/useCategorieCreationHandler';
 import { useEffect } from 'react';
@@ -73,10 +74,10 @@ const NewCategorieForm = ({style}) => {
         isPending={isValidationPending || isCreationPending}
       />
       {(isValidationClientError || isCreationClientError) && 
-        <p className='error messAnim'>{validationInputErrorMess || creationInputErrorMess}</p>
+        <FormErrorMess error={validationInputErrorMess || creationInputErrorMess}/>
       }
       {(isValidationServerError || isCreationServerError) && 
-        <p className='error messAnim'>Server error</p>
+        <FormErrorMess error='Erreur de server'/>
       } 
     </form>
   )
