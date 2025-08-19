@@ -55,11 +55,11 @@ export const useRefreshAccessTk = () => {
 }
 
 //Others mutations
-export const useValidateTchatForm = () => {
+/* export const useValidateTchatForm = () => {
     return useMutation({
         mutationFn: validateTchatForm
     });
-}
+} */
 
 export const useCreateCategorie = () => {
     const queryClient = useQueryClient();

@@ -4,6 +4,7 @@ import useRequestErrorHandler from "../../../hooks/useRequestErrorHandler";
 import useLogoutUser from "./useLogoutUser";
 import useForm from "../../../hooks/useForm";
 import { trimAndLowerCase } from "../../../utils";
+import { useMemo } from "react";
 
 const useTchatFormHandler = () => {
     const { formData, handleChange } = useForm(); //Handles form's input data
@@ -40,7 +41,10 @@ const useTchatFormHandler = () => {
     useLogoutUser(isForbidden || isUnAuthorized);//Logout user if needed
 
     const isFormValid = data?.status === 200;
-    const validatedForm = data?.data.form;//Gets validated form from useValidateTchatForm
+    
+    const validatedForm = useMemo(() => {
+        return data?.data.form;
+    }, [data]);//Gets validated form from useValidateTchatForm
     
     return { //Returns values to UI to display
        isValidationPending,

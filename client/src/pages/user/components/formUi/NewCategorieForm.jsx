@@ -4,11 +4,15 @@ import FormBtn from '../../../../components/formUi/FormBtn';
 import FormErrorMess from '../../../../components/formUi/formErrorMess/FormErrorMess';
 import useTchatFormHandler from '../../hooks/useTchatFormHandler';
 import useCategorieCreationHandler from '../../hooks/useCategorieCreationHandler';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useCreateTchatHandler from '../../hooks/useCreateTchatHandler';
+import useNewTchatWorkflow from '../../hooks/useNewTchatWorkflow';
 
 const NewCategorieForm = ({style}) => {
-  const { 
+  const { } = useNewTchatWorkflow(); //Create a new tchat
+
+  /* const { 
     isValidationPending, 
     isFormValid,
     formData,
@@ -22,36 +26,39 @@ const NewCategorieForm = ({style}) => {
   } = useTchatFormHandler();//Handles Tchat form's validation and potentials errors
 
   const { 
-    isCreationPending, 
-    categorieData,
-    isCreationClientError, 
-    isCreationServerError,
-    creationInputErrorMess, 
-    creationInputErrors 
+    isCategorieCreationPending, 
+    isCategorieCreated, 
+    categorieId,
+    isCategorieClientError, 
+    isCategorieServerError, 
+    categorieInputErrorMess,
+    categorieInputErrors
   } = useCategorieCreationHandler(isFormValid, validatedForm);//Handles categories creation and potentials errors
   
-  const isCategorieCreated = categorieData?.status === 201;
+  const dataToSend = useMemo(() => {
+    return {
+      categorie_id: categorieId, 
+      tchat_title: validatedForm?.title
+    };
+
+  }, [categorieId, validatedForm]);
+
+  const { 
+    isTchatCreationPending, 
+    isTchatCreated, 
+    createdTchat, 
+    isTchatServerError  
+  } = useCreateTchatHandler(isCategorieCreated, dataToSend);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(isCategorieCreated) {
-      //Gathering some usefull data before navigating to /user/new-tchat
-      const dataToSend = { 
-        categorie_id: categorieData?.data.categorie.id,
-        categorie_name: categorieData?.data.categorie.name,
-        tchat_title: validatedForm?.title
-      };
-    
-      navigate('/user/new-tchat', { state: dataToSend, replace: true });
-    }
-  },[
-    categorieData?.data.categorie.id, 
-    categorieData?.data.categorie.name, 
-    validatedForm?.title,
-    isCategorieCreated,
-    navigate
-  ]);
+    if(isTchatCreated) {
+      navigate(`/user/tchat/${createdTchat.id}`, { replace: true });
 
+    }
+  }, [isTchatCreated, createdTchat, navigate]);
+ */
   return (
     <form 
       className={`${style} flex-column`}
@@ -61,7 +68,7 @@ const NewCategorieForm = ({style}) => {
         <FormInput
           key={input.name}
           input={input}
-          error={validationInputErrors || creationInputErrors}
+          error={validationInputErrors || categorieInputErrors}
           value={formData[input.name] || ''}
           required={true}
           onInputChange={handleChange}
@@ -71,12 +78,12 @@ const NewCategorieForm = ({style}) => {
         style='whiteBtn button'
         text='Commencer' 
         onClick={null} 
-        isPending={isValidationPending || isCreationPending}
+        isPending={isValidationPending || isCategorieCreationPending || isTchatCreationPending}
       />
-      {(isValidationClientError || isCreationClientError) && 
-        <FormErrorMess error={validationInputErrorMess || creationInputErrorMess}/>
+      {(isValidationClientError || isCategorieClientError) && 
+        <FormErrorMess error={validationInputErrorMess || categorieInputErrorMess}/>
       }
-      {(isValidationServerError || isCreationServerError) && 
+      {(isValidationServerError || isCategorieServerError || isTchatServerError) && 
         <FormErrorMess error='Erreur de server'/>
       } 
     </form>

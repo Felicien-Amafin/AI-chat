@@ -7,7 +7,7 @@ import NavBarLinkList from "../components/navBarUi/navBarLinkList/NavBarLinkList
 import QuestionLiveSearch from "../components/navBarUi/navBarLiveSearch/QuestionLiveSearch";
 import { allSideBarLinks } from "../constant/SideBarLinks";
 
-const ExistingTchatPage = () => {
+const TchatPage = () => {
     const { tchatId } = useParams();
 
     return (
@@ -23,4 +23,4 @@ const ExistingTchatPage = () => {
     )
 }
 
-export default ExistingTchatPage;
+export default TchatPage;

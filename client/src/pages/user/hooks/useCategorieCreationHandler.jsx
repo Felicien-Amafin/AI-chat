@@ -6,22 +6,22 @@ import useLogoutUser from './useLogoutUser';
 
 const useCategorieCreationHandler = (isActive, formData) => {
     const {
-        isPending:isCreationPending, 
+        isPending:isCategorieCreationPending, 
         data:categorieData, 
         error, 
         mutate 
     } = useCreateCategorie();//Creates categorie in db
 
     const { 
-        isClientError:isCreationClientError, 
-        isServerError:isCreationServerError, 
+        isClientError:isCategorieClientError, 
+        isServerError:isCategorieServerError, 
         isForbidden, 
         isUnAuthorized, 
     } = useRequestErrorHandler(error);
      
     const { 
-        inputErrorMess:creationInputErrorMess, 
-        inputErrors:creationInputErrors 
+        inputErrorMess:categorieInputErrorMess, 
+        inputErrors:categorieInputErrors 
     } = useFormInputErrorHandler(error);
 
     useLogoutUser(isForbidden || isUnAuthorized);
@@ -32,13 +32,17 @@ const useCategorieCreationHandler = (isActive, formData) => {
         }
     }, [isActive, formData, mutate]);
 
+    const isCategorieCreated = categorieData?.status === 201;
+    const categorieId = categorieData?.data.categorie.id;
+
     return {
-        isCreationPending, 
-        categorieData, 
-        isCreationClientError, 
-        isCreationServerError, 
-        creationInputErrorMess,
-        creationInputErrors
+        isCategorieCreationPending, 
+        isCategorieCreated,
+        categorieId,
+        isCategorieClientError, 
+        isCategorieServerError, 
+        categorieInputErrorMess,
+        categorieInputErrors
     }
 }
 

@@ -4,8 +4,9 @@ import FormBtn from '../../../../components/formUi/FormBtn';
 import { formExistingCategories } from '../../constant/forms';
 import useTchatFormHandler from '../../hooks/useTchatFormHandler';
 import useGetCategoriesHandler from '../../hooks/useGetCategoriesHandler';
+import useCreateTchatHandler from '../../hooks/useCreateTchatHandler';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { createSelectList, getCategorieInArray } from '../../../../utils';
 import Loader from '../../../../components/others/Loader';
 import FormErrorMess from '../../../../components/formUi/formErrorMess/FormErrorMess';
@@ -15,7 +16,7 @@ const ExistingCategoriesForm = ({style}) => {
     isCategoriesPending, 
     categories, 
     isCategoriesServerError 
-  } = useGetCategoriesHandler();//Gets categories from db
+  } = useGetCategoriesHandler();//Gets categories from db for the Select component
 
   const optionList = createSelectList(categories);//Create list for Select component
 
@@ -33,23 +34,37 @@ const ExistingCategoriesForm = ({style}) => {
     handleSubmission 
   } = useTchatFormHandler();
 
+  //Using getCategorieInArray to retrieve selected categorie's datas
+  const categorie = getCategorieInArray(validatedForm?.categorie, categories);
+
+  const dataToSend = useMemo(() => {
+    if (categorie) {
+      return {
+        categorie_id: categorie[0]?.id,
+        tchat_title: validatedForm?.title
+      };
+    }
+    return null;
+  }, [categorie, validatedForm]);
+  
+  const { 
+    isCreationPending, 
+    isTchatCreated, 
+    createdTchat, 
+    isCreationServerError  
+  } = useCreateTchatHandler(isFormValid, dataToSend);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(isFormValid) {
-      //Gathering some usefull data before navigating to /user/new-tchat
-      const categorie = getCategorieInArray(validatedForm?.categorie, categories);
+    if(isTchatCreated) {
+      navigate(`/user/tchat/${createdTchat.id}`, { replace: true });
 
-      const dataToSend = { 
-        categorie_id: categorie[0].id, 
-        categorie_name: categorie[0].name,
-        tchat_title: validatedForm.title
-      };
-
-      navigate('/user/new-tchat', { state: dataToSend, replace: true });
     }
-  },[categories, validatedForm?.categorie, validatedForm?.title, isFormValid, navigate])
-  
+  }, [isTchatCreated, createdTchat, navigate]);
+
+  const serverError =  'Erreur interne au serveur. Veuillez Réessayer plus tard.';
+
   return (
     <form 
       className={`${style} flex-column`}
@@ -75,7 +90,7 @@ const ExistingCategoriesForm = ({style}) => {
             style='whiteBtn button'
             text='Commencer' 
             onClick={null} 
-            isPending={isValidationPending || isCategoriesPending}
+            isPending={isValidationPending || isCategoriesPending || isCreationPending}
           />
         </>
       }
@@ -85,8 +100,8 @@ const ExistingCategoriesForm = ({style}) => {
         </p>
       }
       {isValidationClientError  && <FormErrorMess error={validationInputErrorMess}/>}
-      {(isValidationServerError || isCategoriesServerError) && 
-        <FormErrorMess error='Erreur de server'/>
+      {(isValidationServerError || isCategoriesServerError || isCreationServerError) && 
+        <FormErrorMess error={serverError}/>
       } 
       {isCategoriesPending && <Loader size={10}/>}
     </form>
