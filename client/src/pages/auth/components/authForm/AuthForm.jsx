@@ -4,12 +4,15 @@ import useForm from "../../../../hooks/useForm";
 import style from './authForm.module.css';
 import useFormInputErrorHandler from "../../../../hooks/useFormInputErrorHandler";
 import useRequestErrorHandler from "../../../../hooks/useRequestErrorHandler";
+import FormErrorMess from "../../../../components/formUi/formErrorMess/FormErrorMess";
 
 const AuthForm = ({children, onSubmit, form, request}) => {
   const { handleChange, formData } = useForm();
   const { isServerError } = useRequestErrorHandler(request.error);
   const { inputErrors, inputErrorMess } = useFormInputErrorHandler(request.error); 
   const confirmationMess = request.data?.data?.message;
+
+  const serverErrorMess = 'Erreur interne au serveur. Réessayez ultérieurement';
 
   return (
     <form 
@@ -32,15 +35,13 @@ const AuthForm = ({children, onSubmit, form, request}) => {
         text={form.btn_text}
         isPending={request?.isPending}
       />
-      {confirmationMess && <p className={`${style.confirmation} messAnim`}>
+      {confirmationMess && 
+        <p className={`${style.confirmation} messAnim`}>
         {confirmationMess}
-      </p>}
-      {inputErrorMess && <p className={`${style.error} error messAnim`}>
-        {inputErrorMess}
-      </p>}
-      {isServerError && <p className={`${style.error} error messAnim`}>
-        Erreur de serveur. Réessayez ultérieurement
-      </p>}
+      </p>
+      }
+      {inputErrorMess && <FormErrorMess error={inputErrorMess}/>}
+      {isServerError && <FormErrorMess error={serverErrorMess}/>}
       {children}
     </form>
   )

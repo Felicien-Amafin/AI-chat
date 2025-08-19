@@ -14,8 +14,11 @@ import style from './navBarLiveSearch.module.css';
 
 const CategorieLiveSearch= () => {
     const [searchValue, setSearchValue] = useState('');
+
     const { isPending, categories, isServerError } = useGetCategoriesHandler();
+
     const listNames = createNavList(categories);
+
     const { filteredList, isFilteredTerm } = navBarLiveFilter(listNames, searchValue);
 
     const navigate = useNavigate();

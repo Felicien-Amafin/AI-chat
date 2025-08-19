@@ -38,13 +38,15 @@ const QuestionLiveSearch = ({ tchatId }) => {
 
     return (
         <ListContainer style={style.listContainer}>
-            {questions && <SearchField 
+            {questions && 
+                <SearchField 
                 style={style}
                 type='text'
                 value={searchValue}
                 placeholder='Rechercher une questions'
                 onInputChange={handleChange}
-            />}
+                />
+            }
             {questions && <ListTitle title='Vos questions'/>}
             {questions && 
                 <List 

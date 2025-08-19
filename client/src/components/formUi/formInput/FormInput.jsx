@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { IoEye } from "react-icons/io5";
 import { IoMdEyeOff } from "react-icons/io";
 import style from './formInput.module.css';
+import FormInputErrorMess from '../formInputErrorMess/FormInputErrorMess';
 
 const FormInput = ({ input, error, value, required, onInputChange }) => {
   const [isPwrdVisible, setIsPwrdVisible] = useState(false);
@@ -27,15 +28,14 @@ const FormInput = ({ input, error, value, required, onInputChange }) => {
           onChange={handleInputChange}
         />
           {isPassword && 
-          <span 
-            className={style.icon}
-            onClick={()=> setIsPwrdVisible((isVisible)=> !isVisible)}>
-            {isPwrdVisible ? <IoEye/> : <IoMdEyeOff/>}
-          </span>}
+            <span 
+              className={style.icon}
+              onClick={()=> setIsPwrdVisible((isVisible)=> !isVisible)}>
+              {isPwrdVisible ? <IoEye/> : <IoMdEyeOff/>}
+            </span>
+          }
       </div>
-      {isInputError && <p className={`${style.error} error messAnim`}>
-        {error[input?.name]}
-      </p>}
+      {isInputError && <FormInputErrorMess error={error[input?.name]}/>}
     </div>
   )
 }

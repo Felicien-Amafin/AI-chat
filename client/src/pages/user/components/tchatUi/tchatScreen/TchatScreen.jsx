@@ -17,7 +17,7 @@ const TchatScreen = ({userQuestion, aiAnswer, isPending, isServerError, serverEr
                 {isServerError && <p className={`${style.serverError} error`}>{serverError}</p>}
                 {isPending && 
                     <div className={`${style.waiting} flexRow-allCentered`}>
-                    <Loader size={25} color='white'/> <p className={style.waitingMess}>Un instant...</p>
+                        <Loader size={25} color='white'/> <p className={style.waitingMess}>Un instant...</p>
                     </div>
                 }
             </section>
