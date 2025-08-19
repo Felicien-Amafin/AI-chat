@@ -18,12 +18,16 @@ import useGetSingleCategorieHandler from '../../hooks/useGetSingleCategorieHandl
 import { capitalizedFirstChar, tchatFilter } from '../../../../utils';
 import style from './categoriePage.module.css';
 import PageLoader from '../../../../components/others/pageLoader/PageLoader';
+import TchatListContainer from '../../components/tchatUi/tchatListContainer/TchatListContainer';
+import ErrorOnPage from '../../components/others/errorOnPage/ErrorOnPage';
 
 const CategoriePage = () => {  
   const [searchValue, setSearchValue] = useState('');
-  
+
   const { categorieName } = useParams();
-  const { setIsModalOpened, isModalOpened} = useConfirmActionModal(categorieName);
+
+  const { setIsModalOpened, isModalOpened } = useConfirmActionModal(categorieName);
+
   const { 
     isCategoriePending, 
     tchatList, 
@@ -62,30 +66,24 @@ const CategoriePage = () => {
       </NavBar>
       <MainPart>
         {isCategoriePending && <PageLoader size={50} color='white'/>}
-          {/* <div className={`${style.loader} flexRow-allCentered`}>
-            <Loader size={40} color='white'/>
-          </div> */}
-        
         {tchatList && 
-          <div className={`${style.container} containerAnim`}>
-            <div className={`${style.elements} gradientScroll flex-column`}>
-              <div className={style.header}>
-                <CategorieName name={categorieName}/>
-                <SearchField 
-                  style={style}
-                  type='text'
-                  value={searchValue}
-                  placeholder='Rechercher un tchat'
-                  onInputChange={handleChange}
-                />
-                <DeleteCategorie onDelete={() => setIsModalOpened(true)}/>
-              </div>
-              <TchatList tchatList={filteredTchats} />
+          <TchatListContainer>
+            <div className={style.header}>
+              <CategorieName name={categorieName}/>
+              <SearchField 
+                style={style}
+                type='text'
+                value={searchValue}
+                placeholder='Rechercher un tchat'
+                onInputChange={handleChange}
+              />
+              <DeleteCategorie onDelete={() => setIsModalOpened(true)}/>
             </div>
-          </div>
+            <TchatList tchatList={filteredTchats} />
+          </TchatListContainer>
         }
-        {isCategorieServerError && <p className={`${style.error} error`}>{categorieServerError}</p>}
-        {isCategorieNotFound && <p className={`${style.error} error`}>{categorieNotFoundMess}</p>}
+        {isCategorieServerError && <ErrorOnPage error={categorieServerError}/>}
+        {isCategorieNotFound && <ErrorOnPage error={categorieNotFoundMess}/>}
       </MainPart>
       {isModalOpened && 
         <ConfirmActionModal 

@@ -65,7 +65,7 @@ export const getSingleCategorie = tryCatch(async (req, res) => {
 
     const categorie = await Categorie.findOne({ userId, name: categorieName });
 
-    if(!categorie) throw new CustomError('Categorie introuvable.', 404, {});
+    if(!categorie) throw new CustomError('Categorie introuvable. Sélectionnez une catégorie existante.', 404, {});
 
     const tchatsList = Array.from(categorie.tchats);
     

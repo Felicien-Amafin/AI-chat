@@ -4,6 +4,7 @@ import style from './deleteCategorie.module.css';
 const DeleteCategorie = ({onDelete}) => {
   return (
     <button 
+      type="button"
       className={style.delete} 
       onClick={() => onDelete()}
       aria-label="Supprimer la catégorie"

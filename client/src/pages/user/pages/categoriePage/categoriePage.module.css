@@ -1,20 +1,4 @@
-.container {
-    width: 100%;
-    max-width: 1200px;
-    min-height: 350px;
-    max-height: 500px;
-    margin: auto;
-    padding: 30px;
-    border-radius: 20px;
-    background-color:  var(--container);
-}
-
-.container .elements {
-    width: 100%;
-    height: 100%;
-}
-
-.elements .header {
+.header {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -23,14 +7,6 @@
     max-width: 70%;
     margin: 0 auto 40px auto;
     font-size: 0.75rem;
-}
-
-.elements .error {
-    text-align: center;
-}
-
-.header .delete:hover {
-    color: rgba(245, 245, 245, 0.828);
 }
 
 .header .searchField {

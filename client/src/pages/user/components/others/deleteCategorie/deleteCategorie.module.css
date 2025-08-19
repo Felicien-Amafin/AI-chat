@@ -7,3 +7,7 @@
     cursor: pointer;
     text-decoration: underline;
 }
+
+.delete:hover {
+    color: rgba(227, 223, 223, 0.91);
+}
