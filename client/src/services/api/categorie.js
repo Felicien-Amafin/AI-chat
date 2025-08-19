@@ -8,10 +8,6 @@ export const getSingleCategorie = async({signal, categorieName})=> {
   return await axiosInstance.get(`api/categories/${categorieName}`, signal);
 }
 
-export const createCategorie = async(data)=> {
-  return await axiosInstance.post(`api/categories`, data);
-}
-
 export const deleteCategorie = async({categorieName})=> {
   return await axiosInstance.delete(`api/categories/${categorieName}`);
 }
