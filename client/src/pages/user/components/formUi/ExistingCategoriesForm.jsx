@@ -2,9 +2,7 @@ import Select from 'react-select';
 import FormInput from '../../../../components/formUi/formInput/FormInput';
 import FormBtn from '../../../../components/formUi/FormBtn';
 import { formExistingCategories } from '../../constant/forms';
-import useTchatFormHandler from '../../hooks/useTchatFormHandler';
 import useGetCategoriesHandler from '../../hooks/useGetCategoriesHandler';
-import useCreateTchatHandler from '../../hooks/useCreateTchatHandler';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useMemo } from 'react';
 import { createSelectList, getCategorieInArray } from '../../../../utils';
@@ -12,7 +10,7 @@ import Loader from '../../../../components/others/Loader';
 import FormErrorMess from '../../../../components/formUi/formErrorMess/FormErrorMess';
 
 const ExistingCategoriesForm = ({style}) => {
-  const { 
+  /* const { 
     isCategoriesPending, 
     categories, 
     isCategoriesServerError 
@@ -63,14 +61,14 @@ const ExistingCategoriesForm = ({style}) => {
     }
   }, [isTchatCreated, createdTchat, navigate]);
 
-  const serverError =  'Erreur interne au serveur. Veuillez Réessayer plus tard.';
+  const serverError =  'Erreur interne au serveur. Veuillez Réessayer plus tard.'; */
 
   return (
     <form 
       className={`${style} flex-column`}
-      onSubmit={handleSubmission}
+      /* onSubmit={handleSubmission} */
     >
-      {optionList &&
+      {/* {optionList &&
         <> 
           <Select 
             styles={formExistingCategories.select.styles}
@@ -103,7 +101,7 @@ const ExistingCategoriesForm = ({style}) => {
       {(isValidationServerError || isCategoriesServerError || isCreationServerError) && 
         <FormErrorMess error={serverError}/>
       } 
-      {isCategoriesPending && <Loader size={10}/>}
+      {isCategoriesPending && <Loader size={10}/>} */}
     </form>
   )
 }

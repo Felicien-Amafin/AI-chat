@@ -9,7 +9,7 @@ import {
     verifyEmail,
 } from "./api/auth";
 import { createCategorie, deleteCategorie } from "./api/categorie";
-import { createTchat, deleteTchat, sendTchatMessage, validateTchatForm } from "./api/tchat";
+import { createTchatAndCategorie, deleteTchat, sendTchatMessage } from "./api/tchat";
 
 //Auth mutation
 export const useSignUpUser = () => {
@@ -55,11 +55,6 @@ export const useRefreshAccessTk = () => {
 }
 
 //Others mutations
-/* export const useValidateTchatForm = () => {
-    return useMutation({
-        mutationFn: validateTchatForm
-    });
-} */
 
 export const useCreateCategorie = () => {
     const queryClient = useQueryClient();
@@ -72,9 +67,9 @@ export const useCreateCategorie = () => {
     });
 }
 
-export const useCreateTchat = () => {
+export const useCreateTchatAndCategorie = () => {
     return useMutation({
-        mutationFn: createTchat,
+        mutationFn: createTchatAndCategorie,
     });
 }
 

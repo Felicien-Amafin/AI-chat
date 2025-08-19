@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+/* import { useEffect } from "react";
 import useRequestErrorHandler from "../../../hooks/useRequestErrorHandler";
 import { useCreateTchat } from "../../../services/mutations";
 import useLogoutUser from "./useLogoutUser";
@@ -40,3 +40,4 @@ const useCreateTchatHandler = (isActive, dataToSend) => {
 }
 
 export default useCreateTchatHandler;
+ */

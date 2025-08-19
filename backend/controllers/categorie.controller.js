@@ -25,8 +25,6 @@ export const getCategories = tryCatch(async (req, res) => {
     return res.status(200).json({ categories: sortedCategories });
 });
 
-
-
 export const getSingleCategorie = tryCatch(async (req, res) => {
     const categorieName = req.params.categorieName;
     const userId = req.user.id;
