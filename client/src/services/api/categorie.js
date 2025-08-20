@@ -4,6 +4,10 @@ export const createCategoryWithChat = async(data)=> {
   return await axiosInstance.post(`api/categories/`, data);
 }
 
+export const addChatToCategory = async(data)=> {
+  return await axiosInstance.post(`api/categories/${}`, data);
+}
+
 export const getCategories = async({signal})=> {
   return await axiosInstance.get(`api/categories`, signal);
 }

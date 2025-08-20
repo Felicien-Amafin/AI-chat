@@ -1,10 +1,26 @@
-import useRequestErrorHandler from "../../../hooks/useRequestErrorHandler";
 import { useCreateCategoryWithChatMutation } from "../../../services/mutations";
-import useLogoutUser from "./useLogoutUser";
+import useChatMutationHandler from "./useChatMutationHandler";
 
 const useCreateCategoryWithChat = () => {
   const { mutate, isPending, data, error } = useCreateCategoryWithChatMutation();
-  const { isServerError, isClientError, isForbidden, isUnAuthorized } = useRequestErrorHandler(error); 
+  const { 
+    tchatId,
+    isClientError, 
+    isServerError, 
+    formErrors,
+    serverError
+  } = useChatMutationHandler(data, error);
+
+  return { 
+    mutate, 
+    isPending, 
+    tchatId,
+    isClientError, 
+    isServerError, 
+    formErrors, 
+    serverError,
+  }
+  /* const { isServerError, isClientError, isForbidden, isUnAuthorized } = useRequestErrorHandler(error); 
   useLogoutUser(isForbidden || isUnAuthorized);
   
   const formErrors = {};
@@ -17,7 +33,6 @@ const useCreateCategoryWithChat = () => {
   }
 
   if(isServerError) {
-    console.log(error)
     serverError = 'Erreur interne du serveur. Veuillez réessayer plus tard.';
   }
 
@@ -29,7 +44,7 @@ const useCreateCategoryWithChat = () => {
     isServerError, 
     formErrors, 
     serverError,
-  }
+  } */
 }
 
 export default useCreateCategoryWithChat;
