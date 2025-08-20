@@ -55,17 +55,6 @@ export const navBarLiveFilter = (list, searchValue) => {
     return { filteredList, isFilteredTerm };
 }
 
-export const getCategorieInArray = (categorieName, categories) =>{
-    //Return a single categorie using categorieName as a filter element
-    const matchingCategorie = categories?.filter((categorie) => {
-        if(categorieName && (categorieName.toLowerCase() === categorie.name.toLowerCase())) {
-            return categorie;
-        }
-    })
-
-    return matchingCategorie;
-}
-
 export const createNavList = (list) => {
     //Returns the list of all categories' name
     const listNames = list?.map((categorie, index) => [categorie.name, index]);

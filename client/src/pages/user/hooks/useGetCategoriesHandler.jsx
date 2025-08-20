@@ -14,7 +14,9 @@ const useGetCategoriesHandler = () => {
        categories = data.data.categories;
     }
 
-    return { isCategoriesPending, categories, isServerError };
+    const categoriesServerError = 'Catégories indisponiles. Veuillez réessayez plus tard.';
+
+    return { isCategoriesPending, categories, isServerError, categoriesServerError };
 }
 
 export default useGetCategoriesHandler;

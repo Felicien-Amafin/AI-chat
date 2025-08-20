@@ -4,71 +4,39 @@ import FormBtn from '../../../../components/formUi/FormBtn';
 import { formExistingCategories } from '../../constant/forms';
 import useGetCategoriesHandler from '../../hooks/useGetCategoriesHandler';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useMemo } from 'react';
-import { createSelectList, getCategorieInArray } from '../../../../utils';
+import { createSelectList, trimAndLowerCase } from '../../../../utils';
 import Loader from '../../../../components/others/Loader';
 import FormErrorMess from '../../../../components/formUi/formErrorMess/FormErrorMess';
+import useForm from '../../../../hooks/useForm';
 
 const ExistingCategoriesForm = ({style}) => {
-  /* const { 
+  const navigate = useNavigate();
+  const { formData, handleChange } = useForm(); //Handles form's input data
+  const { 
     isCategoriesPending, 
     categories, 
-    isCategoriesServerError 
+    isCategoriesServerError,
+    categoriesServerError
   } = useGetCategoriesHandler();//Gets categories from db for the Select component
 
   const optionList = createSelectList(categories);//Create list for Select component
 
-  const { 
-    isValidationPending,
-    formData,
-    isFormValid,
-    validatedForm,
-    isValidationClientError,
-    isValidationServerError,
-    validationInputErrorMess,
-    validationInputErrors,
-    handleChange,
-    handleSelect,
-    handleSubmission 
-  } = useTchatFormHandler();
+  const handleSelect = (option) => {
+    formData.categorie = option.value;
+  }
 
-  //Using getCategorieInArray to retrieve selected categorie's datas
-  const categorie = getCategorieInArray(validatedForm?.categorie, categories);
-
-  const dataToSend = useMemo(() => {
-    if (categorie) {
-      return {
-        categorie_id: categorie[0]?.id,
-        tchat_title: validatedForm?.title
-      };
-    }
-    return null;
-  }, [categorie, validatedForm]);
-  
-  const { 
-    isCreationPending, 
-    isTchatCreated, 
-    createdTchat, 
-    isCreationServerError  
-  } = useCreateTchatHandler(isFormValid, dataToSend);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if(isTchatCreated) {
-      navigate(`/user/tchat/${createdTchat.id}`, { replace: true });
-
-    }
-  }, [isTchatCreated, createdTchat, navigate]);
-
-  const serverError =  'Erreur interne au serveur. Veuillez Réessayer plus tard.'; */
+  const handleSubmission = (e) => {
+    e.preventDefault();
+    const newFormData = trimAndLowerCase(formData);
+    /* mutate({...newFormData}); */
+  }
 
   return (
     <form 
       className={`${style} flex-column`}
-      /* onSubmit={handleSubmission} */
+      onSubmit={handleSubmission}
     >
-      {/* {optionList &&
+      {optionList &&
         <> 
           <Select 
             styles={formExistingCategories.select.styles}
@@ -78,7 +46,7 @@ const ExistingCategoriesForm = ({style}) => {
           />
           <FormInput
             input={formExistingCategories.input}
-            error={validationInputErrors}
+           /*  error={validationInputErrors} */
             value={formData[formExistingCategories.input.name] || ''}
             required={true}
             onInputChange={handleChange}
@@ -88,7 +56,7 @@ const ExistingCategoriesForm = ({style}) => {
             style='whiteBtn button'
             text='Commencer' 
             onClick={null} 
-            isPending={isValidationPending || isCategoriesPending || isCreationPending}
+           /*  isPending={isValidationPending || isCategoriesPending || isCreationPending} */
           />
         </>
       }
@@ -97,11 +65,9 @@ const ExistingCategoriesForm = ({style}) => {
           Vous n'avez pas encore de categories
         </p>
       }
-      {isValidationClientError  && <FormErrorMess error={validationInputErrorMess}/>}
-      {(isValidationServerError || isCategoriesServerError || isCreationServerError) && 
-        <FormErrorMess error={serverError}/>
-      } 
-      {isCategoriesPending && <Loader size={10}/>} */}
+      {/* {isValidationClientError  && <FormErrorMess error={validationInputErrorMess}/>} */}
+      {isCategoriesServerError && <FormErrorMess error={categoriesServerError}/>} 
+      {isCategoriesPending && <Loader size={10}/>}
     </form>
   )
 }
