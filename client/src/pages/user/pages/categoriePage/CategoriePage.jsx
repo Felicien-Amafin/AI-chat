@@ -66,7 +66,7 @@ const CategoriePage = () => {
       </NavBar>
       <MainPart>
         {isCategoriePending && <PageLoader size={50} color='white'/>}
-        {!isCategoriePending && 
+        {tchatList && 
           <TchatListContainer>
             <div className={style.header}>
               <CategorieName name={categorieName}/>
