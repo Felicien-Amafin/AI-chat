@@ -11,7 +11,9 @@ import useForm from '../../../../hooks/useForm';
 
 const ExistingCategoriesForm = ({style}) => {
   const navigate = useNavigate();
+
   const { formData, handleChange } = useForm(); //Handles form's input data
+
   const { 
     isCategoriesPending, 
     categories, 
@@ -21,6 +23,7 @@ const ExistingCategoriesForm = ({style}) => {
 
   const optionList = createSelectList(categories);//Create list for Select component
 
+  
   const handleSelect = (option) => {
     formData.categorie = option.value;
   }

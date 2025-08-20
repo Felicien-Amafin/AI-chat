@@ -3,7 +3,7 @@ import FormInput from '../../../../components/formUi/formInput/FormInput';
 import FormBtn from '../../../../components/formUi/FormBtn';
 import FormErrorMess from '../../../../components/formUi/formErrorMess/FormErrorMess';
 import useForm from '../../../../hooks/useForm';
-import useCreateTchatInNewCategorie from '../../hooks/useCreateTchatInNewCategorie';
+import useCreateCategoryWithChat from '../../hooks/useCreateCategoryWithChat';
 import { trimAndLowerCase } from '../../../../utils';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ const NewCategorieForm = ({style}) => {
     isServerError, 
     serverError,
     formErrors 
-  } = useCreateTchatInNewCategorie();
+  } = useCreateCategoryWithChat();
 
   const handleSubmission = (e) => {//Submits the form 
     e.preventDefault();

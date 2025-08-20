@@ -8,8 +8,8 @@ import {
     signUpUser, 
     verifyEmail,
 } from "./api/auth";
-import { deleteCategorie } from "./api/categorie";
-import { createTchatAndCategorie, deleteTchat, sendTchatMessage } from "./api/tchat";
+import { createCategoryWithChat, deleteCategorie } from "./api/categorie";
+import { deleteTchat, sendTchatMessage } from "./api/tchat";
 
 //Auth mutation
 export const useSignUpUser = () => {
@@ -55,11 +55,11 @@ export const useRefreshAccessTk = () => {
 }
 
 //Others mutations
-export const useCreateTchatAndCategorie = () => {
+export const useCreateCategoryWithChatMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: createTchatAndCategorie,
+        mutationFn: createCategoryWithChat,
         onSuccess: () => {
             //invalidate quey key to get updated data
             queryClient.invalidateQueries({ queryKey: ['categories'] }); 

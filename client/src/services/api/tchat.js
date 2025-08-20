@@ -1,9 +1,5 @@
 import { axiosInstance } from "./axios.config";
 
-export const createTchatAndCategorie = async(data)=> {
-  return await axiosInstance.post(`api/tchats/new`, data);
-}
-
 export const sendTchatMessage = async(data)=> {
   return await axiosInstance.post(`api/tchats/send-message`, data);
 }
