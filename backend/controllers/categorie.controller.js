@@ -45,33 +45,33 @@ export const createCategoryWithChat  = tryCatch(async (req, res) => {
 });
 
 export const createChatInCategory = tryCatch(async (req, res) => {
-    req.validatedForm = { categorie, title };
+    const { categorie, title } = req.validatedForm;
     const userId = req.user.id;
  
     //Checking if categorie exist so that newly created tchat can be saved in it
-    const categorie = await Categorie.findOne({ name:categorie, userId});
+    const existingCategorie = await Categorie.findOne({ name:categorie, userId});
 
-    if(!categorie) {
+    if(!existingCategorie) {
         throw new CustomError('Catégorie introuvable', 404, {});
     }
 
     const newTchat = new Tchat({//Creating new tchat
-        categorieId: categorie._id,
+        categorieId: existingCategorie._id,
         userId,
         date: `${getNewDate()}`,
         messages: []
     });
     await newTchat.save();
 
-    categorie.tchats.set(newTchat._id, {//Saving new tchat in it's corresponding categorie
-        title: tchat_title,
+    existingCategorie.tchats.set(newTchat._id, {//Saving new tchat in it's corresponding categorie
+        title,
         date: newTchat.date
     });
 
-    await categorie.save();
+    await existingCategorie.save();
 
     return res.status(201).json({
-        message: `Le chat "${title}" a été ajouté à ${categorie.name}`,
+        message: `Le chat "${title}" a été ajouté à ${existingCategorie.name}`,
         tchat_id: newTchat._id
     });    
 });

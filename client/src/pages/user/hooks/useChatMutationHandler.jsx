@@ -1,7 +1,7 @@
 import useRequestErrorHandler from "../../../hooks/useRequestErrorHandler";
 import useLogoutUser from "./useLogoutUser";
 
-const useChatMutationHandler = (error, data) => {
+const useChatMutationHandler = ({error, data}) => {
     const { isServerError, isClientError, isForbidden, isUnAuthorized } = useRequestErrorHandler(error); 
     useLogoutUser(isForbidden || isUnAuthorized);
 

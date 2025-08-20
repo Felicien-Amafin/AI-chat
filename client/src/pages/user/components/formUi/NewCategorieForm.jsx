@@ -32,7 +32,7 @@ const NewCategorieForm = ({style}) => {
     if(tchatId) {
       navigate(`/user/tchat/${tchatId}`, { replace: true });
     }
-  }, [navigate, tchatId])
+  }, [navigate, tchatId]);
 
   return (
     <form 
@@ -55,8 +55,7 @@ const NewCategorieForm = ({style}) => {
         onClick={null} 
         isPending={isPending}
       />
-      {isClientError && <FormErrorMess error={formErrors.message}/>
-      }
+      {isClientError && <FormErrorMess error={formErrors.message}/>}
       {isServerError && <FormErrorMess error={serverError}/>} 
     </form>
   )
