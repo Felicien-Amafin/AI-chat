@@ -7,10 +7,17 @@ import HomePage from './pages/home/HomePage';
 import ErrorPage from './pages/error/Error';
 import ProtectedRoute from './routing/protectedRoute';
 import { useSelector } from 'react-redux';
+import useIsDesktop from './hooks/useIsDesktop';
+import OnlyUnderDesktop from './pages/onlyUnderDesktop/OnlyUnderDesktopPage';
 
 function App() {
+  const isDesktop = useIsDesktop();
   const { user } = useSelector((state) => state.auth);
   const { data, error } = usePersistLogin(!user);
+
+  if (!isDesktop) {
+    return <OnlyUnderDesktop />;
+  }
 
   if(!data && !error) return null;
 
