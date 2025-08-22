@@ -1,7 +1,7 @@
 import AuthForm from "./components/authForm/AuthForm";
 import AuthFormLink from "./components/authFormLink/AuthFormLink";
 import Landing from "../../layout/landing/Landing";
-import { useSignInUser } from "../../services/mutations";
+import { useSignInUserMutation } from "../../services/mutations";
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react'
 import { trimAndLowerCase } from "../../utils";
@@ -18,7 +18,7 @@ const link = {
 
 const SignInPage = () => {
   const dispatch = useDispatch();
-  const { mutate, isPending, isError, error, data } = useSignInUser();
+  const { mutate, isPending, isError, error, data } = useSignInUserMutation();
   const request = { isPending, isError, error, data };
 
   const handleSubmission = (e, formData)=> {

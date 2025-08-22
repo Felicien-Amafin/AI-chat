@@ -1,5 +1,5 @@
 import PageContainer from '../user/layout/pageContainer/PageContainer';
-import style from './onlyUnderDesktop.module.css';
+import style from './onlyUnderDesktopPage.module.css';
 
 const OnlyUnderDesktop = () => { 
   return (

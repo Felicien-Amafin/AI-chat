@@ -33,19 +33,19 @@
   gap: 20px;
 }
 
-.newTchat .btnPlusP {
+.newChat .btnPlusP {
   display: flex;
   gap: 50px;
 }
 
-.newTchat p {
+.newChat p {
   max-width: 350px;
   color: white;
   font-size: 0.875rem;
   line-height: 22px;
 }
 
-.newTchat .link {
+.newChat .link {
   text-decoration: none;
 }
 

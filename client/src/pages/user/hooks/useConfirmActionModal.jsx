@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
 useEffect
-const useConfirmActionModal = (categorieName) => {
+const useConfirmActionModal = (categoryName) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
 
   useEffect(() => {
-    setIsModalOpened(false);//Close modal when displaying CategoriePage
+    setIsModalOpened(false);//Close modal when displaying CategoryPage
 
-  },[categorieName]);//Reexecutes useEffect if a different categorie is displayed
+  },[categoryName]);//Reexecutes useEffect if a different category is displayed
 
   return { setIsModalOpened, isModalOpened }
 }

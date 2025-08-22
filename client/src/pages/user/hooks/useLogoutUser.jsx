@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { logoutUser } from '../../../store/authSlice';
 import { useQueryClient } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
-import { useLogout } from '../../../services/mutations';
+import { useLogoutMutation } from '../../../services/mutations';
 
 const useLogoutUser = (isAccessRefused) => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const { data, mutate } = useLogout();
+  const { data, mutate } = useLogoutMutation();
   
   useEffect(() => {
     //Logout user if isAccessRefused is true

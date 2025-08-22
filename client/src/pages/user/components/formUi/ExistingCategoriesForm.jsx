@@ -2,7 +2,7 @@ import Select from 'react-select';
 import FormInput from '../../../../components/formUi/formInput/FormInput';
 import FormBtn from '../../../../components/formUi/FormBtn';
 import { formExistingCategories } from '../../constant/forms';
-import useGetCategoriesHandler from '../../hooks/useGetCategoriesHandler';
+import useGetCategories from '../../hooks/useGetCategories';
 import { useNavigate } from 'react-router-dom';
 import { createSelectList, trimAndLowerCase } from '../../../../utils';
 import Loader from '../../../../components/others/Loader';
@@ -23,12 +23,12 @@ const ExistingCategoriesForm = ({style}) => {
     categories, 
     isCategoriesServerError,
     categoriesServerError
-  } = useGetCategoriesHandler();//Gets categories from db for the Select component
+  } = useGetCategories();//Gets categories from db for the Select component
 
   const { 
     mutate, 
     isPending, 
-    tchatId,
+    chatId,
     isClientError:isChatClientError, 
     isServerError:isChatServerError, 
     formErrors, 
@@ -39,26 +39,26 @@ const ExistingCategoriesForm = ({style}) => {
 
   const handleSelect = (option) => {
     if(isSelectError) setSelectError(false);
-    formData.categorie = option.value;
+    formData.category = option.value;
   }
 
   const handleSubmission = (e) => {
     e.preventDefault();
 
-    if(!formData.categorie) {
+    if(!formData.category) {
       setSelectError(true);
       return;
     }
 
     const newFormData = trimAndLowerCase(formData);
-    mutate({...newFormData, invalidateKey: `categories-${newFormData.categorie}`});
+    mutate({...newFormData, invalidateKey: `categories-${newFormData.category}`});
   }
 
   useEffect(() => {
-    if(tchatId) {
-      navigate(`/user/tchat/${tchatId}`, { replace: true });
+    if(chatId) {
+      navigate(`/user/chat/${chatId}`, { replace: true });
     }
-  }, [navigate, tchatId]);
+  }, [navigate, chatId]);
 
   return (
     <form 

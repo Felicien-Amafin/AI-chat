@@ -8,47 +8,47 @@ import {
     signUpUser, 
     verifyEmail,
 } from "./api/auth";
-import { addChatToCategory, createCategoryWithChat, deleteCategorie } from "./api/categorie";
-import { deleteTchat, sendTchatMessage } from "./api/tchat";
+import { addChatToCategory, createCategoryWithChat, deleteCategory } from "./api/category";
+import { deleteChat, sendChatMessage } from "./api/chat";
 
 //Auth mutation
-export const useSignUpUser = () => {
+export const useSignUpUserMutation = () => {
     return useMutation({
         mutationFn: signUpUser
     });
 }
 
-export const useSignInUser = () => {
+export const useSignInUserMutation = () => {
     return useMutation({
         mutationFn: signInUser
     });
 }
 
-export const useEmailVerification = () => {
+export const useEmailVerificationMutation = () => {
     return useMutation({
         mutationFn: verifyEmail
     });
 }
 
-export const useSendResetEmail = () => {
+export const useSendResetEmailMutation = () => {
     return useMutation({
         mutationFn: sendResetEmail
     });
 }
 
-export const useResetPassword = () => {
+export const useResetPasswordMutation = () => {
     return useMutation({
         mutationFn: resetPassword
     });
 }
 
-export const useLogout = ()=> {
+export const useLogoutMutation = ()=> {
     return useMutation({
         mutationFn: logout
     });
 }
 
-export const useRefreshAccessTk = () => {
+export const useRefreshAccessTkMutation = () => {
    return useMutation({
       mutationFn: refreshAccessTk
    });
@@ -73,7 +73,7 @@ export const useAddChatToCategoryMutation = () => {
     return useMutation({
         mutationFn: addChatToCategory,
         onSuccess: (_, variables) => {
-            //invalidate quey key to get updated tchat list
+            //invalidate quey key to get updated chat list
             if (variables?.invalidateKey) {
                 queryClient.invalidateQueries({ queryKey: [variables.invalidateKey] });
             } 
@@ -81,25 +81,25 @@ export const useAddChatToCategoryMutation = () => {
     });
 }
 
-export const useSendTchatMessage = () => {
+export const useSendChatMessageMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: sendTchatMessage,
+        mutationFn: sendChatMessage,
         onSuccess: () => {
-            //invalidate quey key to get updated tchat messages
-            queryClient.invalidateQueries({ queryKey: ['tchat-messages'] }); 
+            //invalidate quey key to get updated chat messages
+            queryClient.invalidateQueries({ queryKey: ['chat-messages'] }); 
         },
     })
 }
 
-export const useDeleteTchat = () => {
+export const useDeleteChatMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: deleteTchat,
+        mutationFn: deleteChat,
         onSuccess: (_, variables) => {
-            //invalidate quey key to get updated tchat list
+            //invalidate quey key to get updated chat list
             if (variables?.invalidateKey) {
                 queryClient.invalidateQueries({ queryKey: [variables.invalidateKey] });
             } 
@@ -107,13 +107,13 @@ export const useDeleteTchat = () => {
     })
 }
 
-export const useDeleteCategorie = () => {
+export const useDeleteCategoryMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: deleteCategorie,
+        mutationFn: deleteCategory,
         onSuccess: () => {
-            //invalidate query key to get updated categorie list
+            //invalidate query key to get updated category list
             queryClient.invalidateQueries({ queryKey: ['categories'] });
         },
     })

@@ -3,10 +3,10 @@ import { FaLightbulb } from "react-icons/fa6";
 import { FaCode } from "react-icons/fa";
 import { BiSolidBookReader } from "react-icons/bi";
 
-export const tchatSuggestions = [
+export const chatSuggestions = [
     {
         title: 'Carrière',
-        query: 'Donne-moi des conseiles sur la mannière de trouver un mentor.',
+        query: 'Donne-moi des conseils sur la manière de trouver un mentor',
         icon: {
             color: 'blue',
             element: <LuBriefcaseBusiness/>

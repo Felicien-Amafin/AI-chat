@@ -4,9 +4,9 @@ import EmailVerificationPage from "../pages/auth/EmailVerificationPage";
 import PwdRecoveryPage from "../pages/auth/PwdRecoveryPage";
 import PwdResetPage from "../pages/auth/PwdResetPage";
 import UserHomePage from "../pages/user/pages/userHomePage/UserHomePage";
-import TchatFormPage from "../pages/user/pages/TchatFormPage";
-import CategoriePage from "../pages/user/pages/categoriePage/CategoriePage";
-import TchatPage from "../pages/user/pages/TchatPage";
+import ChatFormPage from "../pages/user/pages/ChatFormPage";
+import CategoryPage from "../pages/user/pages/categoryPage/CategoryPage";
+import ChatPage from "../pages/user/pages/ChatPage";
 
 export const authRoutes = [
     {
@@ -37,15 +37,15 @@ export const userRoutes = [
         element: <UserHomePage/>
     },
     {
-        path: 'tchat-form',
-        element: <TchatFormPage/>
+        path: 'chat-form',
+        element: <ChatFormPage/>
     },
     {
-        path: 'tchat/:tchatId',
-        element: <TchatPage/>
+        path: 'chat/:chatId',
+        element: <ChatPage/>
     },
     {
-        path: 'categories/:categorieName',
-        element: <CategoriePage/>
+        path: 'categories/:categoryName',
+        element: <CategoryPage/>
     },
 ];

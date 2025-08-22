@@ -1,0 +1,36 @@
+.chatTopic {
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-template-rows: auto;
+}
+
+.chatTopic .text {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 10px;
+}
+
+.chatTopic .deleteChat {
+    justify-content: space-between;
+    align-items: self-end;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.text h3 {
+    color: white;
+    text-align: left;
+    line-height: 18px;
+    font-size: 0.75rem; 
+}
+.text p {
+    font-size: 0.75rem; 
+    line-height: 20px;
+    color: lightgray;
+}
+
+

@@ -2,11 +2,11 @@ import AuthForm from "./components/authForm/AuthForm";
 import AuthFormLink from "./components/authFormLink/AuthFormLink";
 import Landing from "../../layout/landing/Landing";
 import { useParams } from "react-router-dom";
-import { useResetPassword } from "../../services/mutations";
+import { useResetPasswordMutation } from "../../services/mutations";
 import { pwdResetForm } from "./constant";
 
 const PwdResetPage = () => {
-  const { mutate, isPending, isError, error, data } = useResetPassword();
+  const { mutate, isPending, isError, error, data } = useResetPasswordMutation();
   const params = useParams();
   const token = params.token;
   const request = { isPending, isError, error, data };

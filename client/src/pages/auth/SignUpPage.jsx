@@ -1,4 +1,4 @@
-import { useSignUpUser } from "../../services/mutations";
+import { useSignUpUserMutation } from "../../services/mutations";
 import { trimAndLowerCase } from "../../utils";
 import Landing from "../../layout/landing/Landing";
 import AuthForm from "./components/authForm/AuthForm";
@@ -6,7 +6,7 @@ import AuthFormLink from "./components/authFormLink/AuthFormLink";
 import { signUpForm } from "./constant";
 
 const SignUpPage = () => {
-  const { mutate, isPending, isError, error, data } = useSignUpUser();
+  const { mutate, isPending, isError, error, data } = useSignUpUserMutation();
   const request = { isPending, isError, error, data };
  
   const handleSubmission = (e, formData)=> {

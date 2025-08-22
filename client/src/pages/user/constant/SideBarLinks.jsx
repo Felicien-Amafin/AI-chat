@@ -4,8 +4,8 @@ import { GrHome } from "react-icons/gr";
 /* Side bar links */
 export const homeSideBarLinks = [
     {
-        path: '/user/tchat-form',
-        text: 'Nouveau tchat',
+        path: '/user/chat-form',
+        text: 'Nouveau chat',
         icon: <BsChatRightText/>
     }
 ]
@@ -17,13 +17,13 @@ export const allSideBarLinks = [
         icon: <GrHome/>
     },
     {
-        path: '/user/tchat-form',
-        text: 'Nouveau tchat',
+        path: '/user/chat-form',
+        text: 'Nouveau chat',
         icon: <BsChatRightText/>
     }
 ];
 
-export const tchatFormSideBarLinks = [
+export const chatFormSideBarLinks = [
     {
         path: '/user',
         text: 'Accueil',

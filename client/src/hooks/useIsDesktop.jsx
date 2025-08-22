@@ -9,6 +9,7 @@ const useIsDesktop = (breakpoint = 992) => {
     };
 
     window.addEventListener('resize', handleResize);
+
     return () => window.removeEventListener('resize', handleResize);
   }, [breakpoint]);
 

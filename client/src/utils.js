@@ -1,3 +1,5 @@
+import { chatFormSideBarLinks } from "./pages/user/constant/SideBarLinks";
+
 export const trimAndLowerCase = (obj, array)=> {
     // Trim and lowercase only specific keys' value
     if(array && array.length > 0) {
@@ -57,7 +59,7 @@ export const navBarLiveFilter = (list, searchValue) => {
 
 export const createNavList = (list) => {
     //Returns the list of all categories' name
-    const listNames = list?.map((categorie, index) => [categorie.name, index]);
+    const listNames = list?.map((category, index) => [category.name, index]);
 
     return listNames;
 }
@@ -74,15 +76,15 @@ export const createSelectList = (list) => {
     return listOptions;
 }
 
-export const createQuestionsList = (tchatsList) => {
-    //Create tchat questions list to use in navBar
-    const reversedTchatsList = tchatsList?.reverse();
+export const createQuestionsList = (chatsList) => {
+    //Create chat questions list to use in navBar
+    const reversedChatsList = chatsList?.reverse();
 
-    const questions = reversedTchatsList?.map((tchat, index) => {
-        return [ capitalizedFirstChar(tchat.question), index ];
+    const questions = reversedChatsList?.map((chat, index) => {
+        return [ capitalizedFirstChar(chat.question), index ];
     });
     
-    return { reversedTchatsList, questions};
+    return { reversedChatsList, questions};
 }
 
 export const truncateStringInList = (list, strMaxLength) => {
@@ -107,23 +109,17 @@ export const truncateString = (str, strMaxLength) => {
     return str.slice(0, strMaxLength) + '...';
 }
 
-export const tchatFilter = (tchatList, searchTerm) => {
-    //Returns tchats that matches the search term
+export const chatFilter = (chatList, searchTerm) => {
+    //Returns chats that matches the search term
 
-    if(
-        (searchTerm === '' ) || 
-        (searchTerm === undefined) ||
-        (tchatList === null)
-    ) {
-        return tchatList;
-    }
+    if(!chatList || chatList.length === 0) return null;
 
-    return tchatList?.filter((tchat) => {
-        const tchatTitle = tchat[1].title.toLowerCase();
-        const search = searchTerm.toLowerCase();
+    return chatList.filter((chat) => {
+        const chatTitle = chat[1].title.toLowerCase();
+        const search = searchTerm?.toLowerCase();
 
-        if(tchatTitle.includes(search)) {
-            return tchat;
+        if(chatTitle.includes(search)) {
+            return chat;
         }
     })
 }

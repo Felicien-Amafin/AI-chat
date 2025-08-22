@@ -1,13 +1,13 @@
 import express from "express";
-import { getCategories, getSingleCategorie, deleteSingleCategorie, createCategoryWithChat, createChatInCategory } from "../controllers/categorie.controller.js";
-import { validateTchatForm } from "../middleware/chat.js";
+import { getCategories, getCategory, deleteCategory, createCategoryWithChat, createChatInCategory } from "../controllers/category.controller.js";
+import { validateChatForm } from "../middleware/chat.js";
 
 const router = express.Router();
 
-router.post('/', validateTchatForm, createCategoryWithChat);
-router.post('/:categoryName/chats', validateTchatForm, createChatInCategory);
+router.post('/', validateChatForm, createCategoryWithChat);
+router.post('/:categoryName/chats', validateChatForm, createChatInCategory);
 router.get('/', getCategories);
-router.get('/:categorieName', getSingleCategorie);
-router.delete('/:categorieName', deleteSingleCategorie);
+router.get('/:categoryName', getCategory);
+router.delete('/:categoryName', deleteCategory);
 
 export default router;

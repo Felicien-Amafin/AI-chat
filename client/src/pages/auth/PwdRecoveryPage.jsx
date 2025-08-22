@@ -1,11 +1,11 @@
 import AuthForm from "./components/authForm/AuthForm";
 import Landing from "../../layout/landing/Landing";
-import { useSendResetEmail } from "../../services/mutations";
+import { useSendResetEmailMutation } from "../../services/mutations";
 import { trimAndLowerCase } from "../../utils";
 import { pwdRecoveryForm } from "./constant";
 
 const PwdRecoveryPage = () => {
-  const { mutate, isPending, isError, error, data } = useSendResetEmail();
+  const { mutate, isPending, isError, error, data } = useSendResetEmailMutation();
   const request = { isPending, isError, error, data };
 
   const handleSubmission = (e, formData)=> {

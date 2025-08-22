@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCategories, getSingleCategorie } from "./api/categorie";
-import { getTchat } from "./api/tchat";
+import { getCategories, getCategory } from "./api/category";
+import { getChat } from "./api/chat";
 
-export const useFetchCategories = (key) => {
+export const useGetCategoriesQuery = (key) => {
    return useQuery({
       queryKey: [key],
       queryFn: ({signal}) => getCategories({signal}),
@@ -10,18 +10,18 @@ export const useFetchCategories = (key) => {
    });
 }
 
-export const useFetchTchat = (key, tchatId) => {
+export const useGetChatQuery = (key, chatId) => {
    return useQuery({
       queryKey: [key],
-      queryFn: ({signal}) => getTchat({signal, tchatId}),
+      queryFn: ({signal}) => getChat({signal, chatId}),
       retry: 1
    })
 }
 
-export const useFetchSingleCategorie= (categorieName) => {
+export const useGetCategoryQuery = (categoryName) => {
    return useQuery({
-      queryKey: [`categories-${categorieName}`],
-      queryFn: ({signal}) => getSingleCategorie({signal, categorieName}),
+      queryKey: [`categories-${categoryName}`],
+      queryFn: ({signal}) => getCategory({signal, categoryName}),
       retry: 1
    })
 }

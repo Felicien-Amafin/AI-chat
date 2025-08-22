@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useRefreshAccessTk } from "../services/mutations";
+import { useRefreshAccessTkMutation } from "../services/mutations";
 import { setUserCred } from "../store/authSlice";
 
 const usePersistLogin = (isActive) => {
     const dispatch = useDispatch();
-    const { mutate, data, error } = useRefreshAccessTk();
+    const { mutate, data, error } = useRefreshAccessTkMutation();
  
     useEffect(() => {
         if(isActive) { 

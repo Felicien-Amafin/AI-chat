@@ -6,19 +6,19 @@ import ListDefaultMess from "../../listUi/listDefaultMess/ListDefaultMess";
 import ListError from "../../listUi/listError/ListError";
 import ListLoader from "../../listUi/listLoader/ListLoader"
 import { TbMessageCircleQuestion } from "react-icons/tb";
-import useGetTchatHandler from "../../../hooks/useGetTchatHandler";
+import useGetChat from "../../../hooks/useGetChat";
 import { useState } from "react";
 import { capitalizedFirstChar, createQuestionsList, navBarLiveFilter, truncateStringInList } from "../../../../../utils";
 import { useDispatch } from "react-redux";
 import style from './navBarLiveSearch.module.css';
-import { setAiAnswer, setUserQuestion } from "../../../../../store/tchatSlice";
+import { setAiAnswer, setUserQuestion } from "../../../../../store/chatSlice";
 import useRedirectTo404 from "../../../hooks/useRedirectTo404";
 
-const QuestionLiveSearch = ({ tchatId }) => {
+const QuestionLiveSearch = ({chatId}) => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState('');
-    const { isPending, tchatMessages, isServerError, isClientError, isNotFound } = useGetTchatHandler(tchatId);//Get tchat's questions + answer
-    const { questions, reversedTchatsList } = createQuestionsList(tchatMessages);//Create list of questions to display in ui
+    const { isPending, chatMessages, isServerError, isClientError, isNotFound } = useGetChat(chatId);//Get chat's questions + answer
+    const { questions, reversedChatsList } = createQuestionsList(chatMessages);//Create list of questions to display in ui
     const { filteredList, isFilteredTerm } = navBarLiveFilter(questions, searchValue);//Search for a question by entering specific terms
     const { formatedList } = truncateStringInList(filteredList, 80);//Adds ellipses to questions when they are too long
     useRedirectTo404(isClientError || isNotFound);
@@ -30,10 +30,10 @@ const QuestionLiveSearch = ({ tchatId }) => {
         setSearchValue(e.target.value);
     }
     
-    const handleTchat = (index) => {
-        //Displays user's question and ai's answer in TchatContainer's ui 
-        dispatch(setUserQuestion(capitalizedFirstChar(reversedTchatsList[index].question)));
-        dispatch(setAiAnswer(reversedTchatsList[index].answer));
+    const handleChat = (index) => {
+        //Displays user's question and ai's answer in chatContainer's ui 
+        dispatch(setUserQuestion(capitalizedFirstChar(reversedChatsList[index].question)));
+        dispatch(setAiAnswer(reversedChatsList[index].answer));
     }
 
     return (
@@ -50,7 +50,7 @@ const QuestionLiveSearch = ({ tchatId }) => {
             {questions && <ListTitle title='Vos questions'/>}
             {questions && 
                 <List 
-                    onSelect={handleTchat} 
+                    onSelect={handleChat} 
                     list={formatedList} 
                     isSearchResult={isFilteredTerm}
                     styling={style.navBarlist}

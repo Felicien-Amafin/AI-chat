@@ -1,14 +1,14 @@
 import PageContainer from "../../layout/pageContainer/PageContainer";
-import WidgetTchatSuggestion from "../../components/widgetUi/WidgetTchatSuggestion/WidgetTchatSuggestion";
+import WidgetChatSuggestion from "../../components/widgetUi/WidgetChatSuggestion/WidgetChatSuggestion";
 import NavBar from "../../layout/navBar/NavBar";
 import MainPart from "../../layout/mainPart/MainPart";
 import Widget from "../../components/widgetUi/widget/Widget";
 import NavBarLinkList from "../../components/navBarUi/navBarLinkList/NavBarLinkList";
-import CategorieLiveSearch from "../../components/navBarUi/navBarLiveSearch/CategorieLiveSearch";
+import CategoryLiveSearch from "../../components/navBarUi/navBarLiveSearch/CategoryLiveSearch";
 import { useSelector } from "react-redux";
 import { capitalizedFirstChar } from "../../../../utils";
 import { Link } from "react-router-dom";
-import { tchatSuggestions } from "../../constant/homeWidgets";
+import { chatSuggestions } from "../../constant/homeWidgets";
 import { homeSideBarLinks } from "../../constant/SideBarLinks";
 import style from "./userHomePage.module.css";
 
@@ -21,7 +21,7 @@ const UserHomePage = () => {
       <NavBar>
         <>
           <NavBarLinkList links={homeSideBarLinks}/>
-          <CategorieLiveSearch/>
+          <CategoryLiveSearch/>
         </>
       </NavBar>
       <MainPart>
@@ -31,16 +31,16 @@ const UserHomePage = () => {
             <div className={style.suggestions}>
               <h2>Voici quelques suggestions:</h2>
               <div className={style.widgetRow}>
-                {tchatSuggestions.map((suggestion)=> <Widget key={suggestion.title}>
-                  <WidgetTchatSuggestion suggestion={suggestion}/>
+                {chatSuggestions.map((suggestion)=> <Widget key={suggestion.title}>
+                  <WidgetChatSuggestion suggestion={suggestion}/>
                 </Widget>)}
               </div>
             </div>
-            <div className={style.newTchat}>
+            <div className={style.newChat}>
               <h2>Vous avez déjà une idée ?</h2>
               <div className={style.btnPlusP}>
-                <p>Commencez à tchater en lançant une nouvelle discussion.</p>
-                <Link to='/user/tchat-form' className={`${style.link} gradient button`}>Nouvelle discussion</Link>
+                <p>Commencez à chater en lançant une nouvelle discussion.</p>
+                <Link to='/user/chat-form' className={`${style.link} gradient button`}>Nouvelle discussion</Link>
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ExistingCategoriesForm from '../ExistingCategoriesForm';
-import NewCategorieForm from '../NewCategorieForm';
+import NewCategoryForm from '../NewCategoryForm';
 import SwitchingBtns from '../switchingBtns/SwitchingBtns';
 import style from './formContainer.module.css';
 
@@ -10,13 +10,13 @@ const FormContainer = () => {
     return (
         <div className={`${style.formContainer} containerAnim flex-column`}>
             <div className={`${style.content} gradientScroll flex-column`}>
-                <h2>Bienvenue dans le gestionnaire de tchat.</h2>
+                <h2>Bienvenue dans le gestionnaire de chat.</h2>
                 <div className={`${style.classification} flex-column`}>
-                    <p>Où souhaitez-vous classer ce tchat ?</p>
+                    <p>Où souhaitez-vous classer ce chat ?</p>
                     <p>* Vous pouvez créer ou sélectionner une catégorie existante</p>
                 </div>
                 <SwitchingBtns onSwitch={setIsSwitching} isSwitching={isSwitching}/>
-                {isSwitching && <NewCategorieForm style={style.form}/>}
+                {isSwitching && <NewCategoryForm style={style.form}/>}
                 {!isSwitching && <ExistingCategoriesForm style={style.form}/>}
             </div>
         </div>

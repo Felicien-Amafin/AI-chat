@@ -1,14 +1,14 @@
-/* TchatFormPage */
-export const formNewCategorie = [
+/* ChatFormPage */
+export const formNewCategory = [
     {
         label: 'Nom de la catégorie', 
-        name: 'categorie', 
+        name: 'category', 
         type: 'text', 
         placeholder: 'Ex: Nature', 
         is_requied: true 
     },
     {
-        label: 'Titre du tchat', 
+        label: 'Titre du chat', 
         name: 'title', 
         type: 'text', 
         placeholder: 'Ex: les aurores boréales', 
@@ -18,7 +18,7 @@ export const formNewCategorie = [
 
 export const formExistingCategories = {
     input: {
-        label: 'Titre du tchat', 
+        label: 'Titre du chat', 
         name: 'title', 
         type: 'text', 
         placeholder: 'Ex: les aurores boréales', 

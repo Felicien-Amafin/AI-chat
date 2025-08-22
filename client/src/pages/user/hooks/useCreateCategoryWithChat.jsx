@@ -4,7 +4,7 @@ import useChatMutationHandler from "./useChatMutationHandler";
 const useCreateCategoryWithChat = () => {
   const { mutate, isPending, data, error } = useCreateCategoryWithChatMutation();
   const { 
-    tchatId,
+    chatId,
     isClientError, 
     isServerError, 
     formErrors,
@@ -14,7 +14,7 @@ const useCreateCategoryWithChat = () => {
   return { 
     mutate, 
     isPending, 
-    tchatId,
+    chatId,
     isClientError, 
     isServerError, 
     formErrors, 

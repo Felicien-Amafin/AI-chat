@@ -13,7 +13,7 @@ const Landing = ({children}) => {
         <section className={`${style.part1} flex-column`}>
           <h1>Ai tchat</h1>
           <h2>Trouvez l'inspiration et gagnez en productivité</h2>
-          <p>Ai tchat est votre assistant personnel. Démarrez une discussion et apprenez de nouvelles choses.</p>
+          <p>Ai Chat est votre assistant personnel. Démarrez une discussion et apprenez de nouvelles choses.</p>
           <Link to='/auth/sign-in' className={`${style.link} button gradient`}>Commencer</Link>
         </section>
         <section className={style.part2}>

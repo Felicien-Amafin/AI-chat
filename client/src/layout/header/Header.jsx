@@ -4,7 +4,7 @@ import style from "./header.module.css";
 const Header = ({children}) => {
     return (
         <header className={`${style.header} flexRow-alignItems`}>
-            <Link to='/' className={style.siteName}>Ai tchat</Link>
+            <Link to='/' className={style.siteName}>Ai Chat</Link>
             {children}
         </header>
     )

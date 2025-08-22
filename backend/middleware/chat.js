@@ -1,17 +1,17 @@
-import { getTchatFormErrors } from "../utils/categories.js";
+import { getChatFormErrors } from "../utils/chat.js";
 import { CustomError } from "../utils/class.js";
 import { tryCatch } from "../utils/tryCatch.js";
 
-export const validateTchatForm = tryCatch(async (req, res, next) => {
-    const { categorie, title } = req.body;
+export const validateChatForm = tryCatch(async (req, res, next) => {
+    const { category, title } = req.body;
    
-    const errors = getTchatFormErrors(categorie, title);
+    const errors = getChatFormErrors(category, title);
  
     if (errors) {
         throw new CustomError('Certaines informations sont invalides', 400, errors);
     }
 
-    req.validatedForm = { categorie, title };
+    req.validatedForm = { category, title };
 
     next();
 });

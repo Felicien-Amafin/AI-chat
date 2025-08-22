@@ -7,7 +7,7 @@ const useChatMutationHandler = ({error, data}) => {
 
     const formErrors = {};
     let serverError;
-    const tchatId = data?.data.tchat_id;
+    const chatId = data?.data.chat_id;
 
     if(isClientError) {
         formErrors.inputs = error.response.data.errors
@@ -19,7 +19,7 @@ const useChatMutationHandler = ({error, data}) => {
     }
 
     return {  
-        tchatId,
+        chatId,
         isClientError, 
         isServerError, 
         formErrors, 
