@@ -4,6 +4,7 @@ import Chat from "../models/chat.model.js";
 import Category from "../models/category.model.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import mongoose from "mongoose";
+import { getNewDate } from "../utils/genericFunc.js";
 
 // Initializing gemini-2.0-flash-lite model
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -77,3 +78,55 @@ export const deleteChat = tryCatch(async (req, res) => {
     return res.status(200).json({ message: 'Chat has been deleted successfully' });
 });
 
+export const launchChatSuggestion = tryCatch(async(req, res) => {
+    const { category, title } = req.body;
+    const userId = req.user.id;
+
+    //checking if category already exist
+    const existingCategory = await Category.findOne({ name: category, userId });
+
+    // Checks if the category exists and has any chats
+    if(existingCategory && existingCategory?.chats.size > 0) {
+        let chat;
+        
+        // Loop through all chats in the category to find a suggested chat
+        for (const [chatId, chatData] of existingCategory.chats.entries()) {
+            if (chatData.isSuggestion === true) {
+                // If a suggested chat is found, store its ID and mark it as started
+                chat = { chat_id:chatId, is_chat_started:true };
+                break;
+            }
+        }
+
+        if (chat) {
+            return res.status(200).json({chat}); 
+        }
+    }
+
+    //Creating the new category if doesn't alredy exist
+    const newCategory = new Category({ name: category, userId, chats: new Map([]) });
+    await newCategory.save();
+
+    //Creating a new chat doc in db
+    const newChat = new Chat({
+        categoryId: newCategory._id,
+        userId,
+        date: `${getNewDate()}`,
+        messages: []
+    });
+    await newChat.save();
+    
+    //Saving new chat in its corresponding category
+    newCategory.chats.set(
+        newChat._id, 
+        { title, date: newChat.date, isSuggestion:true }
+    );
+    await newCategory.save();
+
+    return res.status(201).json({ 
+        is_chat_started: false,
+        chat_id: newChat._id,
+        message: `La categorie "${newCategory.name} a été créé avec un nouveau chat."`,
+    });
+
+});

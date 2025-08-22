@@ -9,7 +9,7 @@ import {
     verifyEmail,
 } from "./api/auth";
 import { addChatToCategory, createCategoryWithChat, deleteCategory } from "./api/category";
-import { deleteChat, sendChatMessage } from "./api/chat";
+import { deleteChat, launchChatSuggestion, sendChatMessage } from "./api/chat";
 
 //Auth mutation
 export const useSignUpUserMutation = () => {
@@ -116,5 +116,11 @@ export const useDeleteCategoryMutation = () => {
             //invalidate query key to get updated category list
             queryClient.invalidateQueries({ queryKey: ['categories'] });
         },
+    })
+}
+
+export const useLaunchChatSuggestionMutation = () => {
+    return useMutation({
+        mutationFn: launchChatSuggestion,
     })
 }
