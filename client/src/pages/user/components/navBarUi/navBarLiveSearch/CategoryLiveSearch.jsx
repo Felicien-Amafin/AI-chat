@@ -15,7 +15,7 @@ import style from './navBarLiveSearch.module.css';
 const CategoryLiveSearch= () => {
     const navigate = useNavigate();
     const [searchValue, setSearchValue] = useState('');
-    const { isPending, categories, isServerError } = useGetCategories();
+    const { isPending, isServerError, categories } = useGetCategories();
     const listNames = createNavList(categories);
     const { filteredList, isFilteredTerm } = navBarLiveFilter(listNames, searchValue);
 
@@ -48,6 +48,7 @@ const CategoryLiveSearch= () => {
                     list={filteredList} 
                     isSearchResult={isFilteredTerm} 
                     styling={style.navBarlist}
+                    isScrollingTop={null}
                 />
             }
             {(!listNames && !isPending && !isServerError) && 

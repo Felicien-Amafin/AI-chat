@@ -7,7 +7,7 @@ import { setChatHistory } from "../../../store/chatSlice";
 
 const useGetChat = (chatId) => {
   const dispatch = useDispatch();
-  const { isPending, data, error } = useGetChatQuery('chat-messages', chatId);
+  const { isPending, isSuccess, data, error } = useGetChatQuery('chat-messages', chatId);
   // Handles potential errors after fetching chat's messages
   const { isServerError, isUnAuthorized, isForbidden, isClientError, isNotFound } = useRequestErrorHandler(error);
   useLogoutUser(isUnAuthorized || isForbidden);
@@ -25,7 +25,7 @@ const useGetChat = (chatId) => {
     }
   }, [chatMessages, dispatch]);
 
-  return { isPending, chatMessages, isServerError, isClientError, isNotFound };
+  return { isPending, isSuccess, chatMessages, isServerError, isClientError, isNotFound };
 }
 
 export default useGetChat;

@@ -1,19 +1,19 @@
 import style from './list.module.css';
 import { useRef } from "react";
 
-const List = ({onSelect, list, isSearchResult, styling}) => {
+const List = ({onSelect, list, isSearchResult, styling, isScrollingTop}) => {
     const listRef = useRef(null);
 
-    const handleScrollToTop = () => {
+    const scrollTop = () => {
         if (listRef.current) {
-        listRef.current.scrollTo({
-            top: 0,
-            behavior: "smooth", 
-        });
+            listRef.current.scrollTo({
+                top: 0,
+                behavior: "smooth", 
+            });
         }
     };
 
-    handleScrollToTop();
+    if(isScrollingTop) scrollTop();
 
     const defaultMess = 'Aucun résultat...';
 

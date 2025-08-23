@@ -17,7 +17,7 @@ import useRedirectTo404 from "../../../hooks/useRedirectTo404";
 const QuestionLiveSearch = ({chatId}) => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState('');
-    const { isPending, chatMessages, isServerError, isClientError, isNotFound } = useGetChat(chatId);//Get chat's questions + answer
+    const { isPending, chatMessages, isServerError, isSuccess, isClientError, isNotFound } = useGetChat(chatId);//Get chat's questions + answer
     const { questions, reversedChatsList } = createQuestionsList(chatMessages);//Create list of questions to display in ui
     const { filteredList, isFilteredTerm } = navBarLiveFilter(questions, searchValue);//Search for a question by entering specific terms
     const { formatedList } = truncateStringInList(filteredList, 80);//Adds ellipses to questions when they are too long
@@ -54,6 +54,7 @@ const QuestionLiveSearch = ({chatId}) => {
                     list={formatedList} 
                     isSearchResult={isFilteredTerm}
                     styling={style.navBarlist}
+                    isScrollingTop={isSuccess}
                 />
             }
             {(!questions && !isPending && !isServerError) && 
