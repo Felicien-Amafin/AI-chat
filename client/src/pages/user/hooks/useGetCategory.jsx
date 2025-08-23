@@ -14,17 +14,16 @@ const useGetCategory = (categoryName) => {
   useLogoutUser(isForbidden || isUnAuthorized);
 
   const chatList = data?.data.chats_list;
-  /* let chatList = null; */
   const categoryServerError = 'List de chats indisponible. Veuillez réessayer plus tard.'
   const categoryNotFoundMess = isCategoryNotFound ? error?.response.data.message : ''
  
-  /* if(data && data.data.chats_list.length > 0) {
-    chatList = data.data.chats_list;
-  } */
-
   return { 
-    isCategoryPending, chatList, isCategoryServerError, 
-    categoryServerError, isCategoryNotFound, categoryNotFoundMess
+    isCategoryPending, 
+    chatList, 
+    isCategoryServerError, 
+    categoryServerError, 
+    isCategoryNotFound, 
+    categoryNotFoundMess
   }
 }
 

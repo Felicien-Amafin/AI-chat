@@ -2,41 +2,36 @@ import useForm from "../../../../../hooks/useForm";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useSendChatMessage from "../../../hooks/useSendChatMessage";
-import { setAiAnswer, setChatHistory, setUserQuestion } from "../../../../../store/chatSlice";
-import { capitalizedFirstChar, trimAndLowerCase } from "../../../../../utils";
+import { setAiAnswer, setChatHistory } from "../../../../../store/chatSlice";
 import ChatPrompt from "../chatPrompt/ChatPrompt";
 import ChatScreen from "../chatScreen/ChatScreen";
 import style from './chatContainer.module.css';
+import useSendSuggestedQuestion from "../../../hooks/useSendSuggestedQuestion";
 
 const ChatContainer = ({chatId}) => {
-  const { formData, handleChange, resetForm } = useForm();//Receives user question
-  const { mutate, isPending, dialog, isServerError, serverError } = useSendChatMessage();
-  
   const dispatch = useDispatch();
-
   const { userQuestion, aiAnswer, chatHistory } = useSelector((state) => state.chat);
-
-  const handleMessageSubmission = (e) => {
-    e.preventDefault();
-    const newFormData = trimAndLowerCase(formData);
-    const userMessage = newFormData.prompt;
-
-    if(!userMessage) return;
-
-    dispatch(setUserQuestion(capitalizedFirstChar(userMessage)));
+  const { formData, handleChange, resetForm } = useForm();//Receives user question
  
-    mutate({//Submit chat data to db
-      user_message: userMessage,
-      chat_history: chatHistory,
-      chat_id: chatId
-    });
-    
-    resetForm();
-  };
+  const { 
+    handlePromptMessageSubmission, 
+    submitMessage, 
+    isPending, 
+    dialog, 
+    isServerError, 
+    serverError 
+  } = useSendChatMessage();
+
+  //Sends suggested chat question, if user clicks on user Home page widgets
+  useSendSuggestedQuestion({submitMessage, chatHistory, chatId, userQuestion});
+
+  const handleSubmission = (e) => {
+    e.preventDefault();
+    handlePromptMessageSubmission({formData, resetForm, chatHistory, chatId});
+  }
 
   useEffect(() => {
     if(dialog) {
-      dispatch(setChatHistory(dialog));//Dialog = user question + ai response
       dispatch(setAiAnswer(dialog.answer));
     }
 
@@ -52,7 +47,7 @@ const ChatContainer = ({chatId}) => {
         serverError={serverError}
       />
       <ChatPrompt
-        onSubmit={handleMessageSubmission}
+        onSubmit={handleSubmission}
         value={formData['prompt'] || ''}
         onInputChange={handleChange}
         isPending={isPending}

@@ -13,15 +13,11 @@ import ListError from '../../listUi/listError/ListError';
 import style from './navBarLiveSearch.module.css';
 
 const CategoryLiveSearch= () => {
-    const [searchValue, setSearchValue] = useState('');
-
-    const { isPending, categories, isServerError } = useGetCategories();
-
-    const listNames = createNavList(categories);
-
-    const { filteredList, isFilteredTerm } = navBarLiveFilter(listNames, searchValue);
-
     const navigate = useNavigate();
+    const [searchValue, setSearchValue] = useState('');
+    const { isPending, categories, isServerError } = useGetCategories();
+    const listNames = createNavList(categories);
+    const { filteredList, isFilteredTerm } = navBarLiveFilter(listNames, searchValue);
 
     const handleNavigation = (index) => {
         navigate(`/user/categories/${listNames[index][0].toLowerCase()}`); //Navigate to a specific category

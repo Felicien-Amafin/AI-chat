@@ -22,9 +22,7 @@ import useDeleteCategory from '../../hooks/useDeleteCategory';
 
 const CategoryPage = () => {  
   const [searchValue, setSearchValue] = useState('');
-
   const { categoryName } = useParams();
-
   const { setIsModalOpened, isModalOpened } = useConfirmActionModal(categoryName);
 
   const { 

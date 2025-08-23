@@ -123,3 +123,17 @@ export const chatFilter = (chatList, searchTerm) => {
         }
     })
 }
+
+export const buildChatHistory = (chats) => {
+    let newChatHistory = [];
+
+    chats.forEach((dialog) => {
+        newChatHistory =  [
+            ...newChatHistory, 
+            { role: "user", parts: [{ text: dialog.question }] },
+            { role: "model", parts: [{ text: dialog.answer }] }
+        ]
+    });
+
+    return newChatHistory;
+}

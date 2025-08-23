@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { buildChatHistory } from "../utils";
 
 const chat = createSlice({
     name: 'chat',
@@ -6,14 +7,11 @@ const chat = createSlice({
         chatHistory: [],
         userQuestion: '',
         aiAnswer: '',
+        isSuggestedQuestion: false
     },
     reducers: {
         setChatHistory: (state, action) => {
-            state.chatHistory = [
-                ... state.chatHistory, 
-                { role: "user", parts: [{ text: action.payload.question }] },
-                { role: "model", parts: [{ text: action.payload.answer }] }
-            ]
+           state.chatHistory = buildChatHistory(action.payload);
         },
         setUserQuestion: (state, action) => {
             state.userQuestion = action.payload;
@@ -25,9 +23,20 @@ const chat = createSlice({
             state.chatHistory = [];
             state.userQuestion = '';
             state.aiAnswer = '';
+            state.isSuggestedQuestion = false;
+        },
+        setIsSuggestedQuestion(state, action) {
+            state.isSuggestedQuestion = action.payload;
         }
     }
 });
 
-export const { setChatHistory, setUserQuestion, setAiAnswer, resetChat } = chat.actions;
+export const { 
+    setChatHistory, 
+    setUserQuestion, 
+    setAiAnswer, 
+    resetChat, 
+    setIsSuggestedQuestion 
+} = chat.actions;
+
 export default chat.reducer;

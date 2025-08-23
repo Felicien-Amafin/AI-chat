@@ -86,20 +86,45 @@ export const launchChatSuggestion = tryCatch(async(req, res) => {
     const existingCategory = await Category.findOne({ name: category, userId });
 
     // Checks if the category exists and has any chats
-    if(existingCategory && existingCategory?.chats.size > 0) {
-        let chat;
+    if(existingCategory) {
+        let existingChat;
         
         // Loop through all chats in the category to find a suggested chat
         for (const [chatId, chatData] of existingCategory.chats.entries()) {
             if (chatData.isSuggestion === true) {
                 // If a suggested chat is found, store its ID and mark it as started
-                chat = { chat_id:chatId, is_chat_started:true };
+                existingChat = { chat_id:chatId, has_prev_messages:true };
                 break;
             }
         }
 
-        if (chat) {
-            return res.status(200).json({chat}); 
+        if(existingChat) return res.status(200).json({ ...existingChat});//else return chat found
+
+        if (!existingChat) {
+            //If no chat found create new chat
+             const newChat = new Chat({
+                categoryId: existingCategory._id,
+                userId,
+                date: `${getNewDate()}`,
+                messages: []
+            });
+            await newChat.save();
+
+            existingCategory.chats.set(//Save new chat in category
+                newChat._id, 
+                { 
+                    title, 
+                    date: newChat.date, 
+                    isSuggestion:true 
+                }
+            );
+            await existingCategory.save();
+
+            return res.status(201).json({ //Return newly created chat
+                has_prev_messages: false,
+                chat_id: newChat._id,
+                message: `Un nouveau chat a été ajouté à "${existingCategory.name}"`,
+            });
         }
     }
 
@@ -119,14 +144,17 @@ export const launchChatSuggestion = tryCatch(async(req, res) => {
     //Saving new chat in its corresponding category
     newCategory.chats.set(
         newChat._id, 
-        { title, date: newChat.date, isSuggestion:true }
+        { 
+            title, 
+            date: newChat.date, 
+            isSuggestion:true 
+        }
     );
     await newCategory.save();
 
     return res.status(201).json({ 
-        is_chat_started: false,
+        has_prev_messages: false,
         chat_id: newChat._id,
         message: `La categorie "${newCategory.name} a été créé avec un nouveau chat."`,
     });
-
 });
