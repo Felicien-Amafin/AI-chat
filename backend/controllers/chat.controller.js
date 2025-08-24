@@ -4,7 +4,8 @@ import Chat from "../models/chat.model.js";
 import Category from "../models/category.model.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import mongoose from "mongoose";
-import { getNewDate } from "../utils/genericFunc.js";
+import { createNewChat } from "../utils/chat.js";
+import { addChatToCategory } from "../utils/category.js";
 
 // Initializing gemini-2.0-flash-lite model
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -102,24 +103,10 @@ export const launchChatSuggestion = tryCatch(async(req, res) => {
 
         if (!existingChat) {
             //If no chat found create new chat
-             const newChat = new Chat({
-                categoryId: existingCategory._id,
-                userId,
-                date: `${getNewDate()}`,
-                messages: []
-            });
-            await newChat.save();
-
-            existingCategory.chats.set(//Save new chat in category
-                newChat._id, 
-                { 
-                    title, 
-                    date: newChat.date, 
-                    isSuggestion:true 
-                }
-            );
-            await existingCategory.save();
-
+            const newChat = await createNewChat(existingCategory._id, userId);
+            
+            addChatToCategory(existingCategory, newChat, title, true);
+            
             return res.status(201).json({ //Return newly created chat
                 has_prev_messages: false,
                 chat_id: newChat._id,
@@ -133,25 +120,11 @@ export const launchChatSuggestion = tryCatch(async(req, res) => {
     await newCategory.save();
 
     //Creating a new chat doc in db
-    const newChat = new Chat({
-        categoryId: newCategory._id,
-        userId,
-        date: `${getNewDate()}`,
-        messages: []
-    });
-    await newChat.save();
-    
+    const newChat = await createNewChat(newCategory._id, userId);
+   
     //Saving new chat in its corresponding category
-    newCategory.chats.set(
-        newChat._id, 
-        { 
-            title, 
-            date: newChat.date, 
-            isSuggestion:true 
-        }
-    );
-    await newCategory.save();
-
+    addChatToCategory(newCategory, newChat, title, true);
+    
     return res.status(201).json({ 
         has_prev_messages: false,
         chat_id: newChat._id,

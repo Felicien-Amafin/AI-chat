@@ -3,7 +3,8 @@ import Category from "../models/category.model.js";
 import Chat from "../models/chat.model.js";
 import { capitalizedFirstChar, getNewDate } from "../utils/genericFunc.js";
 import { CustomError } from "../utils/class.js";
-import { sortCategoryNames } from "../utils/category.js";
+import { addChatToCategory, sortCategoryNames } from "../utils/category.js";
+import { createNewChat } from "../utils/chat.js";
 
 
 export const createCategoryWithChat  = tryCatch(async (req, res) => {
@@ -26,17 +27,10 @@ export const createCategoryWithChat  = tryCatch(async (req, res) => {
     await newCategory.save();
 
     //Creating a new chat doc in db
-    const newChat = new Chat({//Creating new chat
-        categoryId: newCategory._id,
-        userId,
-        date: `${getNewDate()}`,
-        messages: []
-    });
-    await newChat.save();
+    const newChat = await createNewChat(newCategory._id, userId);
     
     //Saving new chat in it's corresponding category
-    newCategory.chats.set(newChat._id, { title, date: newChat.date });
-    await newCategory.save();
+    addChatToCategory(newCategory, newChat, title, false);
 
     return res.status(201).json({
         message: `La categorie "${newCategory.name} a été créé avec un nouveau chat."`,
@@ -45,7 +39,7 @@ export const createCategoryWithChat  = tryCatch(async (req, res) => {
 });
 
 export const createChatInCategory = tryCatch(async (req, res) => {
-    const { category, title } = req.validatedForm;
+    const { category, title } = req.validatedForm;// Receiving category and chat's title
     const userId = req.user.id;
  
     //Checking if category exist so that newly created chat can be saved in it
@@ -55,21 +49,10 @@ export const createChatInCategory = tryCatch(async (req, res) => {
         throw new CustomError('Catégorie introuvable', 404, {});
     }
 
-    const newChat = new Chat({//Creating new chat
-        categoryId: existingCategory._id,
-        userId,
-        date: `${getNewDate()}`,
-        messages: []
-    });
-    await newChat.save();
-
-    existingCategory.chats.set(newChat._id, {//Saving new chat in it's corresponding categorie
-        title,
-        date: newChat.date
-    });
-
-    await existingCategory.save();
-
+    const newChat = await createNewChat(existingCategory._id, userId);
+    
+    addChatToCategory(existingCategory, newChat, title, false);
+    
     return res.status(201).json({
         message: `Le chat "${title}" a été ajouté à ${existingCategory.name}`,
         chat_id: newChat._id

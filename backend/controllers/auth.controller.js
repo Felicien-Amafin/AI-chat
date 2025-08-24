@@ -74,12 +74,12 @@ export const signin = tryCatch(async (req, res) => {
         throw new CustomError(`Vous devez valider votre adresse email avant de vous connecter. Suivez les instructions envoyées par mail.`, 403, {});
     }
 
-    const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '2m');
-    const refreshToken = generateToken(user._id, process.env.REFRESH_TOKEN_SECRET, '1d');
+    const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '15m');
+    const refreshToken = generateToken(user._id, process.env.REFRESH_TOKEN_SECRET, '10d');
 
     //set refreshToken in cookie
     res.cookie('jwt', refreshToken, {
-        maxAge: 1 * 24 * 60 * 60 * 1000,
+        maxAge: 10 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         sameSite: 'None',
         secure: true,
@@ -223,7 +223,7 @@ export const refreshAccessTk = tryCatch(async( req, res, next) => {
                 return next(error);
             };
             //Generate accesToken and send it to client
-            const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '1d');
+            const accessToken = generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, '10d');
        
             return res.status(200).json({
                 user: { id: user._id, username: user.username },

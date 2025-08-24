@@ -1,3 +1,6 @@
+import { getNewDate } from "./genericFunc.js";
+import Chat from "../models/chat.model.js";
+
 export const getChatFormErrors = (category, title) => {
     //Get chat form's input errors
     const errors = {};
@@ -26,3 +29,18 @@ export const getChatFormErrors = (category, title) => {
 
     return isErrors ? errors : null;
 }
+
+export const createNewChat = async (categoryId, userId) => {
+    const newChat = new Chat({
+        categoryId,
+        userId,
+        date: `${getNewDate()}`,
+        messages: []
+    });
+
+    await newChat.save();
+    return newChat;
+}
+
+
+
