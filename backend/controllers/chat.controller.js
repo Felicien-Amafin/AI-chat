@@ -82,7 +82,7 @@ export const deleteChat = tryCatch(async (req, res) => {
 export const launchChatSuggestion = tryCatch(async(req, res) => {
     const { category, title } = req.body;
     const userId = req.user.id;
-
+    
     //checking if category already exist
     const existingCategory = await Category.findOne({ name: category, userId });
 
@@ -104,7 +104,7 @@ export const launchChatSuggestion = tryCatch(async(req, res) => {
         if (!existingChat) {
             //If no chat found create new chat
             const newChat = await createNewChat(existingCategory._id, userId);
-            
+
             addChatToCategory(existingCategory, newChat, title, true);
             
             return res.status(201).json({ //Return newly created chat

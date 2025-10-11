@@ -21,7 +21,7 @@ export const signup = tryCatch(async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user) {
-        const errorMess = `Veuillez choisir une autre adresse email.`;
+        const errorMess = `Si vous venez de vous inscrire, suivez les instructions envoyées à votre adresse email.`;
         throw new CustomError(errorMess, 400, { email: 'Adresse email déjà utilisée'});
     }
     

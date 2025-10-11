@@ -10,7 +10,9 @@ const useLaunchChatSuggestion = (suggestion) => {
     const navigate = useNavigate();
     const { mutate, isPending, data, error } = useLaunchChatSuggestionMutation();
     const { isServerError } = useRequestErrorHandler(error);
+
     const chatData = data?.data;
+    const serverErrorMess = 'Chat indisponible. Réessayer plus tard.'
     
     useEffect(() => {
         if(chatData && chatData.has_prev_messages) {
@@ -32,7 +34,7 @@ const useLaunchChatSuggestion = (suggestion) => {
         }
     }, [chatData, suggestion.question, navigate, dispatch]);
 
-    return { mutate, isPending, isServerError }
+    return { mutate, isPending, isServerError, serverErrorMess }
 }
 
 export default useLaunchChatSuggestion;

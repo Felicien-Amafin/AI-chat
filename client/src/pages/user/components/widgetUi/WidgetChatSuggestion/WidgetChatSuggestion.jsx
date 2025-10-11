@@ -4,7 +4,7 @@ import WidgetIcon from '../widgetIcon/WidgetIcon';
 import style from './widgetChatSuggestion.module.css';
 
 const WidgetChatSuggestion = ({suggestion}) => {
-  const { mutate, isPending, isServerError } = useLaunchChatSuggestion(suggestion);
+  const { mutate, isPending, isServerError, serverErrorMess } = useLaunchChatSuggestion(suggestion);
 
   const launchChatSuggestion = () => {
     mutate({ 
@@ -26,6 +26,7 @@ const WidgetChatSuggestion = ({suggestion}) => {
             <WidgetIcon color={suggestion.icon.color}>{suggestion.icon.element}</WidgetIcon>
           </div>
           <p className={style.question}>{suggestion.question}</p>
+          {isServerError && <p className='error'>{serverErrorMess}</p>}
         </div>
       }
     </div>

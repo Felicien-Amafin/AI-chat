@@ -1,10 +1,10 @@
 import express from "express";
-import dotenv from "dotenv"
-import sanitize from 'express-mongo-sanitize';
-import xss from 'xss-clean';
+import dotenv from "dotenv";
 import rateLimit from 'express-rate-limit';
 import cookieParser from "cookie-parser";
 import cors from 'cors';
+import helmet from 'helmet';
+import sanitize from "mongo-sanitize"; 
 import connectToDb from "./db/mongodbConnection.js";
 import authRoutes from "./routes/auth.routes.js";
 import categoriesRoutes from "./routes/categories.routes.js";
@@ -24,18 +24,30 @@ const rateLimiter = rateLimit({
 })
 
 //Setting middlewares (run before API endpoints)
+app.use(helmet()); // Secure HTTP headers
 app.use(
-    cors({
-    credentials: true,
-    origin: 'http://localhost:5173',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'authorization'],
+  cors({
+  credentials: true, // Allow cookies/auth headers
+  origin: 'http://localhost:5173',// Allow requests from this origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],// Allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'authorization'], // Allowed request headers
 }));
-app.use(express.json());
-app.use(cookieParser());
-/* app.use(xss());
-app.use(sanitize()); */
-app.use('/api', rateLimiter);
+app.use(express.json());// Parse incoming JSON request bodies
+app.use(cookieParser());// Parse cookies from incoming requests
+
+app.use((req, res, next) => {// Sanitize user input to prevent NoSQL injection (body, params, and query)
+  if (req.body) req.body = sanitize(req.body);
+  if (req.params) req.params = sanitize(req.params);
+  if (req.query) {
+    for (const key of Object.keys(req.query)) {
+      req.query[key] = sanitize(req.query[key]);
+    }
+  }
+
+  next();
+});
+
+app.use('/api', rateLimiter);// Apply rate limiting to all /api routes
 
 //Defining API endpoints
 app.use("/api/authentication", authRoutes);
