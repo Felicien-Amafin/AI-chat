@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import style from './authformLink.module.css';
+import style from './authFormLink.module.css';
 
 const AuthFormLink = ({children, path}) => {
   return (
