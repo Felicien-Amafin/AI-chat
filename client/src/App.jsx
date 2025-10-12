@@ -5,7 +5,7 @@ import Auth from './pages/auth/Auth';
 import User from './pages/user/User';
 import HomePage from './pages/home/HomePage';
 import ErrorPage from './pages/error/Error';
-import ProtectedRoute from './routing/protectedRoute';
+import ProtectedRoute from './routing/ProtectedRoute';
 import { useSelector } from 'react-redux';
 import useIsDesktop from './hooks/useIsDesktop';
 import OnlyUnderDesktop from './pages/onlyUnderDesktop/OnlyUnderDesktopPage';
