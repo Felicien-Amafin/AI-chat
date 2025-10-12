@@ -5,8 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon server.js",
-    "start": "node server.js"
+    "server": "cross-env NODE_ENV=development nodemon server.js",
+    "start": "cross-env NODE_ENV=production node server.js"
   },
   "keywords": [],
   "author": "",
@@ -26,5 +26,8 @@
     "mongoose": "^8.16.0",
     "nodemailer": "^7.0.3",
     "otp-generator": "^4.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
   }
 }

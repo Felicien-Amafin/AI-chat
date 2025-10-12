@@ -1,7 +1,13 @@
 import axios from "axios";
 import { setAccessToken } from "../../store/authSlice";
 
-const BASE_URL ='http://localhost:3001';
+// Determines the base API URL based on the Vite environment mode (development or production).
+const isDevelopment = import.meta.env.MODE === 'development';
+
+const BASE_URL_DEV = import.meta.env.VITE_API_URL_DEV; 
+const BASE_URL_PROD = import.meta.env.VITE_API_URL_PROD;
+
+const BASE_URL = isDevelopment ? BASE_URL_DEV : BASE_URL_PROD;
 
 //Init generic axios instance
 export const axiosInstance = axios.create({

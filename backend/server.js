@@ -11,16 +11,19 @@ import categoriesRoutes from "./routes/categories.routes.js";
 import chatsRoutes from "./routes/chats.routes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { verifyAccessTk } from "./middleware/auth.js";
+import { getCorsOrigin } from "./utils/config.js";
 
 dotenv.config();
 const app = express();
 const PORT= process.env.PORT || 5000;
 
+const corsOrigin = getCorsOrigin();
+
 //Setting rate access limit to API
 const rateLimiter = rateLimit({
-    max: 500,
-    windowMs: 60 * 60 * 100,
-    message: 'Too many requests have been sent from your ip address. Please try in 1 hour.'
+  max: 500,
+  windowMs: 60 * 60 * 100,
+  message: 'Too many requests have been sent from your ip address. Please try in 1 hour.'
 })
 
 //Setting middlewares (run before API endpoints)
@@ -28,7 +31,7 @@ app.use(helmet()); // Secure HTTP headers
 app.use(
   cors({
   credentials: true, // Allow cookies/auth headers
-  origin: 'http://localhost:5173',// Allow requests from this origin
+  origin: corsOrigin,// Allow requests from this origin
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],// Allowed HTTP methods
   allowedHeaders: ['Content-Type', 'authorization'], // Allowed request headers
 }));
@@ -56,6 +59,7 @@ app.use("/api/chats", verifyAccessTk, chatsRoutes);
 app.use(errorHandler);
 
 app.listen(PORT, ()=> {
-    console.log(`server is running on port ${ PORT }`);
-    connectToDb();
+  console.log(`Server is running on port ${ PORT }`);
+  console.log(`CORS Origin configured as: ${corsOrigin} (Mode: ${process.env.NODE_ENV || 'development'})`);
+  connectToDb();
 });

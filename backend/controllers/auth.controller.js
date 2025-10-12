@@ -7,6 +7,9 @@ import { getSignupErrors, getSigninErrors, generateToken, hashPassword } from ".
 import { CustomError } from "../utils/class.js";
 import { sendVerificationEmail, sendPwdResetLink } from "../nodemailer/emails.js";
 import { tryCatch } from "../utils/tryCatch.js";
+import { getCorsOrigin } from "../utils/config.js";
+
+const CLIENT_URL = getCorsOrigin();
 
 export const signup = tryCatch(async (req, res) => {
     //Signing up user, using username, email, and password
@@ -38,7 +41,7 @@ export const signup = tryCatch(async (req, res) => {
     await newUser.save();
 
     sendVerificationEmail(
-        `${process.env.CLIENT_URL}/auth/email-verification/${newUser._id}`, 
+        `${CLIENT_URL}/auth/email-verification/${newUser._id}`, 
         newUser.email, 
         emailVerifCode
     );
@@ -162,7 +165,7 @@ export const sendResetEmail = tryCatch(async (req, res) => {
     user.isPasswordReseted = false;
     await user.save();
     
-    await sendPwdResetLink(email, `${process.env.CLIENT_URL}/auth/password-reset/${token}`);
+    await sendPwdResetLink(email, `${CLIENT_URL}/auth/password-reset/${token}`);
     
     return res.status(200).json({ message: 'Un lien de réinitialisation de mot de passe vous a été envoyé par mail.' });
 });
@@ -233,13 +236,13 @@ export const refreshAccessTk = tryCatch(async( req, res, next) => {
     )
 });
 
-export const logout = (req, res) => {
+export const logout = (req, res) => { 
     const jwt = req.cookies?.jwt;
     
     if(!jwt) return res.sendStatus(204);
-    
+
     res.clearCookie('jwt', { 
-        maxAge: 1 * 24 * 60 * 60 * 1000,
+        maxAge: 10 * 24 * 60 * 60 * 1000, 
         httpOnly: true,
         sameSite: 'None',
         secure: true,
