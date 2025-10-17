@@ -7,3 +7,8 @@ To view a copy of this license, visit https://creativecommons.org/licenses/by-nc
 This project is made available solely for demonstration and recruitment purposes.
 Any reproduction, modification, redistribution, or commercial use of this code,
 in whole or in part, is strictly prohibited without prior written permission.
+
+Note:
+This project uses external APIs (e.g., Google API Gemini 2.0 Flash Lite).
+These services are subject to their own licenses and terms of use.
+This license does not apply to third-party APIs or content retrieved through them.
