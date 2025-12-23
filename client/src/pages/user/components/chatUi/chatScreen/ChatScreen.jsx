@@ -5,7 +5,7 @@ import style from './chatScreen.module.css';
 
 const ChatScreen = ({userQuestion, aiAnswer, isPending, isServerError, serverError }) => {
     const defaultMess =  'Comment puis-je vous aider?';
-
+   
     return (
         <div className={style.chatScreen}>
             <section className={`${style.chat} gradientScroll flex-column`}>

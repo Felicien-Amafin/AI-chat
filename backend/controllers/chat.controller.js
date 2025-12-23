@@ -9,15 +9,16 @@ import { addChatToCategory } from "../utils/category.js";
 
 // Initializing gemini-2.0-flash-lite model
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
+/* const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" }); */
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 export const sendChatMessage = tryCatch(async (req, res) => {
     const { user_message, chat_history, chat_id } = req.body;
     const userId = req.user.id;
-
-    //Passing chat's history (useful for contextualization)
-    const chat = model.startChat({ history: chat_history }); 
     
+    //Passing chat's history (useful for contextualization)
+    const chat = model.startChat({ history: chat_history || []}); 
+
     const result = await chat.sendMessage(user_message);//Sending message to Gemini
     const response = result.response;
     const aiAnswer = response.text();
@@ -32,7 +33,7 @@ export const sendChatMessage = tryCatch(async (req, res) => {
         question: user_message,
         answer: aiAnswer
     }
-
+   
     existingChat.messages.push(dialog); //Saving chat in db
     await existingChat.save();
 

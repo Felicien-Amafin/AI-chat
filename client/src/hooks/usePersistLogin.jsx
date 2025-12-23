@@ -6,7 +6,7 @@ import { setUserCred } from "../store/authSlice";
 const usePersistLogin = (isActive) => {
     const dispatch = useDispatch();
     const { mutate, data, error } = useRefreshAccessTkMutation();
- 
+
     useEffect(() => {
         if(isActive) { 
             mutate(); 
@@ -19,7 +19,6 @@ const usePersistLogin = (isActive) => {
         }
     },[data, dispatch]);
 
-    
     return { data, error }
 }       
 
