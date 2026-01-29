@@ -9,7 +9,7 @@ export const launchChatSuggestion = async(data)=> {
 }
 
 export const getChat = async({signal, chatId})=> {
-  return await axiosInstance.get(`api/chats/${chatId}`, signal);
+  return await axiosInstance.get(`api/chats/${chatId}`, {signal});
 }
 
 export const deleteChat = async({chat_id})=> {

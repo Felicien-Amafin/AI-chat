@@ -12,11 +12,11 @@ export const addChatToCategory = async(data)=> {
 }
 
 export const getCategories = async({signal})=> {
-  return await axiosInstance.get(`api/categories`, signal);
+  return await axiosInstance.get(`api/categories`, {signal});
 }
 
 export const getCategory = async({signal, categoryName})=> {
-  return await axiosInstance.get(`api/categories/${categoryName}`, signal);
+  return await axiosInstance.get(`api/categories/${categoryName}`, {signal});
 }
 
 export const deleteCategory = async({categoryName})=> {
