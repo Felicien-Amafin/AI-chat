@@ -7,10 +7,9 @@ import mongoose from "mongoose";
 import { createNewChat } from "../utils/chat.js";
 import { addChatToCategory } from "../utils/category.js";
 
-// Initializing gemini-2.0-flash-lite model
+// Initializing "gemini-3.5-flash"  model
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
-
+const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash" });
 export const sendChatMessage = tryCatch(async (req, res) => {
     const { user_message, chat_history, chat_id } = req.body;
     const userId = req.user.id;
@@ -21,7 +20,7 @@ export const sendChatMessage = tryCatch(async (req, res) => {
     const result = await chat.sendMessage(user_message);//Sending message to Gemini
     const response = result.response;
     const aiAnswer = response.text();
-    
+
     if(!aiAnswer) throw new CustomError("Le message n'a pas pu être délivré. Réessayez", 500, {});
 
     const existingChat = await Chat.findOne({userId, _id: chat_id });
