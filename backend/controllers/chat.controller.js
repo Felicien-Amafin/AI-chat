@@ -21,8 +21,8 @@ export const sendChatMessage = tryCatch(async (req, res) => {
     const response = result.response;
     const aiAnswer = response.text();
 
-    if(!aiAnswer) throw new CustomError("Le message n'a pas pu être délivré. Réessayez", 500, {});
-
+    if(!aiAnswer) throw new CustomError("Le message n'a pas pu être délivré. Merci de réessayer.", 500, {});
+   
     const existingChat = await Chat.findOne({userId, _id: chat_id });
     
     if(!existingChat) throw new CustomError("Erreur interne", 500, {});

@@ -18,8 +18,8 @@ const ChatContainer = ({chatId}) => {
     submitMessage, 
     isPending, 
     dialog, 
-    isServerError, 
-    serverError 
+    isError, 
+    errorMessage 
   } = useSendChatMessage();
 
   //Sends suggested chat question, if user clicks on user Home page widgets
@@ -43,8 +43,8 @@ const ChatContainer = ({chatId}) => {
         userQuestion={userQuestion}
         aiAnswer={aiAnswer}
         isPending={isPending}
-        isServerError={isServerError}
-        serverError={serverError}
+        isError={isError}
+        errorMessage={errorMessage}
       />
       <ChatPrompt
         onSubmit={handleSubmission}

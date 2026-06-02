@@ -9,10 +9,11 @@ import { useCallback } from "react";
 const useSendChatMessage = () => {
   const dispatch = useDispatch();
   const { mutate, isPending, data, error } = useSendChatMessageMutation();
-  const { isUnAuthorized, isForbidden, isServerError } = useRequestErrorHandler(error);// Handles potential errors
+  const { isUnAuthorized, isForbidden, isServerError, isGeminiApiDown } = useRequestErrorHandler(error);// Handles potential errors
   useLogoutUser(isForbidden || isUnAuthorized);
 
-  const serverError = 'Une erreur est survenue. Veuillez réessayer.';
+  const isError = isServerError || isGeminiApiDown
+  const errorMessage = error?.response?.data?.message || error?.message || "Une erreur est survenue";
   const dialog = data?.data.dialog;
 
   const submitMessage = useCallback(
@@ -43,8 +44,8 @@ const useSendChatMessage = () => {
     submitMessage, 
     isPending, 
     dialog, 
-    isServerError, 
-    serverError 
+    isError, 
+    errorMessage 
   }
 }
 

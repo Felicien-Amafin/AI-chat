@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm'; // Importer le plugin GFM
 import style from './chatScreen.module.css';
 
-const ChatScreen = ({userQuestion, aiAnswer, isPending, isServerError, serverError }) => {
+const ChatScreen = ({userQuestion, aiAnswer, isPending, isError, errorMessage }) => {
     const defaultMess =  'Comment puis-je vous aider?';
    
     return (
@@ -34,7 +34,7 @@ const ChatScreen = ({userQuestion, aiAnswer, isPending, isServerError, serverErr
                         />
                     </div>
                 }
-                {isServerError && <p className={`${style.serverError} error`}>{serverError}</p>}
+                {isError && <p className={`${style.serverError} error`}>{errorMessage}</p>}
                 {isPending && 
                     <div className={`${style.waiting} flexRow-allCentered`}>
                         <Loader size={25} color='white'/> <p className={style.waitingMess}>Un instant...</p>
